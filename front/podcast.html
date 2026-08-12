@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Podcast (mockup)</title>
+<link rel="stylesheet" href="assets/tokens.css">
+<link rel="stylesheet" href="assets/ui.css">
+<style>
+  .chips { display: flex; gap: var(--s2); flex-wrap: wrap; margin-bottom: var(--s6); }
+  .chip {
+    padding: .5rem 1rem; border: 1px solid var(--sand-deep); border-radius: 100px;
+    background: var(--white); cursor: pointer; font-size: var(--t-small);
+    transition: all .15s ease;
+  }
+  .chip:hover { border-color: var(--accent); color: var(--accent); }
+  .chip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--canvas); }
+  .ep { display: flex; flex-direction: column; }
+  .ep__num { font-size: var(--t-micro); letter-spacing: .14em; color: var(--accent); font-weight: 700; }
+  .plats { display: flex; gap: var(--s3); margin-top: auto; padding-top: var(--s4); }
+  .plats a {
+    font-size: var(--t-micro); letter-spacing: .08em; text-transform: uppercase;
+    text-decoration: none; color: var(--ink-mute); border: var(--line);
+    padding: .3rem .6rem; border-radius: var(--radius);
+  }
+  .plats a:hover { border-color: var(--accent); color: var(--accent); }
+</style>
+</head>
+<body data-page="podcast">
+<div id="chrome-top"></div>
+
+<!-- ═══════════════════════ 1. HERO ════════════════════════════════════ -->
+<section class="section" style="padding-bottom:var(--s6)">
+  <div class="wrap">
+    <span class="eyebrow eyebrow--accent">Podcast</span>
+    <h1>Beauty Business — conversații despre bani, echipă și prețuri</h1>
+    <p class="lede">Episoade scurte, aplicate, fără motivație goală. Pentru freelanceri și proprietari de salon din RO și MD.</p>
+    <div class="plats" style="padding-top:var(--s5)">
+      <a href="#">Spotify</a><a href="#">Apple Podcasts</a><a href="#">YouTube</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ 2. EPISOD FEATURED ═════════════════════════ -->
+<section class="section--sand section--tight">
+  <div class="wrap">
+    <div class="grid" style="grid-template-columns:1.1fr .9fr;gap:var(--s7);align-items:center">
+      <div class="curtain" data-curtain data-reveal="left" style="min-height:340px">
+        <div class="curtain__back">
+          <span class="eyebrow" style="color:var(--taupe)">Episodul #47</span>
+          <h3>Player YouTube încorporat</h3>
+          <p>În producție, aici se încarcă iframe-ul YouTube al episodului — încărcat abia la deschidere, ca să nu coste performanță la fiecare vizită.</p>
+          <div style="display:flex;gap:var(--s3);flex-wrap:wrap;justify-content:center;margin-top:var(--s4)">
+            <a class="btn btn--onDark" href="#">Ascultă pe YouTube</a>
+            <a class="btn btn--ghost" style="color:var(--canvas);border-color:var(--taupe)" href="#">Spotify</a>
+          </div>
+        </div>
+        <div class="curtain__leaf curtain__leaf--l"><div class="ph ph--deep">Thumbnail<br>stânga</div></div>
+        <div class="curtain__leaf curtain__leaf--r"><div class="ph ph--deep">Thumbnail<br>dreapta</div></div>
+        <span class="curtain__hint">Apasă pentru redare</span>
+        <button class="curtain__trigger btn btn--onDark" type="button" aria-expanded="false">▶ Redă episodul</button>
+        <button class="curtain__close" type="button" aria-label="Închide">✕</button>
+      </div>
+      <div data-reveal="right">
+        <span class="eyebrow eyebrow--accent">Ultimul episod</span>
+        <div class="ep__num">#47 · 28 MIN</div>
+        <h2 style="margin-top:var(--s3)">Cum stabilești prețul fără să te compari cu salonul de vizavi</h2>
+        <p style="color:var(--ink-soft)">De ce prețul concurenței e cea mai proastă bază de calcul, și ce folosești în loc: capacitatea reală, costul pe serviciu și venitul lunar țintă.</p>
+        <div style="display:flex;gap:var(--s3);flex-wrap:wrap;margin-top:var(--s5)">
+          <span class="badge badge--meta">Prețuri</span>
+          <span class="badge badge--meta">Freelanceri</span>
+        </div>
+        <div class="plats"><a href="#">Spotify</a><a href="#">Apple</a><a href="#">YouTube</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ 3+4. FILTRE + GRILĂ ════════════════════════ -->
+<section class="section">
+  <div class="wrap">
+    <span class="eyebrow eyebrow--accent">Toate episoadele</span>
+    <h2>Filtrează după temă</h2>
+
+    <div class="chips" id="chips" style="margin-top:var(--s5)">
+      <button class="chip" aria-pressed="true"  data-tag="toate">Toate</button>
+      <button class="chip" aria-pressed="false" data-tag="freelanceri">Freelanceri</button>
+      <button class="chip" aria-pressed="false" data-tag="salon">Proprietari salon</button>
+      <button class="chip" aria-pressed="false" data-tag="preturi">Prețuri</button>
+      <button class="chip" aria-pressed="false" data-tag="echipa">Echipă</button>
+      <button class="chip" aria-pressed="false" data-tag="mindset">Mindset</button>
+    </div>
+
+    <div class="grid grid-3" id="eps"></div>
+    <p id="empty" hidden style="color:var(--ink-mute)">Niciun episod pe această temă încă.</p>
+
+    <p class="note"><strong>Import automat.</strong> În producție episoadele se sincronizează din YouTube / RSS (PLAN.md Faza 7). Lore editează doar rezumatul și tag-urile — restul vine singur.</p>
+  </div>
+</section>
+
+<!-- ═══════════════════════ 5. SUBSCRIBE ═══════════════════════════════ -->
+<section class="section section--ink center">
+  <div class="wrap wrap-narrow">
+    <h2>Episod nou, direct pe email</h2>
+    <p style="color:var(--taupe)">Fără spam. Doar episodul, cu ce se învață din el în două rânduri.</p>
+    <form class="form-inline" style="justify-content:center;margin-top:var(--s5)" onsubmit="event.preventDefault();this.querySelector('button').textContent='Înscris ✓'">
+      <div class="field" style="max-width:320px"><input type="email" placeholder="Adresa ta de email" aria-label="Email" required></div>
+      <button class="btn btn--onDark" type="submit">Vreau notificări</button>
+    </form>
+  </div>
+</section>
+
+<div id="chrome-foot"></div>
+<script src="assets/chrome.js"></script>
+<script src="assets/ui.js"></script>
+<script>
+var EPISODES = [
+  { n: 47, t: 'Cum stabilești prețul fără să te compari cu salonul de vizavi', d: '28 min', s: 'Capacitatea reală, costul pe serviciu și venitul țintă — cele trei cifre care decid prețul.', tags: ['preturi','freelanceri'] },
+  { n: 46, t: 'Angajezi prima persoană: ce trebuie să fie gata înainte',        d: '34 min', s: 'Procese scrise, marjă suficientă și un rol clar. Ce se întâmplă când lipsesc.', tags: ['echipa','salon'] },
+  { n: 45, t: 'Agenda plină, contul gol — unde se scurg banii',                  d: '22 min', s: 'Consumabile subestimate, timp neplătit și reprogramări. Harta scurgerilor.', tags: ['preturi','freelanceri'] },
+  { n: 44, t: 'Clienta care nu se mai întoarce',                                 d: '26 min', s: 'De ce retenția e mai ieftină decât achiziția, și cum arată un sistem simplu.', tags: ['freelanceri'] },
+  { n: 43, t: 'Salonul care depinde de tine nu e un business',                   d: '31 min', s: 'Testul celor 2 săptămâni de concediu și ce dezvăluie despre structura ta.', tags: ['salon','mindset'] },
+  { n: 42, t: 'Sindromul impostorului la creșterea prețului',                    d: '19 min', s: 'Ce se întâmplă în cap înainte să anunți grila nouă — și cum treci peste.', tags: ['mindset','preturi'] }
+];
+
+var eps = document.getElementById('eps');
+var empty = document.getElementById('empty');
+
+function draw(tag) {
+  var list = tag === 'toate' ? EPISODES : EPISODES.filter(function (e) { return e.tags.indexOf(tag) > -1; });
+  empty.hidden = list.length > 0;
+  eps.innerHTML = list.map(function (e) {
+    return '<article class="card ep lift" data-reveal>' +
+      '<div class="zoom" style="margin-bottom:var(--s4)"><div class="ph" data-ratio="16:9" style="min-height:0">Thumbnail 16:9</div></div>' +
+      '<div class="ep__num">#' + e.n + ' · ' + e.d.toUpperCase() + '</div>' +
+      '<h3 class="card__title" style="font-size:1.05rem;margin-top:var(--s3)">' + e.t + '</h3>' +
+      '<p style="font-size:var(--t-small);color:var(--ink-soft)">' + e.s + '</p>' +
+      '<div class="plats"><a href="#">Spotify</a><a href="#">Apple</a><a href="#">YouTube</a></div>' +
+    '</article>';
+  }).join('');
+  if (window.UI) window.UI.init();   // re-arm scroll reveal on the new cards
+}
+
+document.getElementById('chips').addEventListener('click', function (e) {
+  var chip = e.target.closest('.chip');
+  if (!chip) return;
+  [].forEach.call(this.querySelectorAll('.chip'), function (c) { c.setAttribute('aria-pressed', String(c === chip)); });
+  draw(chip.dataset.tag);
+});
+
+draw('toate');
+</script>
+</body>
+</html>

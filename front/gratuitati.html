@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gratuități + calculator (mockup)</title>
+<link rel="stylesheet" href="assets/tokens.css">
+<link rel="stylesheet" href="assets/ui.css">
+<style>
+  .calc { background: var(--white); border: var(--line); border-radius: var(--radius-lg); overflow: hidden; }
+  .calc__in  { padding: var(--s6); }
+  .calc__out { padding: var(--s6); background: var(--ink); color: var(--canvas); display: flex; flex-direction: column; justify-content: center; }
+  .calc__big { font-family: var(--display); font-size: clamp(2.6rem, 6vw, 4rem); line-height: 1; color: var(--canvas); }
+  .calc__big small { font-family: var(--sans); font-size: 1rem; color: var(--taupe); letter-spacing: .04em; }
+  .gauge { height: 6px; background: rgba(201,188,174,.25); border-radius: 3px; margin: var(--s5) 0 var(--s3); overflow: hidden; }
+  .gauge i { display: block; height: 100%; background: var(--accent-hi); width: 0; transition: width .4s ease, background .4s ease; }
+  .verdict { font-size: var(--t-small); color: var(--taupe); }
+  .verdict strong { color: var(--canvas); }
+  .verdict--bad strong { color: #E9A78C; }
+</style>
+</head>
+<body data-page="gratuitati">
+<div id="chrome-top"></div>
+
+<!-- ═══════════════════════ 1. HERO ════════════════════════════════════ -->
+<section class="section" style="padding-bottom:var(--s6)">
+  <div class="wrap">
+    <span class="eyebrow eyebrow--accent">Gratuități</span>
+    <h1>Resurse gratuite pentru profesioniștii beauty care vor mai mult.</h1>
+    <p class="lede">Fără formular aici. Alegi resursa care te ajută acum — emailul se cere doar acolo unde chiar trebuie livrat ceva.</p>
+  </div>
+</section>
+
+<!-- ═══════════════════════ CALCULATOR ═════════════════════════════════ -->
+<section class="section section--sand section--tight">
+  <div class="wrap">
+    <span class="eyebrow eyebrow--accent">Cel mai folosit instrument</span>
+    <h2>Câștigul tău real pe oră</h2>
+    <p style="color:var(--ink-soft);max-width:58ch">Cifra pe care aproape nimeni nu o calculează corect: cât îți rămâne, net, pentru fiecare oră petrecută efectiv la scaun.</p>
+
+    <div class="calc grid grid-2" style="gap:0;margin-top:var(--s6)">
+      <div class="calc__in">
+        <div class="field">
+          <label for="pret">Preț serviciu (RON)</label>
+          <input id="pret" type="number" min="0" step="5" value="200">
+        </div>
+        <div class="field">
+          <label for="durata">Durată (minute)</label>
+          <input id="durata" type="number" min="5" step="5" value="120">
+          <small>Include pregătirea și curățenia, nu doar lucrul efectiv.</small>
+        </div>
+        <div class="field">
+          <label for="consum">Consumabile (RON)</label>
+          <input id="consum" type="number" min="0" step="5" value="45">
+        </div>
+        <div class="field">
+          <label for="repro">Reprogramări și neprezentări pe lună (%)</label>
+          <input id="repro" type="number" min="0" max="90" step="1" value="15">
+          <small>Locuri rezervate care nu s-au transformat în încasare.</small>
+        </div>
+        <div class="field" style="margin-bottom:0">
+          <label for="bench">Benchmark recomandat (RON/oră)</label>
+          <input id="bench" type="number" min="0" step="10" value="90">
+          <small>Editabil din admin — <span class="tbd">[X]</span> în sarcina tehnică.</small>
+        </div>
+      </div>
+
+      <div class="calc__out">
+        <div class="eyebrow" style="color:var(--taupe)">Câștigul tău real</div>
+        <div class="calc__big"><span id="out">—</span> <small>RON / oră</small></div>
+        <div class="gauge"><i id="gauge"></i></div>
+        <p class="verdict" id="verdict"></p>
+        <div id="breakdown" style="font-size:var(--t-micro);color:var(--taupe);border-top:1px solid rgba(201,188,174,.25);padding-top:var(--s4);margin-top:var(--s4)"></div>
+        <div id="cta" style="margin-top:var(--s5)"></div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:var(--s5)">
+      <div class="grid grid-2" style="align-items:center;gap:var(--s5)">
+        <div>
+          <h3 style="font-size:1.05rem;margin-bottom:var(--s2)">Trimite-mi calculul pe email</h3>
+          <p style="font-size:var(--t-small);color:var(--ink-soft);margin:0">Opțional — rezultatul rămâne vizibil oricum.</p>
+        </div>
+        <form class="form-inline" onsubmit="event.preventDefault();document.getElementById('mailok').hidden=false;this.querySelector('button').textContent='Trimis ✓'">
+          <div class="field"><input type="email" placeholder="Email" aria-label="Email" required></div>
+          <button class="btn btn--ink" type="submit">Trimite-mi calculul</button>
+        </form>
+      </div>
+      <label class="consent" style="margin-top:var(--s4)">
+        <input type="checkbox" required>
+        <span>Sunt de acord să primesc resurse pe email. <a href="#">Politica de confidențialitate</a>.</span>
+      </label>
+      <p id="mailok" hidden style="color:var(--accent);font-size:var(--t-small);margin:var(--s3) 0 0"><strong>Mockup:</strong> în producție se creează un Lead (sursă <code>calculator</code>) și un contact GetCourse.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ RESURSE ════════════════════════════════════ -->
+<section class="section">
+  <div class="wrap">
+    <span class="eyebrow eyebrow--accent">Toate resursele</span>
+    <h2 style="margin-bottom:var(--s6)">Alege de unde începi</h2>
+
+    <div class="grid grid-3">
+      <article class="card lift" data-reveal>
+        <span class="badge badge--entry">Webinar</span>
+        <h3 class="card__title" style="margin-top:var(--s4)">Cum îți dublezi venitul fără să lucrezi mai mult</h3>
+        <p style="font-size:var(--t-small);color:var(--ink-soft)">Înregistrare de <span class="tbd">[X]</span> minute. Cele trei pârghii care schimbă cifra: preț, retenție, capacitate.</p>
+        <div class="card__foot">
+          <p style="font-size:var(--t-micro);color:var(--ink-mute)">Necesită email · secvență GetCourse</p>
+          <a class="btn btn--primary btn--wide" href="#">Vreau accesul</a>
+        </div>
+      </article>
+
+      <article class="card lift" data-reveal>
+        <span class="badge">PDF</span>
+        <h3 class="card__title" style="margin-top:var(--s4)">Checklist: agenda care nu te epuizează</h3>
+        <p style="font-size:var(--t-small);color:var(--ink-soft)">Politica de anulare, avansul, blocurile de lucru — o pagină, de printat.</p>
+        <div class="card__foot">
+          <p style="font-size:var(--t-micro);color:var(--ink-mute)">Prenume + email · descărcare imediată</p>
+          <a class="btn btn--ghost btn--wide" href="#">Descarcă</a>
+        </div>
+      </article>
+
+      <article class="card lift" data-reveal>
+        <span class="badge badge--inter">Tool</span>
+        <h3 class="card__title" style="margin-top:var(--s4)">Calculator: câștigul real pe oră</h3>
+        <p style="font-size:var(--t-small);color:var(--ink-soft)">Fără formular. Îl folosești direct în pagină, mai sus.</p>
+        <div class="card__foot">
+          <p style="font-size:var(--t-micro);color:var(--ink-mute)">Fără email</p>
+          <a class="btn btn--ghost btn--wide" href="#calc">Folosește calculatorul</a>
+        </div>
+      </article>
+
+      <article class="card lift" data-reveal>
+        <span class="badge">Audio</span>
+        <h3 class="card__title" style="margin-top:var(--s4)">Mini-training: anunțul de creștere a prețului</h3>
+        <p style="font-size:var(--t-small);color:var(--ink-soft)">Scriptul complet, în <span class="tbd">[X]</span> minute audio. Ce spui și ce nu spui.</p>
+        <div class="card__foot">
+          <p style="font-size:var(--t-micro);color:var(--ink-mute)">Necesită email · redirect după optin</p>
+          <a class="btn btn--ghost btn--wide" href="#">Ascultă</a>
+        </div>
+      </article>
+
+      <article class="card lift" data-reveal>
+        <span class="badge badge--soon">Continuu</span>
+        <h3 class="card__title" style="margin-top:var(--s4)">Podcast Beauty Business</h3>
+        <p style="font-size:var(--t-small);color:var(--ink-soft)">Episoade noi periodic. Resursă gratuită permanentă, fără formular.</p>
+        <div class="card__foot">
+          <p style="font-size:var(--t-micro);color:var(--ink-mute)">Fără email</p>
+          <a class="btn btn--ghost btn--wide" href="podcast.html">Ascultă episoadele</a>
+        </div>
+      </article>
+
+      <article class="card" style="background:var(--accent);color:var(--canvas);border-color:var(--accent)">
+        <span class="badge" style="background:rgba(255,255,255,.15);color:var(--canvas)">Test</span>
+        <h3 class="card__title" style="margin-top:var(--s4);color:var(--canvas)">Ce program ți se potrivește?</h3>
+        <p style="font-size:var(--t-small);color:var(--taupe)">3 întrebări, 2 minute. Primești programul recomandat și un plan pe 30 de zile.</p>
+        <div class="card__foot">
+          <p style="font-size:var(--t-micro);color:var(--taupe)">Fără email</p>
+          <a class="btn btn--onDark btn--wide" href="quiz.html">Începe testul</a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<div id="chrome-foot"></div>
+<script src="assets/chrome.js"></script>
+<script src="assets/ui.js"></script>
+<script>
+var f =['pret','durata','consum','repro','bench'].map(function (id) { return document.getElementById(id); });
+var out = document.getElementById('out'),
+    gauge = document.getElementById('gauge'),
+    verdict = document.getElementById('verdict'),
+    breakdown = document.getElementById('breakdown'),
+    cta = document.getElementById('cta');
+
+function calc() {
+  var pret   = Number(f[0].value) || 0,
+      durata = Number(f[1].value) || 0,
+      consum = Number(f[2].value) || 0,
+      repro  = Math.min(Math.max(Number(f[3].value) || 0, 0), 90),
+      bench  = Number(f[4].value) || 0;
+
+  if (durata <= 0) { out.textContent = '—'; return; }
+
+  var netServiciu = pret - consum;
+  var ore = durata / 60;
+  var brut = netServiciu / ore;
+  var real = brut * (1 - repro / 100);
+
+  out.textContent = real.toFixed(0);
+
+  var pct = bench > 0 ? Math.min((real / bench) * 100, 100) : 0;
+  gauge.style.width = pct + '%';
+  gauge.style.background = real >= bench ? 'var(--accent-hi)' : '#E9A78C';
+
+  breakdown.innerHTML =
+    'Rămâne din serviciu: <strong style="color:var(--canvas)">' + netServiciu.toFixed(0) + ' RON</strong> · ' +
+    'Timp ocupat: <strong style="color:var(--canvas)">' + ore.toFixed(2) + ' h</strong> · ' +
+    'Înainte de reprogramări: <strong style="color:var(--canvas)">' + brut.toFixed(0) + ' RON/h</strong> · ' +
+    'Pierdut din reprogramări: <strong style="color:var(--canvas)">' + (brut - real).toFixed(0) + ' RON/h</strong>';
+
+  if (real >= bench) {
+    verdict.className = 'verdict';
+    verdict.innerHTML = '<strong>Ești peste benchmark.</strong> Structura ta funcționează — următoarea pârghie e capacitatea sau echipa, nu prețul.';
+    cta.innerHTML = '<a class="btn btn--onDark" href="quiz.html">Vezi ce urmează pentru tine</a>';
+  } else {
+    verdict.className = 'verdict verdict--bad';
+    verdict.innerHTML = '<strong>Sub ' + bench.toFixed(0) + ' RON pe oră.</strong> Nu e o problemă de piață — e o problemă de sistem. Prețul, consumabilele sau reprogramările îți mănâncă marja.';
+    cta.innerHTML = '<a class="btn btn--onDark" href="curs.html">Vrei să schimbi acest număr?</a>';
+  }
+}
+
+f.forEach(function (el) { el.addEventListener('input', calc); });
+calc();
+</script>
+</body>
+</html>

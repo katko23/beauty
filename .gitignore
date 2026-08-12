@@ -1,0 +1,21 @@
+# dependencies
+node_modules/
+
+# secrets — never commit real credentials (GetCourse, S3, Payload, DB)
+.env
+.env.*
+!.env.example
+
+# build output
+.next/
+dist/
+build/
+
+# logs & OS noise
+*.log
+npm-debug.log*
+.DS_Store
+Thumbs.db
+
+# stale local snapshot of front/ — the tracked source is authoritative
+front.tar.xz

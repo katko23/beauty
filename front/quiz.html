@@ -1,0 +1,412 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ce program ți se potrivește? — quiz (mockup)</title>
+<link rel="stylesheet" href="assets/tokens.css">
+<style>
+  .quiz { max-width: 780px; margin-inline: auto; }
+  .quiz__bar { height: 3px; background: var(--sand-deep); border-radius: 2px; overflow: hidden; margin-bottom: var(--s6); }
+  .quiz__bar i { display: block; height: 100%; background: var(--accent); width: 0; transition: width .35s cubic-bezier(.4,0,.2,1); }
+  .quiz__step { font-size: var(--t-micro); letter-spacing: .16em; text-transform: uppercase; color: var(--ink-mute); margin-bottom: var(--s3); }
+  .quiz__q { font-family: var(--display); font-size: clamp(1.6rem, 3.4vw, 2.4rem); line-height: 1.15; margin-bottom: var(--s3); }
+  .quiz__help { color: var(--ink-soft); margin-bottom: var(--s6); }
+  .opt {
+    display: flex; align-items: center; gap: var(--s4); width: 100%;
+    padding: var(--s5); margin-bottom: var(--s3);
+    background: var(--white); border: 1px solid var(--sand-deep); border-radius: var(--radius-lg);
+    text-align: left; cursor: pointer;
+    transition: border-color .15s ease, background .15s ease, transform .15s ease;
+  }
+  .opt:hover { border-color: var(--accent); background: var(--accent-wash); transform: translateX(3px); }
+  .opt__key {
+    flex: none; width: 32px; height: 32px; display: grid; place-items: center;
+    border: 1px solid var(--taupe); border-radius: 50%;
+    font-size: var(--t-micro); font-weight: 700; color: var(--ink-mute);
+  }
+  .opt:hover .opt__key { border-color: var(--accent); color: var(--accent); }
+  .opt__label { font-size: 1.05rem; }
+  .quiz__nav { display: flex; justify-content: space-between; align-items: center; margin-top: var(--s6); }
+  .fade { animation: fade .3s ease both; }
+  @keyframes fade { from { opacity: 0; transform: translateY(8px) } to { opacity: 1; transform: none } }
+  .plan { counter-reset: step; list-style: none; padding: 0; }
+  .plan li { position: relative; padding-left: 3rem; margin-bottom: var(--s4); }
+  .plan li::before {
+    counter-increment: step; content: counter(step);
+    position: absolute; left: 0; top: 0;
+    width: 2rem; height: 2rem; display: grid; place-items: center;
+    background: var(--accent); color: var(--canvas); border-radius: 50%;
+    font-size: var(--t-micro); font-weight: 700;
+  }
+  @media (prefers-reduced-motion: reduce) { .fade, .quiz__bar i { animation: none; transition: none } }
+</style>
+</head>
+<body data-page="quiz">
+<div id="chrome-top"></div>
+
+<section class="section">
+  <div class="wrap">
+    <div class="quiz">
+
+      <div id="intro" class="fade">
+        <span class="eyebrow eyebrow--accent">2 minute · 3 întrebări · fără email obligatoriu</span>
+        <h1>Ce program ți se potrivește?</h1>
+        <p class="lede">Răspunzi la câteva întrebări despre cum lucrezi acum. Îți spunem ce program are sens pentru tine — și ce poți face în următoarele 30 de zile, chiar dacă nu cumperi nimic.</p>
+        <button class="btn btn--primary" style="margin-top:var(--s5)" onclick="Quiz.start()">Începe testul</button>
+      </div>
+
+      <div id="question" hidden>
+        <div class="quiz__bar"><i id="bar"></i></div>
+        <div class="quiz__step" id="step"></div>
+        <h2 class="quiz__q" id="q"></h2>
+        <p class="quiz__help" id="help"></p>
+        <div id="opts"></div>
+        <div class="quiz__nav">
+          <button class="btn btn--ghost btn--sm" onclick="Quiz.back()">← Înapoi</button>
+          <span style="font-size:var(--t-micro);color:var(--ink-mute)">Răspunsurile nu se salvează nicăieri</span>
+        </div>
+      </div>
+
+      <div id="result" hidden></div>
+
+    </div>
+  </div>
+</section>
+
+<div id="chrome-foot"></div>
+<script src="assets/chrome.js"></script>
+<script>
+/* ══════════════════════════════════════════════════════════════════════
+   Branching decision tree.
+   In production these nodes come from Payload (QuizNodes collection) and
+   are wired in the visual editor — see admin.html and PLAN.md Phase 6.
+   ══════════════════════════════════════════════════════════════════════ */
+
+var TREE = {
+  start: 'mod_lucru',
+  nodes: {
+    mod_lucru: {
+      q: 'Cum lucrezi acum?',
+      help: 'Primul lucru care schimbă complet recomandarea: dacă răspunzi de tine sau și de alții.',
+      options: [
+        { label: 'Singur(ă), fără angajați',        next: 'blocaj_free' },
+        { label: 'Cu 1–3 persoane în echipă',        next: 'durere_salon' },
+        { label: 'Salon cu 4+ persoane',             next: 'durere_salon' }
+      ]
+    },
+    blocaj_free: {
+      q: 'Ce te blochează cel mai tare acum?',
+      help: 'Alege ce te apasă în luna curentă, nu ce ți-ai dori pe termen lung.',
+      options: [
+        { label: 'Câștig puțin raportat la orele lucrate', next: 'experienta' },
+        { label: 'Mi-e teamă să cresc prețul',             result: 'restart_pricing' },
+        { label: 'Clientele vin o dată și nu se întorc',   result: 'restart_retention' },
+        { label: 'Vreau studio propriu sau să scalez',     result: 'scalare' }
+      ]
+    },
+    experienta: {
+      q: 'De cât timp lucrezi în beauty?',
+      help: 'Nivelul de experiență decide de unde pornim.',
+      options: [
+        { label: 'Sub 2 ani',    result: 'entry' },
+        { label: '2–5 ani',      result: 'restart_systems' },
+        { label: 'Peste 5 ani',  result: 'restart_systems' }
+      ]
+    },
+    durere_salon: {
+      q: 'Ce te doare cel mai tare în salon?',
+      help: 'Un singur răspuns — cel care te ține treaz(ă) noaptea.',
+      options: [
+        { label: 'Echipa nu performează și nu știu cum să schimb',  result: 'echipa' },
+        { label: 'Cifra de afaceri crește, profitul e subțire',      result: 'financiar' },
+        { label: 'Prea puțini clienți noi, depind de recomandări',   result: 'marketing' },
+        { label: 'Vreau să deschid al doilea salon',                 result: 'mentorat' }
+      ]
+    }
+  }
+};
+
+var RESULTS = {
+  restart_systems: {
+    persona: 'Freelancer în platou',
+    body: 'Ai clienți și experiență. Ce lipsește nu e talentul, ci structura: nu știi cât îți rămâne net pe oră, iar prețul e stabilit din intuiție. Exact aici lucrează Restart în Beauty.',
+    course: 'restart',
+    plan: [
+      'Calculează-ți câștigul real pe oră pentru primele 3 servicii ca volum — durează 20 de minute.',
+      'Scrie politica de anulare și cere avans la următoarele 3 programări.',
+      'Aplică rebooking la finalul fiecărei ședințe din săptămâna asta.'
+    ]
+  },
+  restart_pricing: {
+    persona: 'Freelancer blocat de preț',
+    body: 'Teama de a pierde cliente e cel mai scump obicei din industrie. Se rezolvă cu cifre și cu un script — nu cu curaj. Modulele 2 și 3 din Restart sunt exact despre asta.',
+    course: 'restart',
+    plan: [
+      'Află cât îți rămâne net pe oră la prețul actual — de aici pornește orice discuție de creștere.',
+      'Stabilește noua grilă și data de la care intră în vigoare.',
+      'Anunță primele 10 cliente fidele, cu scriptul, fără scuze.'
+    ]
+  },
+  restart_retention: {
+    persona: 'Freelancer cu agendă „scurgătoare"',
+    body: 'Aduci cliente noi și le pierzi în tăcere. O rată de revenire mică înseamnă că plătești permanent pentru achiziție. Modulul 4 din Restart construiește sistemul de retenție.',
+    course: 'restart',
+    plan: [
+      'Numără câte dintre clientele din urmă cu 3 luni au revenit — asta e rata ta reală.',
+      'Introdu rebooking-ul înainte ca clienta să iasă pe ușă.',
+      'Trimite un mesaj de reactivare celor 10 cliente pierdute recent.'
+    ]
+  },
+  entry: {
+    persona: 'La început de drum',
+    body: 'Sub 2 ani experiență înseamnă că e mai ieftin să construiești bine de la început decât să repari mai târziu. Programul entry-level pentru acest nivel este în pregătire.',
+    course: null,
+    upcoming: 'Curs entry-level pentru freelanceri',
+    plan: [
+      'Folosește calculatorul de câștig real pe oră — o să te sperie util.',
+      'Ascultă episodul #45 din podcast: „Agenda plină, contul gol".',
+      'Descarcă checklist-ul de start din pagina de gratuități.'
+    ]
+  },
+  scalare: {
+    persona: 'Freelancer gata să scaleze',
+    body: 'Vrei să treci de la „eu fac" la „businessul face". Asta nu e un curs de tehnici, e o decizie de structură — și se discută mai bine într-o conversație decât într-un modul video.',
+    course: null,
+    upcoming: 'Program avansat / Mentorat',
+    plan: [
+      'Rezervă o consultanță de 20 de minute și adu cifrele ultimelor 3 luni.',
+      'Verifică-ți câștigul real pe oră — scalarea unui model neprofitabil îl face mai rău.',
+      'Citește criteriile de eligibilitate pentru mentorat.'
+    ]
+  },
+  echipa: {
+    persona: 'Salon blocat de echipă',
+    body: 'Un salon cu oameni are o problemă diferită de un freelancer: rezultatul nu depinde de mâinile tale, ci de sistemul în care lucrează alții. Programul dedicat este în pregătire.',
+    course: null,
+    upcoming: 'Program management echipă',
+    plan: [
+      'Notează care 3 lucruri se strică atunci când tu nu ești în salon.',
+      'Rezervă o consultanță și discutăm structura echipei.',
+      'Ascultă episodul #46 despre prima angajare.'
+    ]
+  },
+  financiar: {
+    persona: 'Salon cu profit subțire',
+    body: 'Cifra de afaceri e vanitate, profitul e realitate. De obicei banii se pierd în consumabile, în grila de servicii și în orele neplătite ale proprietarului. Programul financiar este în pregătire.',
+    course: null,
+    upcoming: 'Program financiar pentru saloane',
+    plan: [
+      'Calculează marja pe fiecare serviciu, nu doar pe total salon.',
+      'Identifică serviciile sub pragul de rentabilitate.',
+      'Rezervă o consultanță pentru un audit rapid al cifrelor.'
+    ]
+  },
+  marketing: {
+    persona: 'Salon dependent de recomandări',
+    body: 'Recomandările sunt excelente — până în luna în care nu vin. Ai nevoie de o a doua sursă de clienți, predictibilă. Programul de marketing pentru saloane este în pregătire.',
+    course: null,
+    upcoming: 'Program marketing pentru saloane',
+    plan: [
+      'Măsoară de unde au venit ultimii 20 de clienți noi.',
+      'Alege un singur canal și testează-l 30 de zile.',
+      'Descarcă resursele gratuite de marketing din pagina de gratuități.'
+    ]
+  },
+  mentorat: {
+    persona: 'Pregătit(ă) pentru al doilea salon',
+    body: 'Al doilea salon nu e primul salon × 2. Este momentul în care ai nevoie de acompaniere, nu de conținut. Mentoratul este by application only, 12 luni, cu locuri limitate.',
+    course: null,
+    upcoming: 'Mentorat 1:1 — by application only',
+    plan: [
+      'Completează formularul de aplicare (5 minute).',
+      'Pregătește cifrele ultimelor 12 luni pentru apelul de descoperire.',
+      'Verifică secțiunea „Nu este pentru tine dacă..." înainte să aplici.'
+    ]
+  }
+};
+
+var COURSES = {
+  restart: {
+    title: 'Restart în Beauty',
+    level: 'Intermediar', levelClass: 'badge--inter',
+    forWho: 'Freelanceri beauty cu clienți activi',
+    meta: '6 module · Acces pe viață · Comunitate privată',
+    outcomes: ['Calculezi câștigul real pe oră', 'Implementezi sistem de retenție', 'Crești prețul fără să pierzi clienți'],
+    url: 'curs.html'
+  }
+};
+
+/* ─────────────────────────────────────────────────────────── engine ── */
+var Quiz = (function () {
+  var path = [];          // sequence of chosen option indices
+  var nodeKey = TREE.start;
+  var MAX_DEPTH = 3;
+
+  var el = {
+    intro:  document.getElementById('intro'),
+    qWrap:  document.getElementById('question'),
+    result: document.getElementById('result'),
+    bar:    document.getElementById('bar'),
+    step:   document.getElementById('step'),
+    q:      document.getElementById('q'),
+    help:   document.getElementById('help'),
+    opts:   document.getElementById('opts')
+  };
+
+  function show(which) {
+    el.intro.hidden  = which !== 'intro';
+    el.qWrap.hidden  = which !== 'question';
+    el.result.hidden = which !== 'result';
+  }
+
+  function resolve() {
+    // walk the tree from start following `path`; returns {node} or {result}
+    var key = TREE.start;
+    for (var i = 0; i < path.length; i++) {
+      var opt = TREE.nodes[key].options[path[i]];
+      if (!opt) return { node: key };
+      if (opt.result) return { result: opt.result };
+      key = opt.next;
+    }
+    return { node: key };
+  }
+
+  function syncHash() {
+    var h = path.length ? '#p=' + path.join('') : '#';
+    if (location.hash !== h) history.replaceState(null, '', h);
+  }
+
+  function render() {
+    var state = resolve();
+    syncHash();
+    if (state.result) return renderResult(state.result);
+
+    nodeKey = state.node;
+    var node = TREE.nodes[nodeKey];
+    var depth = path.length + 1;
+
+    el.step.textContent = 'Întrebarea ' + depth + ' din ~' + MAX_DEPTH;
+    el.q.textContent = node.q;
+    el.help.textContent = node.help || '';
+    el.bar.style.width = Math.round((path.length / MAX_DEPTH) * 100) + '%';
+
+    el.opts.innerHTML = '';
+    node.options.forEach(function (opt, i) {
+      var b = document.createElement('button');
+      b.className = 'opt';
+      b.innerHTML = '<span class="opt__key">' + String.fromCharCode(65 + i) + '</span>' +
+                    '<span class="opt__label"></span>';
+      b.querySelector('.opt__label').textContent = opt.label;
+      b.onclick = function () { path.push(i); render(); };
+      el.opts.appendChild(b);
+    });
+
+    el.qWrap.classList.remove('fade');
+    void el.qWrap.offsetWidth;
+    el.qWrap.classList.add('fade');
+    show('question');
+  }
+
+  function renderResult(key) {
+    var r = RESULTS[key];
+    var c = r.course ? COURSES[r.course] : null;
+
+    var recommendation = c
+      ? '<article class="card course-card" style="border-color:var(--accent);border-width:2px">' +
+          '<div><span class="badge ' + c.levelClass + '">Nivel: ' + c.level + '</span></div>' +
+          '<h3 class="card__title" style="margin-top:var(--s4)">' + c.title + '</h3>' +
+          '<p class="course-card__for">Pentru: ' + c.forWho + '</p>' +
+          '<p class="card__meta">' + c.meta + '</p>' +
+          '<ul class="course-card__outcomes">' + c.outcomes.map(function (o) { return '<li>' + o + '</li>'; }).join('') + '</ul>' +
+          '<div class="card__foot">' +
+            '<div class="course-card__price">Preț: <span class="tbd">[TBD]</span><small>sau în rate</small></div>' +
+            '<a class="btn btn--primary btn--wide" style="margin-top:var(--s4)" href="' + c.url + '">Descoperă ' + c.title + '</a>' +
+          '</div>' +
+        '</article>'
+      : '<article class="card course-card course-card--placeholder">' +
+          '<div><span class="badge badge--soon">În pregătire</span></div>' +
+          '<h3 class="card__title" style="margin-top:var(--s4)">' + r.upcoming + '</h3>' +
+          '<p style="color:var(--ink-soft);font-size:var(--t-small)">Programul potrivit pentru situația ta nu este încă lansat. Nu te trimitem la altceva doar ca să îți vindem ceva — până atunci, ai mai jos ce poți face concret.</p>' +
+          '<div class="card__foot">' +
+            '<a class="btn btn--primary btn--wide" href="#">Rezervă o consultanță de 20 min</a>' +
+            '<a class="btn btn--ghost btn--wide" style="margin-top:var(--s3)" href="gratuitati.html">Vezi resursele gratuite</a>' +
+          '</div>' +
+        '</article>';
+
+    el.result.innerHTML =
+      '<div class="fade">' +
+        '<span class="eyebrow eyebrow--accent">Rezultatul tău</span>' +
+        '<h1 style="margin-bottom:var(--s3)">' + r.persona + '</h1>' +
+        '<p class="lede">' + r.body + '</p>' +
+
+        '<div class="grid grid-2" style="gap:var(--s6);margin-top:var(--s7);align-items:start">' +
+          '<div>' +
+            '<span class="eyebrow">Recomandat pentru tine</span>' + recommendation +
+          '</div>' +
+          '<div>' +
+            '<span class="eyebrow">Planul tău pe 30 de zile</span>' +
+            '<ol class="plan" style="margin-top:var(--s4)">' +
+              r.plan.map(function (p) { return '<li>' + p + '</li>'; }).join('') +
+            '</ol>' +
+            '<div class="card" style="background:var(--sand);border:0;margin-top:var(--s5)">' +
+              '<h3 style="font-size:1.05rem">Vrei planul pe email?</h3>' +
+              '<p style="font-size:var(--t-small);color:var(--ink-soft)">Opțional. Rezultatul de mai sus rămâne vizibil oricum.</p>' +
+              '<form class="form-inline" onsubmit="return Quiz.fakeSubmit(event)">' +
+                '<div class="field"><input type="email" placeholder="Email" aria-label="Email" required></div>' +
+                '<button class="btn btn--ink" type="submit">Trimite-mi planul</button>' +
+              '</form>' +
+              '<label class="consent" style="margin-top:var(--s3)">' +
+                '<input type="checkbox" required>' +
+                '<span>Sunt de acord să primesc resurse pe email. Mă pot dezabona oricând. ' +
+                '<a href="#">Politica de confidențialitate</a>.</span>' +
+              '</label>' +
+              '<p id="okmsg" hidden style="color:var(--accent);font-size:var(--t-small);margin:var(--s3) 0 0"><strong>Mockup:</strong> în producție, aici se creează un Lead și un contact GetCourse.</p>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+
+        '<div style="display:flex;gap:var(--s3);flex-wrap:wrap;margin-top:var(--s7);padding-top:var(--s5);border-top:var(--line)">' +
+          '<button class="btn btn--ghost btn--sm" onclick="Quiz.reset()">Reia testul</button>' +
+          '<button class="btn btn--ghost btn--sm" onclick="Quiz.share()">Copiază linkul rezultatului</button>' +
+          '<a class="btn btn--ghost btn--sm" href="freelanceri.html">Vezi toate programele</a>' +
+        '</div>' +
+
+        '<p class="note" style="margin-top:var(--s6)"><strong>Fără gate.</strong> Rezultatul complet e vizibil fără email, ca decizie asumată. Compensăm cu link partajabil și retargeting — vezi PLAN.md §6.5.</p>' +
+      '</div>';
+
+    show('result');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  return {
+    start: function () { path = []; render(); },
+    back: function () {
+      if (!path.length) { show('intro'); syncHash(); return; }
+      path.pop(); render();
+    },
+    reset: function () { path = []; show('intro'); syncHash(); window.scrollTo({ top: 0, behavior: 'smooth' }); },
+    share: function () {
+      var url = location.href;
+      if (navigator.clipboard) navigator.clipboard.writeText(url);
+      alert('Link copiat:\n' + url + '\n\nÎn producție, fiecare rezultat are URL propriu (/quiz/rezultat/[key]/) cu imagine OG proprie.');
+    },
+    fakeSubmit: function (e) {
+      e.preventDefault();
+      document.getElementById('okmsg').hidden = false;
+      e.target.querySelector('button').textContent = 'Trimis ✓';
+      return false;
+    },
+    restore: function () {
+      var m = /#p=(\d+)/.exec(location.hash);
+      if (!m) return;
+      path = m[1].split('').map(Number);
+      render();
+    }
+  };
+})();
+
+Quiz.restore();
+</script>
+</body>
+</html>

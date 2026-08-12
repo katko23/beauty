@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Admin board — schiță (mockup)</title>
+<link rel="stylesheet" href="assets/tokens.css">
+<style>
+  .app { display: grid; grid-template-columns: 250px 1fr; min-height: 80vh; border: var(--line); border-radius: var(--radius-lg); overflow: hidden; background: var(--white); }
+  .side { background: var(--ink); color: var(--taupe); padding: var(--s5); }
+  .side h4 { color: var(--taupe); font-family: var(--sans); font-size: var(--t-micro); letter-spacing: .16em; text-transform: uppercase; margin: var(--s5) 0 var(--s3); }
+  .side a { display: block; padding: .5rem .7rem; border-radius: var(--radius); color: var(--taupe); text-decoration: none; font-size: var(--t-small); }
+  .side a:hover { background: rgba(255,255,255,.08); color: var(--canvas); }
+  .side a[aria-current] { background: var(--accent); color: var(--canvas); }
+  .side__brand { font-family: var(--display); color: var(--canvas); font-size: 1.05rem; padding-bottom: var(--s4); border-bottom: 1px solid rgba(201,188,174,.2); }
+  .main { padding: var(--s6); overflow-x: auto; }
+  .bar { display: flex; align-items: center; gap: var(--s4); margin-bottom: var(--s5); flex-wrap: wrap; }
+  .tabs { display: flex; gap: var(--s2); border-bottom: var(--line); margin-bottom: var(--s6); }
+  .tab { background: none; border: 0; border-bottom: 2px solid transparent; padding: var(--s3) var(--s4); cursor: pointer; font-size: var(--t-small); color: var(--ink-mute); }
+  .tab[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--accent); font-weight: 600; }
+  table.adm { width: 100%; border-collapse: collapse; font-size: var(--t-small); }
+  table.adm th { text-align: left; padding: var(--s3); font-size: var(--t-micro); letter-spacing: .12em; text-transform: uppercase; color: var(--ink-mute); border-bottom: 2px solid var(--ink); }
+  table.adm td { padding: var(--s4) var(--s3); border-bottom: var(--line); }
+  .pill { display: inline-block; padding: .15rem .5rem; border-radius: 100px; font-size: var(--t-micro); font-weight: 600; }
+  .pill--live  { background: var(--lvl-entry-bg); color: var(--lvl-entry-fg); }
+  .pill--draft { background: var(--sand-deep); color: var(--ink-mute); }
+  .pill--soon  { background: var(--lvl-inter-bg); color: var(--lvl-inter-fg); }
+  .canvas { position: relative; background:
+      linear-gradient(var(--sand) 1px, transparent 1px) 0 0/24px 24px,
+      linear-gradient(90deg, var(--sand) 1px, transparent 1px) 0 0/24px 24px,
+      var(--canvas);
+    border: var(--line); border-radius: var(--radius-lg); height: 520px; overflow: auto; }
+  .node {
+    position: absolute; width: 190px; background: var(--white);
+    border: 1px solid var(--sand-deep); border-radius: var(--radius-lg);
+    padding: var(--s3) var(--s4); font-size: var(--t-small); box-shadow: var(--shadow); cursor: grab;
+  }
+  .node b { display: block; font-size: var(--t-micro); letter-spacing: .1em; text-transform: uppercase; color: var(--ink-mute); margin-bottom: .2rem; }
+  .node--q { border-left: 3px solid var(--accent); }
+  .node--course { border-left: 3px solid var(--lvl-inter-fg); background: var(--lvl-inter-bg); }
+  .node--out { border-left: 3px solid var(--ink-mute); background: var(--sand); }
+  .node--warn { border-color: #C9704F; }
+  .valid { border-left: 3px solid #C9704F; background: #FBF0EA; padding: var(--s4) var(--s5); font-size: var(--t-small); margin-top: var(--s5); }
+  .valid ul { margin: var(--s2) 0 0; }
+  @media (max-width: 900px) { .app { grid-template-columns: 1fr } .side { display: none } }
+</style>
+</head>
+<body data-page="admin">
+<div id="chrome-top"></div>
+
+<section class="section" style="padding-block:var(--s6)">
+  <div class="wrap">
+    <span class="eyebrow eyebrow--accent">Admin board</span>
+    <h1>Ce administrează Lore</h1>
+    <p class="lede">Schiță ilustrativă. În producție această interfață e <strong>generată de Payload CMS</strong> din definițiile de colecții — nu se desenează manual. Singura piesă construită de noi este editorul vizual de arbore din tabul „Quiz".</p>
+
+    <div class="app" style="margin-top:var(--s6)">
+      <aside class="side">
+        <div class="side__brand">beautybusiness · admin</div>
+        <h4>Conținut</h4>
+        <a href="#" aria-current="page">Cursuri</a>
+        <a href="#">Hub-uri audiență</a>
+        <a href="#">Pagini</a>
+        <a href="#">Testimoniale</a>
+        <a href="#">Episoade podcast</a>
+        <a href="#">Resurse gratuite</a>
+        <h4>Quiz</h4>
+        <a href="#">Noduri quiz</a>
+        <a href="#">Rezultate</a>
+        <h4>Contacte</h4>
+        <a href="#">Leaduri</a>
+        <a href="#">Aplicații mentorat</a>
+        <h4>Setări</h4>
+        <a href="#">Navigație &amp; footer</a>
+        <a href="#">Utilizatori</a>
+      </aside>
+
+      <div class="main">
+        <div class="tabs" id="tabs">
+          <button class="tab" aria-selected="true"  data-t="list">Listă cursuri</button>
+          <button class="tab" aria-selected="false" data-t="edit">Editare curs</button>
+          <button class="tab" aria-selected="false" data-t="tree">Editor vizual quiz</button>
+        </div>
+
+        <!-- ── listă ─────────────────────────────────────────────── -->
+        <div data-panel="list">
+          <div class="bar">
+            <h2 style="margin:0;font-size:1.4rem">Cursuri</h2>
+            <span class="badge badge--meta">4 înregistrări</span>
+            <a class="btn btn--primary btn--sm" style="margin-left:auto" href="#">+ Curs nou</a>
+          </div>
+          <table class="adm">
+            <thead><tr><th>Titlu</th><th>Audiență</th><th>Nivel</th><th>Preț</th><th>Stare</th><th>Actualizat</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Restart în Beauty</strong><br><span style="color:var(--ink-mute)">/programe/freelanceri/restart-in-beauty/</span></td><td>Freelanceri</td><td>Intermediar</td><td><span class="tbd">[TBD]</span></td><td><span class="pill pill--live">Publicat</span></td><td>acum 2 zile</td></tr>
+              <tr><td><strong>[Curs entry-level]</strong><br><span style="color:var(--ink-mute)">slug nedefinit</span></td><td>Freelanceri</td><td>Entry</td><td>—</td><td><span class="pill pill--soon">În pregătire</span></td><td>acum 1 săpt.</td></tr>
+              <tr><td><strong>[Program management echipă]</strong></td><td>Proprietari salon</td><td>Intermediar</td><td>—</td><td><span class="pill pill--draft">Ciornă</span></td><td>acum 3 săpt.</td></tr>
+              <tr><td><strong>[Program financiar salon]</strong></td><td>Proprietari salon</td><td>Avansat</td><td>—</td><td><span class="pill pill--draft">Ciornă</span></td><td>acum 3 săpt.</td></tr>
+            </tbody>
+          </table>
+          <p class="note">Un curs nou publicat apare automat în grila hub-ului său și devine disponibil ca destinație în editorul de quiz. Fără intervenție de developer.</p>
+        </div>
+
+        <!-- ── editare ───────────────────────────────────────────── -->
+        <div data-panel="edit" hidden>
+          <div class="bar">
+            <h2 style="margin:0;font-size:1.4rem">Restart în Beauty</h2>
+            <span class="pill pill--live">Publicat</span>
+            <div style="margin-left:auto;display:flex;gap:var(--s2)">
+              <button class="btn btn--ghost btn--sm">Previzualizare</button>
+              <button class="btn btn--primary btn--sm">Salvează</button>
+            </div>
+          </div>
+          <div class="grid grid-2" style="gap:var(--s6);align-items:start">
+            <div>
+              <div class="field"><label>Titlu</label><input value="Restart în Beauty"></div>
+              <div class="field"><label>Slug</label><input value="restart-in-beauty"><small>URL: /programe/freelanceri/restart-in-beauty/</small></div>
+              <div class="field"><label>Audiență</label><select><option>Freelanceri</option><option>Proprietari salon</option></select></div>
+              <div class="field"><label>Nivel</label><select><option>Entry</option><option selected>Intermediar</option><option>Avansat</option></select></div>
+              <div class="field"><label>Pentru cine</label><input value="Freelanceri beauty cu clienți activi"></div>
+              <div class="field"><label>Promisiune (o frază)</label><input value="Sisteme, retenție și prețuri care funcționează."></div>
+            </div>
+            <div>
+              <div class="field"><label>Rezultate (repeater)</label>
+                <input value="Calculezi câștigul real pe oră" style="margin-bottom:.4rem">
+                <input value="Implementezi sistem de retenție" style="margin-bottom:.4rem">
+                <input value="Crești prețul fără să pierzi clienți" style="margin-bottom:.4rem">
+                <button class="btn btn--ghost btn--sm" style="margin-top:.3rem">+ Adaugă rezultat</button>
+              </div>
+              <div class="field"><label>Preț (etichetă)</label><input placeholder="[TBD]"><small>Text liber — permite „de la…" sau „în rate".</small></div>
+              <div class="field"><label>Link checkout (<code>enrollUrl</code>)</label><input placeholder="https://…"><small style="color:#8A5A22">De clarificat: GetCourse sau Stripe. Vezi PLAN.md §6.1.</small></div>
+              <div class="field"><label>Module (array)</label>
+                <div style="border:var(--line);border-radius:var(--radius);padding:var(--s3);font-size:var(--t-small);color:var(--ink-mute)">
+                  6 module · fiecare cu titlu, descriere și exercițiu 48h
+                  <button class="btn btn--ghost btn--sm" style="display:block;margin-top:var(--s3)">Editează modulele</button>
+                </div>
+              </div>
+              <div class="field" style="margin-bottom:0"><label>Tag-uri pentru quiz</label>
+                <div style="display:flex;gap:.3rem;flex-wrap:wrap">
+                  <span class="badge badge--meta">freelancer</span><span class="badge badge--meta">intermediar</span>
+                  <span class="badge badge--meta">prețuri</span><span class="badge badge--meta">retenție</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── editor arbore ─────────────────────────────────────── -->
+        <div data-panel="tree" hidden>
+          <div class="bar">
+            <h2 style="margin:0;font-size:1.4rem">Editor vizual quiz</h2>
+            <span class="badge badge--meta">4 întrebări · 9 rezultate</span>
+            <div style="margin-left:auto;display:flex;gap:var(--s2)">
+              <a class="btn btn--ghost btn--sm" href="quiz.html">Testează arborele</a>
+              <button class="btn btn--primary btn--sm">Salvează</button>
+            </div>
+          </div>
+
+          <div class="canvas">
+            <svg width="100%" height="100%" style="position:absolute;inset:0;pointer-events:none">
+              <defs><marker id="a" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+                <path d="M0,0 L8,4 L0,8 z" fill="#C9BCAE"/></marker></defs>
+              <g stroke="#C9BCAE" stroke-width="1.5" fill="none" marker-end="url(#a)">
+                <path d="M215,90 C255,90 255,60 295,60"/>
+                <path d="M215,100 C255,100 255,250 295,250"/>
+                <path d="M215,110 C255,110 255,250 295,250"/>
+                <path d="M500,55 C540,55 540,30 580,30"/>
+                <path d="M500,65 C540,65 540,110 580,110"/>
+                <path d="M500,75 C540,75 540,180 580,180"/>
+                <path d="M500,245 C540,245 540,300 580,300"/>
+                <path d="M500,255 C540,255 540,380 580,380"/>
+                <path d="M500,265 C540,265 540,450 580,450"/>
+              </g>
+            </svg>
+
+            <div class="node node--q"      style="left:24px;  top:70px"><b>Întrebare · start</b>Cum lucrezi acum?</div>
+            <div class="node node--q"      style="left:300px; top:30px"><b>Întrebare</b>Ce te blochează cel mai tare?</div>
+            <div class="node node--q"      style="left:300px; top:225px"><b>Întrebare</b>Ce te doare cel mai tare în salon?</div>
+            <div class="node node--course" style="left:585px; top:10px"><b>Curs · publicat</b>Restart în Beauty</div>
+            <div class="node node--course node--warn" style="left:585px; top:90px"><b>Curs · ciornă ⚠</b>[Curs entry-level]</div>
+            <div class="node node--out"    style="left:585px; top:160px"><b>Rezultat</b>Consultanță 1:1</div>
+            <div class="node node--course node--warn" style="left:585px; top:280px"><b>Curs · ciornă ⚠</b>[Management echipă]</div>
+            <div class="node node--course node--warn" style="left:585px; top:360px"><b>Curs · ciornă ⚠</b>[Financiar salon]</div>
+            <div class="node node--out"    style="left:585px; top:430px"><b>Rezultat</b>Mentorat — aplicare</div>
+          </div>
+
+          <div class="valid">
+            <strong>Validator — 3 avertismente, 0 erori</strong>
+            <ul>
+              <li>3 ramuri duc către cursuri nepublicate — vizitatorul va vedea varianta „în pregătire" cu CTA spre consultanță.</li>
+              <li>Nicio buclă și niciun nod orfan detectat.</li>
+              <li>Toate ramurile au destinație — salvarea e permisă.</li>
+            </ul>
+          </div>
+
+          <p class="note"><strong>Costul acestei piese.</strong> Canvas React Flow montat ca vedere custom în Payload: ~8–12 zile (PLAN.md Faza 6). Nu blochează lansarea — nodurile pot fi editate ca documente Payload obișnuite până atunci.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div id="chrome-foot"></div>
+<script src="assets/chrome.js"></script>
+<script>
+document.getElementById('tabs').addEventListener('click', function (e) {
+  var tab = e.target.closest('.tab');
+  if (!tab) return;
+  [].forEach.call(this.querySelectorAll('.tab'), function (t) { t.setAttribute('aria-selected', String(t === tab)); });
+  [].forEach.call(document.querySelectorAll('[data-panel]'), function (p) { p.hidden = p.dataset.panel !== tab.dataset.t; });
+});
+
+/* nodes are draggable, to convey that the real editor is a canvas */
+(function () {
+  var drag = null, ox = 0, oy = 0;
+  document.addEventListener('mousedown', function (e) {
+    var n = e.target.closest('.node');
+    if (!n) return;
+    drag = n; ox = e.clientX - n.offsetLeft; oy = e.clientY - n.offsetTop;
+    n.style.cursor = 'grabbing'; e.preventDefault();
+  });
+  document.addEventListener('mousemove', function (e) {
+    if (!drag) return;
+    drag.style.left = (e.clientX - ox) + 'px';
+    drag.style.top  = (e.clientY - oy) + 'px';
+  });
+  document.addEventListener('mouseup', function () {
+    if (drag) drag.style.cursor = 'grab';
+    drag = null;
+  });
+})();
+</script>
+</body>
+</html>

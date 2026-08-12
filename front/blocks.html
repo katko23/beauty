@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Blocuri interactive — galerie (mockup)</title>
+<link rel="stylesheet" href="assets/tokens.css">
+<link rel="stylesheet" href="assets/ui.css">
+</head>
+<body data-page="blocks">
+<div id="chrome-top"></div>
+
+<section class="section" style="padding-bottom:var(--s6)">
+  <div class="wrap">
+    <span class="eyebrow eyebrow--accent">Galerie componente</span>
+    <h1>Blocuri interactive</h1>
+    <p class="lede">Fiecare bloc de mai jos e o componentă reutilizabilă din <code>assets/ui.css</code> + <code>assets/ui.js</code>. Se activează din atribute <code>data-*</code>, fără dependențe externe, și devine un bloc Payload în Faza 2–3.</p>
+    <p style="font-size:var(--t-small);color:var(--ink-mute)">Toate animațiile se opresc automat la <code>prefers-reduced-motion</code>. Fără JS, blocurile rămân citibile — nu dispar.</p>
+  </div>
+</section>
+
+<!-- ═════════════════════════════ 1. CURTAIN ═══════════════════════════ -->
+<section class="section section--tight">
+  <div class="wrap">
+    <div style="display:flex;align-items:baseline;gap:var(--s4);flex-wrap:wrap;margin-bottom:var(--s5)">
+      <h2 style="margin:0">01 · Imagine care se deschide</h2>
+      <code style="font-size:var(--t-small);color:var(--ink-mute)">data-curtain</code>
+    </div>
+    <p style="color:var(--ink-soft);max-width:62ch">Imaginea se desface în două și dezvăluie mesajul și butoanele din spate. Click pe imagine, pe buton, sau <kbd>Esc</kbd> pentru închidere. Cu <code>data-curtain-auto</code> se deschide singură când intră în viewport.</p>
+
+    <div class="curtain" data-curtain data-reveal="scale" style="margin-top:var(--s5)">
+      <div class="curtain__back">
+        <span class="eyebrow" style="color:var(--taupe)">Ediția de toamnă</span>
+        <h3>Restart în Beauty se redeschide pe <span class="tbd">[dată]</span></h3>
+        <p>6 module, exerciții aplicate la 48 de ore și o comunitate care chiar răspunde. Locuri limitate la <span class="tbd">[X]</span>.</p>
+        <div style="display:flex;gap:var(--s3);flex-wrap:wrap;justify-content:center;margin-top:var(--s4)">
+          <a class="btn btn--onDark" href="curs.html">Vreau un loc</a>
+          <a class="btn btn--ghost" style="color:var(--canvas);border-color:var(--taupe)" href="quiz.html">Nu sunt sigur(ă)</a>
+        </div>
+      </div>
+      <div class="curtain__leaf curtain__leaf--l"><div class="ph ph--warm">Jumătatea stângă<br>a fotografiei</div></div>
+      <div class="curtain__leaf curtain__leaf--r"><div class="ph ph--warm">Jumătatea dreaptă<br>a fotografiei</div></div>
+      <span class="curtain__hint">Apasă pentru a deschide</span>
+      <button class="curtain__trigger btn btn--onDark" type="button" aria-expanded="false">Deschide</button>
+      <button class="curtain__close" type="button" aria-label="Închide">✕</button>
+    </div>
+    <p class="note"><strong>Unde se folosește:</strong> anunțul de lansare pe Home, secțiunea „Featured Program", sau dezvăluirea prețului pe pagina de curs.</p>
+  </div>
+</section>
+
+<!-- ═════════════════════════════ 2. CAROUSEL ══════════════════════════ -->
+<section class="section section--sand">
+  <div class="wrap">
+    <div style="display:flex;align-items:baseline;gap:var(--s4);flex-wrap:wrap;margin-bottom:var(--s5)">
+      <h2 style="margin:0">02 · Carusel</h2>
+      <code style="font-size:var(--t-small);color:var(--ink-mute)">data-carousel</code>
+    </div>
+    <p style="color:var(--ink-soft);max-width:62ch">Scroll-snap nativ, săgeți, indicatori, tragere cu mouse-ul, săgeți de tastatură și swipe pe touch. Numărul de carduri vizibile se setează cu <code>--per</code> și scade automat pe ecrane mici.</p>
+
+    <div class="crsl" data-carousel="Testimoniale" style="margin-top:var(--s6)">
+      <div class="crsl__track">
+        <div class="crsl__slide"><article class="card tst lift"><div class="tst__metric">+30%</div><p class="tst__quote">„Am crescut prețul cu 30% și nu am pierdut nicio clientă."</p><div class="tst__who"><div class="ph ph--round" data-ratio="1:1">1:1</div><div><div class="tst__name"><span class="tbd">[Nume]</span></div><div class="tst__role">lash artist · Cluj</div></div></div></article></div>
+        <div class="crsl__slide"><article class="card tst lift"><div class="tst__metric">82%</div><p class="tst__quote">„Rata de revenire a clientelor, după sistemul din modulul 4."</p><div class="tst__who"><div class="ph ph--round" data-ratio="1:1">1:1</div><div><div class="tst__name"><span class="tbd">[Nume]</span></div><div class="tst__role">freelancer · Chișinău</div></div></div></article></div>
+        <div class="crsl__slide"><article class="card tst lift"><div class="tst__metric">−9h</div><p class="tst__quote">„Pe săptămână. Aceeași cifră, mai puține ore la scaun."</p><div class="tst__who"><div class="ph ph--round" data-ratio="1:1">1:1</div><div><div class="tst__name"><span class="tbd">[Nume]</span></div><div class="tst__role">nail artist · Iași</div></div></div></article></div>
+        <div class="crsl__slide"><article class="card tst lift"><div class="tst__metric">3 luni</div><p class="tst__quote">„De la haos total la procese clare și echipă motivată."</p><div class="tst__who"><div class="ph ph--round" data-ratio="1:1">1:1</div><div><div class="tst__name"><span class="tbd">[Nume]</span></div><div class="tst__role">proprietar salon · București</div></div></div></article></div>
+        <div class="crsl__slide"><article class="card tst lift"><div class="tst__metric">1.926 → 2.896 €</div><p class="tst__quote">„Venit lunar, în aceeași agendă."</p><div class="tst__who"><div class="ph ph--round" data-ratio="1:1">1:1</div><div><div class="tst__name"><span class="tbd">[Nume]</span></div><div class="tst__role">freelancer · Timișoara</div></div></div></article></div>
+      </div>
+    </div>
+    <p class="note"><strong>Unde se folosește:</strong> testimoniale pe Home și pe paginile de curs, episoade de podcast, grila de cursuri când depășește 4 programe.</p>
+  </div>
+</section>
+
+<!-- ═════════════════════════════ 3. PANELS ════════════════════════════ -->
+<section class="section">
+  <div class="wrap">
+    <div style="display:flex;align-items:baseline;gap:var(--s4);flex-wrap:wrap;margin-bottom:var(--s5)">
+      <h2 style="margin:0">03 · Panouri care se extind</h2>
+      <code style="font-size:var(--t-small);color:var(--ink-mute)">data-panels</code>
+    </div>
+    <p style="color:var(--ink-soft);max-width:62ch">Hover sau tastatură extinde panoul și îi arată descrierea și butonul. Pe mobil devine o stivă verticală.</p>
+
+    <div class="panels" data-panels data-reveal style="margin-top:var(--s6)">
+      <div class="panel"><div class="ph ph--warm">Foto 1</div><div class="panel__body">
+        <div class="panel__num">01</div><h3 class="panel__title">Programe</h3>
+        <div class="panel__more"><p>Cursuri structurate, pas cu pas, cu exerciții aplicate și acces pe viață.</p><a class="btn btn--onDark btn--sm" href="freelanceri.html">Explorează</a></div>
+      </div></div>
+      <div class="panel"><div class="ph ph--deep">Foto 2</div><div class="panel__body">
+        <div class="panel__num">02</div><h3 class="panel__title">Mentorat</h3>
+        <div class="panel__more"><p>12 luni, 1:1 cu Lore, by application only. Capacitate limitată.</p><a class="btn btn--onDark btn--sm" href="#">Aplică</a></div>
+      </div></div>
+      <div class="panel"><div class="ph ph--emerald">Foto 3</div><div class="panel__body">
+        <div class="panel__num">03</div><h3 class="panel__title">Membership</h3>
+        <div class="panel__more"><p>Conținut lunar, sesiuni live de Q&amp;A și o comunitate activă.</p><a class="btn btn--onDark btn--sm" href="#">Detalii</a></div>
+      </div></div>
+      <div class="panel"><div class="ph ph--warm">Foto 4</div><div class="panel__body">
+        <div class="panel__num">04</div><h3 class="panel__title">Consultanță</h3>
+        <div class="panel__more"><p>O sesiune, o problemă, o soluție clară. Rezumat scris în 24h.</p><a class="btn btn--onDark btn--sm" href="#">Rezervă</a></div>
+      </div></div>
+    </div>
+    <p class="note"><strong>Unde se folosește:</strong> secțiunea „Cum te putem ajuta" de pe Home, ca alternativă mai vizuală la cele 3 carduri.</p>
+  </div>
+</section>
+
+<!-- ═════════════════════════════ 4. COMPARE ═══════════════════════════ -->
+<section class="section section--sand">
+  <div class="wrap">
+    <div style="display:flex;align-items:baseline;gap:var(--s4);flex-wrap:wrap;margin-bottom:var(--s5)">
+      <h2 style="margin:0">04 · Înainte / După</h2>
+      <code style="font-size:var(--t-small);color:var(--ink-mute)">data-compare</code>
+    </div>
+    <p style="color:var(--ink-soft);max-width:62ch">Glisorul compară două stări. Funcționează cu mouse, touch și săgeți de tastatură — sub capotă e un <code>input[type=range]</code>, deci e accesibil implicit.</p>
+
+    <div class="grid grid-2" style="gap:var(--s6);margin-top:var(--s6);align-items:center">
+      <div class="cmp" data-compare data-reveal="left">
+        <div class="cmp__layer"><div class="ph ph--warm">ÎNAINTE<br>agendă haotică</div></div>
+        <div class="cmp__layer cmp__layer--after"><div class="ph ph--emerald">DUPĂ<br>agendă organizată</div></div>
+        <span class="cmp__tag cmp__tag--l">Înainte</span>
+        <span class="cmp__tag cmp__tag--r">După</span>
+        <input class="cmp__range" type="range" min="0" max="100" value="50" aria-label="Compară înainte și după">
+        <span class="cmp__handle"></span>
+      </div>
+      <div data-reveal="right">
+        <span class="eyebrow eyebrow--accent">Aplicație reală</span>
+        <h3>Agenda unei cursante, luna 1 vs. luna 3</h3>
+        <p style="color:var(--ink-soft)">Pentru industria beauty, comparația vizuală e limbajul nativ. Aici o folosim pentru transformări de business — captură de agendă, tablou de cifre, sau chiar un before/after de portofoliu.</p>
+        <a class="link-arrow ul-draw" href="curs.html">Vezi programul →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════════════════════════ 5. MARQUEE + KPI ═════════════════════ -->
+<section class="section">
+  <div class="wrap">
+    <div style="display:flex;align-items:baseline;gap:var(--s4);flex-wrap:wrap;margin-bottom:var(--s5)">
+      <h2 style="margin:0">05 · Bandă derulantă &amp; contoare</h2>
+      <code style="font-size:var(--t-small);color:var(--ink-mute)">data-marquee · data-count</code>
+    </div>
+    <p style="color:var(--ink-soft);max-width:62ch">Banda se dublează automat pentru o buclă continuă și se oprește la hover. Contoarele pornesc când intră în ecran, o singură dată.</p>
+  </div>
+
+  <div class="mq" data-marquee="30" style="margin-block:var(--s6)">
+    <div class="mq__in">
+      <span class="mq__item"><b>+30%</b> preț, zero cliente pierdute</span><span class="mq__sep">✦</span>
+      <span class="mq__item"><b>82%</b> rată de revenire</span><span class="mq__sep">✦</span>
+      <span class="mq__item"><b>−9h</b> pe săptămână</span><span class="mq__sep">✦</span>
+      <span class="mq__item"><b>3 luni</b> până la procese clare</span><span class="mq__sep">✦</span>
+      <span class="mq__item"><b>2.896 €</b> venit lunar</span><span class="mq__sep">✦</span>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="kpi-row">
+      <div class="kpi" data-reveal><div class="count" data-count="22" data-count-suffix="+"></div><div class="count-label">ani în industrie</div></div>
+      <div class="kpi" data-reveal><div class="count" data-count="6"></div><div class="count-label">module în Restart</div></div>
+      <div class="kpi" data-reveal><div class="count" data-count="47"></div><div class="count-label">episoade de podcast</div></div>
+      <div class="kpi" data-reveal><div class="count" data-count="98" data-count-suffix="%"></div><div class="count-label">ar recomanda programul</div></div>
+    </div>
+    <p class="note"><strong>Atenție la onestitate:</strong> contoarele arată spectaculos și de aceea sunt periculoase. Fiecare cifră de mai sus trebuie să fie una reală, verificabilă — altfel dispare.</p>
+  </div>
+</section>
+
+<!-- ═════════════════════════════ 6. STICKY STEPS ══════════════════════ -->
+<section class="section section--sand">
+  <div class="wrap">
+    <div style="display:flex;align-items:baseline;gap:var(--s4);flex-wrap:wrap;margin-bottom:var(--s5)">
+      <h2 style="margin:0">06 · Vizual fix cu pași derulanți</h2>
+      <code style="font-size:var(--t-small);color:var(--ink-mute)">data-sticky-steps</code>
+    </div>
+    <p style="color:var(--ink-soft);max-width:62ch">Imaginea rămâne fixă în timp ce textul derulează; pasul activ se aprinde și schimbă eticheta vizualului. Pe mobil devine o listă normală.</p>
+
+    <div class="sticky-steps" data-sticky-steps style="margin-top:var(--s7)">
+      <div class="sticky-steps__visual">
+        <div class="ph" data-ratio="4:5" data-step-visual>Vizual modul 1</div>
+        <span class="sticky-steps__badge" data-step-label>Unde pierzi banii</span>
+      </div>
+      <div>
+        <div class="step" data-step-name="Unde pierzi banii" data-step-visual-text="Vizual modul 1">
+          <div class="step__n">Modul 01</div><h3>Unde pierzi banii</h3>
+          <p style="color:var(--ink-soft)">Descompui fiecare serviciu: timp real, consumabile, timp neplătit. Ieși cu câștigul net pe oră pentru fiecare lucrare din meniu.</p>
+        </div>
+        <div class="step" data-step-name="Grila de prețuri" data-step-visual-text="Vizual modul 2">
+          <div class="step__n">Modul 02</div><h3>Grila de prețuri</h3>
+          <p style="color:var(--ink-soft)">Construiești prețul pornind de la venitul țintă și capacitatea reală — nu de la ce face salonul de vizavi.</p>
+        </div>
+        <div class="step" data-step-name="Comunicarea creșterii" data-step-visual-text="Vizual modul 3">
+          <div class="step__n">Modul 03</div><h3>Comunicarea creșterii</h3>
+          <p style="color:var(--ink-soft)">Scripturi pentru mesaj, pentru cabinet și pentru obiecții. Fără scuze și fără pierderea relației.</p>
+        </div>
+        <div class="step" data-step-name="Sistemul de retenție" data-step-visual-text="Vizual modul 4">
+          <div class="step__n">Modul 04</div><h3>Sistemul de retenție</h3>
+          <p style="color:var(--ink-soft)">Rebooking înainte ca clienta să iasă pe ușă, urmărire la 48h, reactivarea celor pierdute.</p>
+        </div>
+      </div>
+    </div>
+    <p class="note"><strong>Unde se folosește:</strong> secțiunea „Module &amp; Conținut" de pe pagina de curs, ca alternativă mai cinematică la acordeon.</p>
+  </div>
+</section>
+
+<!-- ═════════════════════════════ 7. UTILITARE ═════════════════════════ -->
+<section class="section">
+  <div class="wrap">
+    <div style="display:flex;align-items:baseline;gap:var(--s4);flex-wrap:wrap;margin-bottom:var(--s5)">
+      <h2 style="margin:0">07 · Utilitare de hover</h2>
+      <code style="font-size:var(--t-small);color:var(--ink-mute)">.zoom · .lift · .ul-draw · [data-reveal]</code>
+    </div>
+    <div class="grid grid-3" style="margin-top:var(--s5)">
+      <div>
+        <div class="zoom"><div class="ph ph--warm" data-ratio="3:2">Zoom la hover</div></div>
+        <p style="font-size:var(--t-small);color:var(--ink-mute);margin-top:var(--s3)"><code>.zoom</code> — imaginea crește 5% în interiorul cadrului.</p>
+      </div>
+      <div>
+        <div class="card lift" style="min-height:150px"><h3 style="font-size:1.05rem">Card care se ridică</h3><p style="font-size:var(--t-small);color:var(--ink-soft);margin:0">Umbră și translație subtilă la hover.</p></div>
+        <p style="font-size:var(--t-small);color:var(--ink-mute);margin-top:var(--s3)"><code>.lift</code> — pentru carduri clicabile.</p>
+      </div>
+      <div>
+        <div class="card" style="min-height:150px;display:grid;place-items:center"><a class="ul-draw" href="#" style="font-size:1.1rem">Linie care se desenează</a></div>
+        <p style="font-size:var(--t-small);color:var(--ink-mute);margin-top:var(--s3)"><code>.ul-draw</code> — subliniere animată dinspre stânga.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div id="chrome-foot"></div>
+<script src="assets/chrome.js"></script>
+<script src="assets/ui.js"></script>
+</body>
+</html>
