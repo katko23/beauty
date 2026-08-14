@@ -1,0 +1,239 @@
+/* ==========================================================================
+   BB Platform — design directions
+   Five colour directions over the SAME structure, type scale and components.
+   Nothing here changes layout; every rule only re-points the palette tokens
+   from tokens.css, so a direction can be judged on colour alone.
+
+   Applied as [data-theme] on <html> (whole site) or on any wrapper element
+   (side-by-side comparison on teme.html). Because custom properties inherit,
+   both work with the same rules.
+
+   1. smarald    — baseline. Sister brand to nailart-studio.ro + own emerald.
+   2. teracota   — warm copper/clay. Craft and warmth, still adult.
+   3. pruna      — wine on cool ivory. Editorial, premium, feminine sans pink.
+   4. bleumarin  — navy + brass. Authority, "business school" register.
+   5. noir       — dark canvas + champagne. Luxury, high contrast.
+   ========================================================================== */
+
+/* ------------------------------------------------ 1. SMARALD (baseline) -- */
+/* Same values as the :root defaults — declared again so the direction can be
+   scoped to a wrapper for comparison. */
+[data-theme="smarald"] {
+  --canvas:    #FAF8F5;
+  --sand:      #EDE6DD;
+  --sand-deep: #E2D8CB;
+  --taupe:     #C9BCAE;
+  --ink:       #14110F;
+  --ink-soft:  #4A423C;
+  --ink-mute:  #7A6F66;
+  --accent:    #1F5F4E;
+  --accent-hi: #2E7D66;
+  --accent-wash:#EAF1EE;
+  --white:     #FFFFFF;
+  --hdr-bg:    rgba(250,248,245,.92);
+
+  --lvl-entry-bg: #EAF1EE;  --lvl-entry-fg: #1F5F4E;
+  --lvl-inter-bg: #F3E9DC;  --lvl-inter-fg: #8A5A22;
+  --lvl-adv-bg:   #E8E4EF;  --lvl-adv-fg:   #4A3B7A;
+}
+
+/* ---------------------------------------------------------- 2. TERACOTĂ -- */
+/* Clay/copper on a warmer sand. Reads hand-made and human; the risk is that
+   it sits closer to "salon interior" than to "business education". */
+[data-theme="teracota"] {
+  --canvas:    #FDF9F4;
+  --sand:      #F4E9DD;
+  --sand-deep: #E8D8C6;
+  --taupe:     #CDB69F;
+  --ink:       #1A1310;
+  --ink-soft:  #4E3C33;
+  --ink-mute:  #86695A;
+  --accent:    #9C4A22;
+  --accent-hi: #B85C2E;
+  --accent-wash:#F8E8DB;
+  --white:     #FFFFFF;
+  --hdr-bg:    rgba(253,249,244,.92);
+
+  --lvl-entry-bg: #E6EFE6;  --lvl-entry-fg: #3B6B45;
+  --lvl-inter-bg: #F8E8DB;  --lvl-inter-fg: #9C4A22;
+  --lvl-adv-bg:   #EAE3EE;  --lvl-adv-fg:   #5B3F73;
+}
+
+/* ------------------------------------------------------------- 3. PRUNĂ -- */
+/* Deep wine on a cool rose-ivory. The most "editorial" of the five and the
+   most obviously feminine without touching pink. */
+[data-theme="pruna"] {
+  --canvas:    #FBF7F7;
+  --sand:      #F0E6E8;
+  --sand-deep: #E2D3D6;
+  --taupe:     #C4ADB1;
+  --ink:       #180F13;
+  --ink-soft:  #4B3A40;
+  --ink-mute:  #7E6A70;
+  --accent:    #6E1F3F;
+  --accent-hi: #8C2B52;
+  --accent-wash:#F5E7EC;
+  --white:     #FFFFFF;
+  --hdr-bg:    rgba(251,247,247,.92);
+
+  --lvl-entry-bg: #E7EFE9;  --lvl-entry-fg: #2F6146;
+  --lvl-inter-bg: #F6E9D9;  --lvl-inter-fg: #8A5A22;
+  --lvl-adv-bg:   #F5E7EC;  --lvl-adv-fg:   #6E1F3F;
+}
+
+/* --------------------------------------------------------- 4. BLEUMARIN -- */
+/* Navy ink, navy accent, brass neutral. Furthest from the beauty category and
+   closest to a business school — the safest choice for a paid-programme site,
+   the weakest link to the sister brand. */
+[data-theme="bleumarin"] {
+  --canvas:    #F7F6F2;
+  --sand:      #E9E7DE;
+  --sand-deep: #D9D5C8;
+  --taupe:     #B79A62;         /* brass, not grey — carries the footer */
+  --ink:       #101720;
+  --ink-soft:  #3A4655;
+  --ink-mute:  #6B7789;
+  --accent:    #1B3A6B;
+  --accent-hi: #2A5490;
+  --accent-wash:#E7EDF6;
+  --white:     #FFFFFF;
+  --hdr-bg:    rgba(247,246,242,.92);
+
+  --lvl-entry-bg: #E5EEE9;  --lvl-entry-fg: #256B52;
+  --lvl-inter-bg: #F4EBD9;  --lvl-inter-fg: #785318;
+  --lvl-adv-bg:   #E7EDF6;  --lvl-adv-fg:   #1B3A6B;
+}
+
+/* ------------------------------------------------------------- 5. NOIR --- */
+/* The only direction that inverts value: near-black canvas, champagne accent.
+   Premium and distinctive, but photography has to be shot for it and long
+   course copy is harder to read at length. */
+[data-theme="noir"] {
+  --canvas:    #121010;
+  --sand:      #1C1918;
+  --sand-deep: #2C2725;
+  --taupe:     #8A7F72;
+  --ink:       #F5F1EA;
+  --ink-soft:  #CFC7BC;
+  --ink-mute:  #9A9086;
+  --accent:    #D8B98A;
+  --accent-hi: #EBD0A6;
+  --accent-wash:#241E17;
+  --white:     #1A1716;          /* card surface, not white */
+  --hdr-bg:    rgba(18,16,16,.92);
+  --shadow: 0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.45);
+
+  --lvl-entry-bg: #17251F;  --lvl-entry-fg: #7FCFA8;
+  --lvl-inter-bg: #2A2117;  --lvl-inter-fg: #E0B173;
+  --lvl-adv-bg:   #201C2B;  --lvl-adv-fg:   #B0A0E0;
+}
+
+/* Components that hard-code a light/dark assumption need re-pointing when the
+   canvas inverts. Descendant selectors so scoped previews work too. */
+[data-theme="noir"] .ftr,
+[data-theme="noir"] .mockbar { background: #0B0A09; }
+/* on a dark canvas the footer no longer separates itself by value alone */
+[data-theme="noir"] .ftr { border-top: 1px solid var(--sand-deep); }
+[data-theme="noir"] .section--ink { background: var(--sand); color: var(--ink); }
+[data-theme="noir"] .section--ink h2,
+[data-theme="noir"] .section--ink h3 { color: var(--ink); }
+[data-theme="noir"] .section--accent { color: #1A1310; }
+[data-theme="noir"] .section--accent h2 { color: #1A1310; }
+[data-theme="noir"] .btn--primary,
+[data-theme="noir"] .btn--ink { color: #14110F; }
+[data-theme="noir"] .btn--onDark { background: var(--sand-deep); color: var(--ink); }
+[data-theme="noir"] .btn--onDark:hover { background: var(--taupe); color: #14110F; }
+[data-theme="noir"] .card:hover { border-color: var(--taupe); }
+/* these say color:var(--canvas) meaning "the light one" — re-point to --ink */
+[data-theme="noir"] .mockbar strong,
+[data-theme="noir"] .ftr h4,
+[data-theme="noir"] .ftr a:hover { color: var(--ink); }
+[data-theme="noir"] .mockbar a[aria-current="page"] { color: #14110F; }
+
+/* ------------------------------------------------------ theme switcher --- */
+/* Mockup chrome only — does not exist in the real site. */
+.tsw {
+  position: fixed; z-index: 60; right: var(--s5); bottom: var(--s5);
+  display: flex; align-items: center; gap: var(--s3);
+  padding: .55rem .7rem;
+  background: var(--white);
+  border: 1px solid var(--sand-deep);
+  border-radius: 999px;
+  box-shadow: 0 2px 6px rgba(0,0,0,.08), 0 12px 32px rgba(0,0,0,.12);
+}
+.tsw__axis { display: flex; align-items: center; gap: var(--s2); }
+.tsw__axis + .tsw__axis { border-left: 1px solid var(--sand-deep); padding-left: var(--s3); margin-left: .15rem; }
+.tsw__lbl {
+  font-size: var(--t-micro); letter-spacing: .14em; text-transform: uppercase;
+  color: var(--ink-mute); padding-left: .35rem;
+}
+.tsw__txt {
+  min-width: 26px; height: 26px; padding: 0 .25rem; cursor: pointer;
+  border: 1px solid var(--sand-deep); border-radius: 999px;
+  background: transparent; color: var(--ink-mute);
+  font-size: 11px; font-weight: 600; font-variant-numeric: tabular-nums;
+  transition: background .16s ease, color .16s ease;
+}
+.tsw__txt:hover { border-color: var(--ink-mute); color: var(--ink); }
+.tsw__txt[aria-pressed="true"] { background: var(--ink); color: var(--canvas); border-color: var(--ink); }
+.tsw__opts { display: flex; gap: .35rem; }
+.tsw__opt {
+  width: 26px; height: 26px; padding: 0; cursor: pointer;
+  border-radius: 50%; border: 1px solid rgba(0,0,0,.15);
+  position: relative; overflow: hidden;
+  transition: transform .16s ease;
+}
+.tsw__opt::after {
+  /* diagonal half showing the canvas colour under the accent */
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(135deg, transparent 0 50%, var(--sw-canvas) 50% 100%);
+}
+.tsw__opt:hover { transform: scale(1.12); }
+.tsw__opt[aria-pressed="true"] {
+  outline: 2px solid var(--ink); outline-offset: 2px;
+}
+.tsw__more {
+  font-size: var(--t-micro); text-decoration: none; color: var(--ink-mute);
+  border-left: 1px solid var(--sand-deep); padding-left: var(--s3); margin-left: .15rem;
+  white-space: nowrap;
+}
+.tsw__more:hover { color: var(--accent); }
+@media (max-width: 760px) {
+  .tsw { right: var(--s3); bottom: var(--s3); gap: var(--s2); padding: .45rem .5rem; }
+  .tsw__lbl, .tsw__more { display: none; }
+}
+@media print { .tsw { display: none; } }
+
+/* --------------------------------------------------- teme.html gallery --- */
+.dir {
+  background: var(--canvas); color: var(--ink);
+  border: 1px solid var(--sand-deep);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  margin-bottom: var(--s7);
+}
+.dir__head {
+  display: flex; flex-wrap: wrap; align-items: flex-end; gap: var(--s5);
+  padding: var(--s6);
+  border-bottom: 1px solid var(--sand-deep);
+}
+.dir__num {
+  font-family: var(--display); font-size: 2.6rem; line-height: 1;
+  color: var(--accent);
+}
+.dir__name { margin: 0; font-size: var(--t-h3); }
+.dir__why { margin: .3rem 0 0; font-size: var(--t-small); color: var(--ink-soft); max-width: 54ch; }
+.dir__act { margin-left: auto; display: flex; gap: var(--s3); flex-wrap: wrap; }
+
+.sw { display: flex; flex-wrap: wrap; gap: 0; padding: 0 var(--s6) var(--s6); }
+.sw__chip {
+  flex: 1 1 92px; min-width: 92px; padding: var(--s5) var(--s3) var(--s2);
+  font-size: 10px; letter-spacing: .06em; text-transform: uppercase;
+  border: 1px solid rgba(128,128,128,.22); border-left-width: 0;
+}
+.sw__chip:first-child { border-left-width: 1px; }
+.sw__chip b { display: block; font-weight: 600; font-size: 9px; opacity: .75; }
+
+.dir__body { padding: var(--s6); border-top: 1px solid var(--sand-deep); }
+.dir__preview { display: grid; grid-template-columns: 1.15fr .85fr; gap: var(--s6); align-items: start; }
+@media (max-width: 900px) { .dir__preview { grid-template-columns: 1fr; } }

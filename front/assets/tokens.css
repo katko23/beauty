@@ -18,6 +18,9 @@
   --accent-hi: #2E7D66;
   --accent-wash:#EAF1EE;
   --white:     #FFFFFF;
+  /* sticky header sits on a blurred canvas — themed, because a dark
+     direction has to re-point it (see themes.css) */
+  --hdr-bg:    rgba(250,248,245,.92);
 
   /* level badges */
   --lvl-entry-bg:  #EAF1EE;  --lvl-entry-fg:  #1F5F4E;
@@ -293,7 +296,7 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .form-inline .field { flex: 1 1 180px; margin-bottom: 0; }
 
 /* -------------------------------------------------------------- header */
-.hdr { position: sticky; top: 0; z-index: 40; background: rgba(250,248,245,.92); backdrop-filter: blur(8px); border-bottom: var(--line); }
+.hdr { position: sticky; top: 0; z-index: 40; background: var(--hdr-bg); backdrop-filter: blur(8px); border-bottom: var(--line); }
 .hdr__in { display: flex; align-items: center; gap: var(--s6); padding-block: var(--s4); }
 .hdr__logo { font-family: var(--display); font-size: 1.15rem; font-weight: 600; text-decoration: none; color: var(--ink); letter-spacing: -.01em; }
 .hdr__logo span { color: var(--accent); }

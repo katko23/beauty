@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="ro" data-theme="teracota" data-style="soft">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Direcția 03 — Soft · Beauty Business</title>
+<link rel="stylesheet" href="assets/tokens.css">
+<link rel="stylesheet" href="assets/themes.css">
+<link rel="stylesheet" href="assets/styles.css">
+<link rel="stylesheet" href="assets/ui.css">
+<style>
+  /* ── layout decisions specific to this direction ──────────────────────
+     Product-landing shape: floating pill nav, centred hero with the visual
+     BELOW the copy rather than beside it, everything in rounded surfaces,
+     and a light footer instead of the dark one. Blocks are chosen for
+     interaction (panels, carousel, calculator, accordion) over density. */
+  .nav3 { position: sticky; top: var(--s4); z-index: 40; }
+  .nav3__in {
+    display: flex; align-items: center; gap: var(--s5);
+    background: var(--white); border-radius: 999px;
+    box-shadow: var(--shadow); padding: .5rem .5rem .5rem var(--s5);
+    max-width: 1080px; margin-inline: auto;
+  }
+  .nav3__logo { font-weight: 700; text-decoration: none; color: var(--ink); letter-spacing: -.02em; }
+  .nav3__logo span { color: var(--accent); }
+  .nav3__in nav { display: flex; gap: var(--s5); margin-left: auto; align-items: center; }
+  .nav3__in nav a { font-size: var(--t-small); text-decoration: none; color: var(--ink-soft); }
+  .nav3__in nav a:hover { color: var(--accent); }
+  @media (max-width: 900px) { .nav3__in nav a:not(.btn) { display: none; } }
+
+  .hero3 { text-align: center; padding-top: var(--s8); }
+  .hero3 .lede { margin-inline: auto; }
+  .pill {
+    display: inline-flex; align-items: center; gap: .5rem;
+    background: var(--accent-wash); color: var(--accent);
+    padding: .4rem .9rem; border-radius: 999px;
+    font-size: var(--t-small); font-weight: 600; margin-bottom: var(--s5);
+  }
+  .hero3__visual { margin-top: var(--s7); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow); }
+  .trust { display: flex; gap: var(--s5); justify-content: center; flex-wrap: wrap; margin-top: var(--s5); font-size: var(--t-small); color: var(--ink-mute); }
+
+  .softcard {
+    background: var(--white); border-radius: var(--radius-lg);
+    box-shadow: var(--shadow); padding: var(--s7);
+  }
+  .calc { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s6); align-items: center; }
+  .calc__out { background: var(--accent-wash); border-radius: var(--radius-lg); padding: var(--s6); text-align: center; }
+  .calc__big { font-size: clamp(2.6rem, 6vw, 4rem); font-weight: 700; color: var(--accent); line-height: 1; letter-spacing: -.03em; }
+  @media (max-width: 800px) { .calc { grid-template-columns: 1fr; } }
+
+  .cta3 {
+    background: var(--accent); color: var(--canvas);
+    border-radius: 32px; padding: var(--s8) var(--s7); text-align: center;
+  }
+  .cta3 h2 { color: var(--canvas); }
+
+  /* light footer — the dark one belongs to the editorial directions */
+  .ftr3 { background: var(--sand); color: var(--ink-soft); padding-block: var(--s8) var(--s6); margin-top: var(--s9); }
+  .ftr3 h4 { font-size: var(--t-small); color: var(--ink); margin-bottom: var(--s3); }
+  .ftr3 ul { list-style: none; padding: 0; }
+  .ftr3 a { color: var(--ink-soft); text-decoration: none; font-size: var(--t-small); }
+  .ftr3 a:hover { color: var(--accent); }
+</style>
+<script src="assets/dbar.js" defer></script>
+</head>
+<body>
+
+<header class="nav3" style="padding-top:var(--s4)">
+  <div class="wrap">
+    <div class="nav3__in">
+      <a class="nav3__logo" href="#">beauty<span>business</span></a>
+      <nav>
+        <a href="#programe">Programe</a><a href="#">Mentorat</a><a href="#calculator">Gratuități</a>
+        <a href="#">Podcast</a><a href="#">Cont</a>
+        <a class="btn btn--primary btn--sm" href="#programe">Începe acum</a>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<!-- 1 · HERO — centred, visual below the copy -->
+<section class="section hero3">
+  <div class="wrap wrap-narrow rise">
+    <span class="pill">✦ 22 de ani de practică reală</span>
+    <h1 style="font-size:var(--t-hero)">Ai talentul. Îți lipsește sistemul.</h1>
+    <p class="lede">Programe, mentorat și instrumente pentru freelanceri și proprietari de salon. Înveți pe cifrele tale, nu pe teorie.</p>
+    <div style="display:flex;gap:var(--s3);flex-wrap:wrap;justify-content:center;margin-top:var(--s6)">
+      <a class="btn btn--primary" href="#programe">Vezi programele</a>
+      <a class="btn btn--ghost" href="#calculator">Calculează-ți câștigul pe oră</a>
+    </div>
+    <div class="trust"><span>✓ Acces pe viață</span><span>✓ Plată în 3 rate</span><span>✓ Garanție <span class="tbd">[X]</span> zile</span></div>
+  </div>
+  <div class="wrap">
+    <div class="hero3__visual rise rise--2">
+      <div class="ph" data-ratio="16:9" style="min-height:0;border:0">Fotografie principală · Lore la lucru · crop 16:9</div>
+    </div>
+  </div>
+</section>
+
+<!-- 2 · WAYS TO WORK — expanding panels -->
+<section class="section">
+  <div class="wrap">
+    <div style="text-align:center;margin-bottom:var(--s6)">
+      <span class="eyebrow">Cum te putem ajuta</span>
+      <h2>Patru feluri în care poți lucra cu noi</h2>
+    </div>
+    <div class="panels" data-panels data-reveal>
+      <div class="panel"><div class="ph ph--warm">Foto 1</div><div class="panel__body">
+        <div class="panel__num">01</div><h3 class="panel__title">Programe</h3>
+        <div class="panel__more"><p>Cursuri structurate, pas cu pas, cu exerciții aplicate și acces pe viață.</p><a class="btn btn--onDark btn--sm" href="#programe">Explorează</a></div>
+      </div></div>
+      <div class="panel"><div class="ph ph--deep">Foto 2</div><div class="panel__body">
+        <div class="panel__num">02</div><h3 class="panel__title">Mentorat</h3>
+        <div class="panel__more"><p>12 luni, 1:1 cu Lore, doar pe bază de aplicație. Capacitate limitată.</p><a class="btn btn--onDark btn--sm" href="#">Aplică</a></div>
+      </div></div>
+      <div class="panel"><div class="ph ph--emerald">Foto 3</div><div class="panel__body">
+        <div class="panel__num">03</div><h3 class="panel__title">Membership</h3>
+        <div class="panel__more"><p>Conținut lunar, sesiuni live de Q&amp;A și o comunitate activă.</p><a class="btn btn--onDark btn--sm" href="#">Detalii</a></div>
+      </div></div>
+      <div class="panel"><div class="ph ph--warm">Foto 4</div><div class="panel__body">
+        <div class="panel__num">04</div><h3 class="panel__title">Consultanță</h3>
+        <div class="panel__more"><p>O sesiune, o problemă, o soluție clară. Rezumat scris în 24h.</p><a class="btn btn--onDark btn--sm" href="#">Rezervă</a></div>
+      </div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 3 · PROGRAMMES — floating cards in a carousel -->
+<section class="section section--sand" id="programe">
+  <div class="wrap">
+    <div style="text-align:center;margin-bottom:var(--s6)">
+      <span class="eyebrow">Catalog</span>
+      <h2>Programe pentru fiecare etapă</h2>
+    </div>
+    <div class="crsl" data-carousel="Programe" style="--per:3">
+      <div class="crsl__track">
+        <div class="crsl__slide"><article class="card course-card">
+          <span class="badge badge--inter" style="align-self:flex-start;margin-bottom:var(--s4)">Intermediar</span>
+          <h3 class="card__title">Restart în Beauty</h3>
+          <p class="course-card__for">Pentru freelancerul care lucrează mult și câștigă puțin</p>
+          <p class="course-card__promise">Îți reconstruiești prețurile, agenda și clientela în 6 module.</p>
+          <ul class="course-card__outcomes"><li>Câștigul real pe oră</li><li>Agenda curățată</li><li>Sistem de retenție</li></ul>
+          <div class="card__foot"><div class="course-card__price"><span class="tbd">[TBD]</span> lei<small>sau 3 rate</small></div>
+          <a class="btn btn--primary btn--wide" href="curs.html" style="margin-top:var(--s4)">Vezi programul</a></div>
+        </article></div>
+        <div class="crsl__slide"><article class="card course-card course-card--placeholder">
+          <span class="badge badge--soon" style="align-self:flex-start;margin-bottom:var(--s4)">În curând</span>
+          <h3 class="card__title">Program pentru saloane</h3>
+          <p class="course-card__for">Pentru salonul cu echipă, dar fără procese</p>
+          <p class="course-card__promise"><span class="tbd">[promisiunea într-o frază]</span></p>
+          <ul class="course-card__outcomes"><li><span class="tbd">[rezultat 1]</span></li><li><span class="tbd">[rezultat 2]</span></li><li><span class="tbd">[rezultat 3]</span></li></ul>
+          <div class="card__foot"><div class="course-card__price"><span class="tbd">[TBD]</span><small>preț de stabilit</small></div></div>
+        </article></div>
+        <div class="crsl__slide"><article class="card course-card course-card--placeholder">
+          <span class="badge badge--entry" style="align-self:flex-start;margin-bottom:var(--s4)">Entry</span>
+          <h3 class="card__title">Program de început</h3>
+          <p class="course-card__for">Pentru cine tocmai a terminat școala</p>
+          <p class="course-card__promise"><span class="tbd">[promisiunea într-o frază]</span></p>
+          <ul class="course-card__outcomes"><li><span class="tbd">[rezultat 1]</span></li><li><span class="tbd">[rezultat 2]</span></li><li><span class="tbd">[rezultat 3]</span></li></ul>
+          <div class="card__foot"><div class="course-card__price"><span class="tbd">[TBD]</span><small>preț de stabilit</small></div></div>
+        </article></div>
+        <div class="crsl__slide"><article class="card course-card course-card--placeholder">
+          <span class="badge badge--adv" style="align-self:flex-start;margin-bottom:var(--s4)">Avansat</span>
+          <h3 class="card__title">Mentorat 1:1</h3>
+          <p class="course-card__for">Doar pe bază de aplicație</p>
+          <p class="course-card__promise">12 luni de lucru direct cu Lore, pe cifrele afacerii tale.</p>
+          <ul class="course-card__outcomes"><li>Sesiuni lunare 1:1</li><li>Plan pe 12 luni</li><li>Acces direct între sesiuni</li></ul>
+          <div class="card__foot"><div class="course-card__price">La cerere<small>preț neafișat, deliberat</small></div>
+          <a class="btn btn--ghost btn--wide" href="#" style="margin-top:var(--s4)">Vezi dacă te califici</a></div>
+        </article></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 4 · CALCULATOR — the interactive lead magnet, in the page -->
+<section class="section" id="calculator">
+  <div class="wrap">
+    <div class="softcard calc">
+      <div>
+        <span class="eyebrow">Instrument gratuit</span>
+        <h2>Câștigul tău real pe oră</h2>
+        <p style="color:var(--ink-soft)">Cifra pe care aproape nimeni nu o calculează corect: cât îți rămâne net pentru fiecare oră petrecută efectiv la scaun, după consumabile și reprogramări.</p>
+        <div class="form-inline" style="margin-top:var(--s5)">
+          <div class="field"><label>Preț serviciu (RON)</label><input value="200" readonly></div>
+          <div class="field"><label>Durată (min)</label><input value="120" readonly></div>
+        </div>
+        <a class="btn btn--primary" href="gratuitati.html" style="margin-top:var(--s4)">Deschide calculatorul</a>
+      </div>
+      <div class="calc__out">
+        <span class="eyebrow" style="color:var(--accent)">Câștigul tău real</span>
+        <div class="calc__big">66</div>
+        <p style="margin:var(--s2) 0 0;font-size:var(--t-small);color:var(--ink-soft)">RON / oră — sub reperul de 90 RON/h</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5 · BEFORE / AFTER -->
+<section class="section section--sand">
+  <div class="wrap" style="text-align:center;margin-bottom:var(--s6)">
+    <span class="eyebrow">Înainte / după</span>
+    <h2>Aceeași agendă, alt rezultat</h2>
+  </div>
+  <div class="wrap">
+    <div class="cmp" data-compare data-reveal="scale">
+      <div class="cmp__layer"><div class="ph ph--warm">ÎNAINTE<br>agendă haotică</div></div>
+      <div class="cmp__layer cmp__layer--after"><div class="ph ph--emerald">DUPĂ<br>agendă cu sistem</div></div>
+      <span class="cmp__tag cmp__tag--l">Înainte</span>
+      <span class="cmp__tag cmp__tag--r">După</span>
+      <input class="cmp__range" type="range" min="0" max="100" value="50" aria-label="Compară înainte și după">
+      <span class="cmp__handle"></span>
+    </div>
+  </div>
+</section>
+
+<!-- 6 · FAQ -->
+<section class="section">
+  <div class="wrap wrap-narrow">
+    <div style="text-align:center;margin-bottom:var(--s6)">
+      <span class="eyebrow">Întrebări frecvente</span>
+      <h2>Ce vrei să știi înainte</h2>
+    </div>
+    <div class="acc">
+      <div class="acc__item" data-open="true"><button class="acc__btn" type="button"><span class="acc__num">01</span>Cât durează?<span class="acc__ico"></span></button>
+        <div class="acc__body">6 module, în ritmul tău. Majoritatea termină în <span class="tbd">[X]</span> săptămâni, cu 2–3 ore pe săptămână.</div></div>
+      <div class="acc__item" data-open="false"><button class="acc__btn" type="button"><span class="acc__num">02</span>Dacă nu am timp acum?<span class="acc__ico"></span></button>
+        <div class="acc__body">Accesul e pe viață, inclusiv la actualizări. Poți începe oricând.</div></div>
+      <div class="acc__item" data-open="false"><button class="acc__btn" type="button"><span class="acc__num">03</span>Există garanție?<span class="acc__ico"></span></button>
+        <div class="acc__body"><span class="tbd">[Fereastra de garanție — de confirmat cu clientul]</span></div></div>
+      <div class="acc__item" data-open="false"><button class="acc__btn" type="button"><span class="acc__num">04</span>Pot plăti în rate?<span class="acc__ico"></span></button>
+        <div class="acc__body">Da — <span class="tbd">[TBD]</span> lei × <span class="tbd">[X]</span> luni, fără dobândă.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 7 · CTA CARD -->
+<section class="section">
+  <div class="wrap wrap-narrow">
+    <div class="cta3">
+      <h2>Nu știi de unde să începi?</h2>
+      <p style="max-width:44ch;margin-inline:auto">Răspunde la 4 întrebări și îți spunem exact ce program are sens pentru tine — și ce poți face în următoarele 30 de zile.</p>
+      <a class="btn btn--onDark" href="quiz.html" style="margin-top:var(--s4)">Începe testul · 2 minute</a>
+    </div>
+  </div>
+</section>
+
+<footer class="ftr3">
+  <div class="wrap">
+    <div class="grid grid-4">
+      <div><h4>Învață</h4><ul><li><a href="#">Programe</a></li><li><a href="#">Mentorat</a></li><li><a href="#">Membership</a></li></ul></div>
+      <div><h4>Explorează</h4><ul><li><a href="#">Podcast</a></li><li><a href="#">Gratuități</a></li><li><a href="#">Test</a></li></ul></div>
+      <div><h4>Conectează-te</h4><ul><li><a href="#">Despre Lore</a></li><li><a href="#">Contact</a></li></ul></div>
+      <div><h4>Legal</h4><ul><li><a href="#">Confidențialitate</a></li><li><a href="#">Termeni</a></li></ul></div>
+    </div>
+    <p style="font-size:var(--t-micro);color:var(--ink-mute);margin-top:var(--s6)">© 2026 Beauty Business · Lore Zagon · Direcția 03 — Soft</p>
+  </div>
+</footer>
+
+<script src="assets/ui.js"></script>
+</body>
+</html>

@@ -19,6 +19,9 @@ A dark demo bar at the top links between all pages. It is mockup chrome only and
 | `podcast.html` | Episode grid | **working tag filter** |
 | `gratuitati.html` | Free resources | **working hourly-earnings calculator** |
 | `blocks.html` | **Gallery of every interactive block** | all of them, with usage notes |
+| `directii.html` | **The five complete design directions** | live scaled previews of each real page |
+| `design-1…5.html` | One full Home per direction — a different layout each | the blocks each direction uses |
+| `teme.html` | The five palettes, side by side | live preview per palette |
 | `admin.html` | Payload admin sketch | tabs, draggable tree-editor nodes |
 
 ## Interactive blocks
@@ -47,6 +50,39 @@ Three rules the blocks follow:
 `assets/tokens.css` is the design system — palette, type scale, and every shared component (buttons, level badges, course card, accordion, testimonial, header, footer). It ports directly into `apps/web/styles/tokens.css` in Phase 2.
 
 `assets/chrome.js` injects the demo bar, site header and footer so the pages stay standalone (`fetch()` of partials is blocked on `file://`).
+
+## Design directions
+
+Two different things live here, and it matters which one you're looking at.
+
+### `directii.html` — five complete designs
+
+Five separate Home pages. Not one layout recoloured: the **blocks move**. Each page has its own header shape, hero composition, section order and choice of interactive blocks. The content is identical across all five on purpose, so the client compares design and not copy.
+
+| | Direction | Palette + style | What is structurally different |
+|---|---|---|---|
+| `design-1.html` | **Editorial** | smarald · serif | Sticky horizontal nav, full-bleed split hero, proof ticker, featured programme behind a curtain reveal, 3-up card grid, testimonial carousel |
+| `design-2.html` | **Swiss** | bleumarin · grotesk | Two-row hairline nav, **no photograph above the fold**, 4-column data band, the catalogue **as a table instead of cards**, sticky-steps method, quotes on rules |
+| `design-3.html` | **Soft** | teracotă · rounded | Floating pill nav, centred hero with the visual *below* the copy, expanding panels, card carousel, the calculator in-page, FAQ accordion, light footer |
+| `design-4.html` | **Couture** | prună · minimal | Centred logo with nav underneath, full-bleed image hero with the headline over it, **no cards anywhere** — the catalogue is a typographic index; mentorat qualifies instead of selling |
+| `design-5.html` | **Bold** | noir · heavy | Boxed logo, headline owns the full width with the image underneath as an offset block, the problem as three oversized numbered panels, 2-up cards with hard shadows, poster quote |
+
+A dark bar at the top of each switches between them. It is mockup chrome and disappears under `?preview=1`, which is how the hub renders its thumbnails.
+
+### The two axes underneath
+
+The five designs are built from two independent token layers, and either can be applied to the *rest* of the mockup (course page, hub, quiz, podcast, free resources) without touching markup:
+
+- **`assets/themes.css` — colour only** (`data-theme`): `smarald`, `teracota`, `pruna`, `bleumarin`, `noir`. Nothing but palette tokens, so a palette can be judged on colour alone. `teme.html` shows all five side by side.
+- **`assets/styles.css` — everything else** (`data-style`): `editorial`, `swiss`, `soft`, `couture`, `bold`. Type pairing, corner radius, how a card is delimited, button shape, section density.
+
+The switcher at the bottom right of every standard page sets both. The choice persists in `localStorage` and can be forced from the URL: `curs.html?theme=pruna&style=couture`.
+
+`assets/theme.js` is the single registry — id, swatches, rationale, structural notes, paired page — and it runs in `<head>` so both attributes are set before first paint (no flash of the wrong design). `directii.html` and `teme.html` are both generated from it, so their spec tables can't drift from what the pages actually are.
+
+`noir` is the only palette that inverts value, so it carries a handful of extra rules for components that hard-code "light text on dark" (`.ftr`, `.mockbar`, `.section--ink`, `.btn--onDark`). Everything else is pure token substitution.
+
+Adding a sixth palette or style = one object in `theme.js` + one block in the matching CSS file. No page edits.
 
 ## Design decisions visible here
 
