@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Beauty Business — Direcții de design (mockup)</title>
+<link rel="stylesheet" href="assets/tokens.css">
+<link rel="stylesheet" href="assets/themes.css">
+<link rel="stylesheet" href="assets/styles.css">
+<link rel="stylesheet" href="assets/ui.css">
+<style>
+  /* page-local: the side-by-side scan strip */
+  .strip { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0; border: var(--line); border-radius: var(--radius-lg); overflow: hidden; }
+  .strip__col { background: var(--canvas); color: var(--ink); padding: var(--s5) var(--s4) var(--s5); display: flex; flex-direction: column; gap: var(--s3); border-left: 1px solid var(--sand-deep); }
+  .strip__col:first-child { border-left: 0; }
+  .strip__col h4 { font-family: var(--display); font-size: 1.05rem; margin: 0; }
+  .strip__col p { font-size: var(--t-micro); color: var(--ink-mute); margin: 0; letter-spacing: .04em; text-transform: uppercase; }
+  .strip__bar { height: 6px; border-radius: 999px; background: var(--accent); }
+  .strip__rule { height: 1px; background: var(--sand-deep); margin: var(--s2) 0; }
+  .strip__price { font-family: var(--display); font-size: 1.15rem; }
+  @media (max-width: 900px) { .strip { grid-template-columns: repeat(2, 1fr); } .strip__col { border-left: 1px solid var(--sand-deep); border-top: 1px solid var(--sand-deep); } }
+  @media (max-width: 560px) { .strip { grid-template-columns: 1fr; } }
+
+  .band { padding: var(--s5) var(--s6); display: flex; align-items: center; gap: var(--s5); flex-wrap: wrap; }
+  .band p { margin: 0; font-size: var(--t-small); }
+  .band .btn { margin-left: auto; }
+  .mini-hero h3 { font-family: var(--display); font-size: clamp(1.6rem, 2.6vw, 2.2rem); margin: 0 0 var(--s4); line-height: 1.1; }
+</style>
+<script src="assets/theme.js"></script>
+</head>
+<body data-page="teme">
+<div id="chrome-top"></div>
+
+<!-- ═════════════════════════════════ INTRO ═════════════════════════════ -->
+<section class="section section--tight">
+  <div class="wrap">
+    <span class="eyebrow eyebrow--accent">Decizie de brand · pentru client</span>
+    <h1>Cinci direcții de culoare, aceeași structură</h1>
+    <p class="lede">Structura paginilor, scara tipografică, grila și toate blocurile interactive sunt identice în toate cele cinci. Se schimbă <strong>doar paleta</strong>, ca direcția să poată fi judecată pe culoare, nu pe layout. Alegerea se face o dată; după ea, restul site-ului nu se redesenează.</p>
+
+    <div class="note">
+      <strong>Cum se testează.</strong> Butoanele de sub fiecare direcție deschid Home-ul și pagina de curs în tema respectivă. Pe orice pagină din mockup există un selector rotund în colțul din dreapta-jos care schimbă direcția instant; alegerea se ține minte între pagini. Se poate forța și din URL: <code>index.html?theme=pruna</code>.
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════ SCAN STRIP ═══════════════════════════ -->
+<section class="section section--tight" style="padding-top:0">
+  <div class="wrap">
+    <h2>Comparație directă</h2>
+    <p class="lede" style="margin-bottom:var(--s5)">Același card, de cinci ori. Prima citire — cea de la doi metri distanță — se face aici.</p>
+    <div class="strip" id="strip"></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ DIRECTION DETAIL ════════════════════════ -->
+<section class="section" style="padding-top:var(--s6)">
+  <div class="wrap">
+    <h2>Direcțiile, în detaliu</h2>
+    <p class="lede" style="margin-bottom:var(--s6)">Fiecare bloc de mai jos este randat în propria paletă: eyebrow, titlu, lede, butoane, badge-uri de nivel, card de curs, bandă de accent și callout — adică exact componentele care poartă culoarea pe tot site-ul.</p>
+    <div id="dirs"></div>
+  </div>
+</section>
+
+<!-- ════════════════════════════ RECOMMENDATION ═════════════════════════ -->
+<section class="section section--sand">
+  <div class="wrap wrap-narrow">
+    <span class="eyebrow eyebrow--accent">Recomandare</span>
+    <h2>Ce aș alege și de ce</h2>
+    <p><strong>Smarald (01)</strong> rămâne alegerea implicită: e singura direcție care leagă vizual de nailart-studio.ro <em>și</em> se desprinde de beauty-ul de consum. Dacă platforma trebuie să arate clar că vinde educație de business, nu servicii, verdele face treaba fără explicații.</p>
+    <p><strong>Prună (03)</strong> e alternativa serioasă dacă prioritatea e poziționarea premium — mentorat cu preț neafișat, consultanță 1:1. Vinul profund suportă prețuri mari mai bine decât verdele.</p>
+    <p><strong>Noir (05)</strong> merită testat doar dacă există buget de fotografie făcută pentru fundal închis. Fără el, arată bine pe Home și obosește pe pagina de curs, unde textul e lung.</p>
+    <p style="margin-bottom:0"><strong>Teracotă (02)</strong> și <strong>Bleumarin (04)</strong> sunt cele două extreme utile de arătat clientului: una prea aproape de salon, cealaltă prea aproape de bancă. Sunt aici ca să calibreze discuția, nu neapărat ca să câștige.</p>
+  </div>
+</section>
+
+<div id="chrome-foot"></div>
+
+<script src="assets/chrome.js"></script>
+<script src="assets/ui.js"></script>
+<script>
+/* The gallery is generated from the BBTheme registry so a new direction means
+   adding one object in assets/theme.js plus one block in assets/themes.css —
+   never editing this page. */
+(function () {
+  var T = BBDesign.THEMES;
+
+  /* readable label colour on an arbitrary swatch */
+  function onColor(hex) {
+    var c = hex.replace('#', '');
+    if (c.length === 3) c = c[0]+c[0]+c[1]+c[1]+c[2]+c[2];
+    var f = function (v) { v /= 255; return v <= .03928 ? v/12.92 : Math.pow((v+.055)/1.055, 2.4); };
+    var L = .2126*f(parseInt(c.substr(0,2),16)) + .7152*f(parseInt(c.substr(2,2),16)) + .0722*f(parseInt(c.substr(4,2),16));
+    return L > .45 ? '#14110F' : '#FFFFFF';
+  }
+
+  /* ---------------------------------------------------------- scan strip */
+  document.getElementById('strip').innerHTML = T.map(function (t) {
+    return '' +
+      '<div class="strip__col" data-theme="' + t.id + '">' +
+        '<span class="badge badge--inter">Intermediar</span>' +
+        '<h4>Restart în Beauty</h4>' +
+        '<p>' + t.name + '</p>' +
+        '<div class="strip__bar"></div>' +
+        '<div class="strip__rule"></div>' +
+        '<div class="strip__price">[TBD] lei</div>' +
+        '<a class="btn btn--primary btn--sm" href="index.html?theme=' + t.id + '">Vezi tot site-ul</a>' +
+      '</div>';
+  }).join('');
+
+  /* ------------------------------------------------------ detail blocks */
+  document.getElementById('dirs').innerHTML = T.map(function (t) {
+    var chips = t.swatches.map(function (s) {
+      return '<div class="sw__chip" style="background:' + s[1] + ';color:' + onColor(s[1]) + '">' +
+        '<b>' + s[0] + '</b>' + s[1] + '</div>';
+    }).join('');
+
+    return '' +
+    '<section class="dir" data-theme="' + t.id + '">' +
+
+      '<div class="dir__head">' +
+        '<div class="dir__num">' + t.num + '</div>' +
+        '<div>' +
+          '<span class="eyebrow eyebrow--accent" style="margin-bottom:.25rem">' + t.tagline + '</span>' +
+          '<h3 class="dir__name">' + t.name + '</h3>' +
+          '<p class="dir__why">' + t.why + '</p>' +
+        '</div>' +
+        '<div class="dir__act">' +
+          '<a class="btn btn--ghost btn--sm" href="index.html?theme=' + t.id + '">Home ↗</a>' +
+          '<a class="btn btn--ghost btn--sm" href="curs.html?theme=' + t.id + '">Pagină curs ↗</a>' +
+          '<a class="btn btn--primary btn--sm" href="freelanceri.html?theme=' + t.id + '">Hub ↗</a>' +
+        '</div>' +
+      '</div>' +
+
+      '<div class="sw">' + chips + '</div>' +
+
+      '<div class="dir__body">' +
+        '<div class="dir__preview">' +
+
+          /* left — hero register + controls */
+          '<div class="mini-hero">' +
+            '<span class="eyebrow">Educație de business pentru industria beauty</span>' +
+            '<h3>Ai talentul.<br>Îți lipsește <em style="color:var(--accent);font-style:normal">sistemul</em>.</h3>' +
+            '<p style="color:var(--ink-soft);max-width:46ch">Programe, mentorat și resurse pentru freelanceri și proprietari de salon — construite pe 22 de ani de practică reală.</p>' +
+            '<div style="display:flex;gap:var(--s3);flex-wrap:wrap;margin:var(--s5) 0">' +
+              '<a class="btn btn--primary" href="#">Explorează programele</a>' +
+              '<a class="btn btn--ghost" href="#">Fă testul</a>' +
+            '</div>' +
+            '<div style="display:flex;gap:var(--s2);flex-wrap:wrap;margin-bottom:var(--s5)">' +
+              '<span class="badge badge--entry">Entry</span>' +
+              '<span class="badge badge--inter">Intermediar</span>' +
+              '<span class="badge badge--adv">Avansat</span>' +
+              '<span class="badge badge--soon">În curând</span>' +
+              '<span class="badge badge--meta">6 module</span>' +
+            '</div>' +
+            '<div class="tst">' +
+              '<div class="tst__metric">+30%</div>' +
+              '<p class="tst__quote" style="margin:0">„Am crescut prețurile cu 30% și nu am pierdut niciun client.”</p>' +
+              '<div class="tst__who"><div class="ph ph--round" style="width:40px;height:40px">1:1</div>' +
+                '<div><div class="tst__name">[Nume]</div><div class="tst__role">Hair stylist · Cluj</div></div></div>' +
+            '</div>' +
+          '</div>' +
+
+          /* right — the standardized course card */
+          '<div class="card course-card">' +
+            '<span class="badge badge--inter" style="align-self:flex-start;margin-bottom:var(--s4)">Intermediar</span>' +
+            '<h4 class="card__title course-card__title" style="margin-bottom:var(--s2)">Restart în Beauty</h4>' +
+            '<p class="course-card__for">Pentru freelancerul care lucrează mult și câștigă puțin</p>' +
+            '<p class="course-card__promise">Îți reconstruiești prețurile, agenda și clientela în 6 module.</p>' +
+            '<ul class="course-card__outcomes">' +
+              '<li>Îți calculezi prețul real pe oră</li>' +
+              '<li>Îți cureți agenda de clienții care te costă</li>' +
+              '<li>Îți construiești un sistem de rezervări</li>' +
+            '</ul>' +
+            '<div class="card__foot" style="padding-top:0">' +
+              '<div class="course-card__price">[TBD] lei<small>sau 3 rate</small></div>' +
+              '<a class="btn btn--primary btn--wide" href="#" style="margin-top:var(--s4)">Vezi programul</a>' +
+            '</div>' +
+          '</div>' +
+
+        '</div>' +
+
+        /* the two inverted bands + the review callout */
+        '<div class="band section--accent" style="margin-top:var(--s6);border-radius:var(--radius-lg)">' +
+          '<div><span class="eyebrow">Bandă de accent</span>' +
+          '<p>Folosită pentru CTA-uri de secțiune și pentru mentorat.</p></div>' +
+          '<a class="btn btn--onDark" href="#">Aplică la mentorat</a>' +
+        '</div>' +
+        '<div class="band section--ink" style="margin-top:var(--s4);border-radius:var(--radius-lg)">' +
+          '<div><span class="eyebrow">Bandă închisă</span>' +
+          '<p>Footer, secțiunea „Despre Lore”, playerul de podcast.</p></div>' +
+          '<a class="btn btn--onDark" href="#">Ascultă episodul</a>' +
+        '</div>' +
+        '<div class="note" style="margin-bottom:0">' +
+          '<strong>Callout de review.</strong> Text cu <span class="tbd">[TBD]</span> și un ' +
+          '<a href="#">link inline</a>, ca să se vadă cum se comportă accentul în corpul de text.' +
+        '</div>' +
+      '</div>' +
+    '</section>';
+  }).join('');
+
+  if (window.UI && UI.init) UI.init();
+})();
+</script>
+</body>
+</html>

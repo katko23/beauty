@@ -12,6 +12,8 @@
     { id: 'podcast',    href: 'podcast.html',     label: 'Podcast' },
     { id: 'gratuitati', href: 'gratuitati.html',  label: 'Gratuități' },
     { id: 'blocks',     href: 'blocks.html',      label: 'Blocuri ✦' },
+    { id: 'directii',   href: 'directii.html',    label: 'Direcții ✦✦' },
+    { id: 'teme',       href: 'teme.html',        label: 'Culori ✦' },
     { id: 'admin',      href: 'admin.html',       label: 'Admin' }
   ];
 
@@ -101,6 +103,54 @@
 
   var foot = document.getElementById('chrome-foot');
   if (foot) foot.outerHTML = footer;
+
+  /* ---- design switcher (mockup chrome only) ----------------------------
+     Two axes: palette and style. Floating pill, bottom right. Skipped on the
+     gallery pages, which show every option at once. */
+  if (typeof BBDesign !== 'undefined' &&
+      !document.body.hasAttribute('data-no-theme-switcher')) {
+
+    function axisHTML(axis, label, render) {
+      return '<span class="tsw__axis"><span class="tsw__lbl">' + label + '</span>' +
+        '<span class="tsw__opts">' +
+          BBDesign[axis === 'theme' ? 'THEMES' : 'STYLES'].map(function (o) {
+            return render(o, o.id === BBDesign.current(axis));
+          }).join('') +
+        '</span></span>';
+    }
+
+    var sw = document.createElement('div');
+    sw.className = 'tsw';
+    sw.setAttribute('role', 'group');
+    sw.setAttribute('aria-label', 'Direcție de design');
+    sw.innerHTML =
+      axisHTML('theme', 'Culoare', function (t, on) {
+        return '<button type="button" class="tsw__opt" data-axis="theme" data-id="' + t.id + '"' +
+          ' title="' + t.name + ' — ' + t.tagline + '" aria-label="' + t.name + '"' +
+          ' aria-pressed="' + on + '"' +
+          ' style="background:' + t.accent + ';--sw-canvas:' + t.canvas + '"></button>';
+      }) +
+      axisHTML('style', 'Stil', function (st, on) {
+        return '<button type="button" class="tsw__txt" data-axis="style" data-id="' + st.id + '"' +
+          ' title="' + st.name + ' — ' + st.tagline + '" aria-pressed="' + on + '">' +
+          st.num + '</button>';
+      }) +
+      '<a class="tsw__more" href="directii.html">direcții ↗</a>';
+
+    sw.addEventListener('click', function (e) {
+      var b = e.target.closest('[data-axis]');
+      if (!b) return;
+      BBDesign.apply(b.getAttribute('data-axis'), b.getAttribute('data-id'));
+    });
+
+    document.addEventListener('bb:design', function (e) {
+      sw.querySelectorAll('[data-axis="' + e.detail.axis + '"]').forEach(function (b) {
+        b.setAttribute('aria-pressed', b.getAttribute('data-id') === e.detail.id);
+      });
+    });
+
+    document.body.appendChild(sw);
+  }
 
   /* accordion behaviour, used by the course page */
   document.addEventListener('click', function (e) {

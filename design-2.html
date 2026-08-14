@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="ro" data-theme="bleumarin" data-style="swiss">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Direcția 02 — Swiss · Beauty Business</title>
+<link rel="stylesheet" href="assets/tokens.css">
+<link rel="stylesheet" href="assets/themes.css">
+<link rel="stylesheet" href="assets/styles.css">
+<link rel="stylesheet" href="assets/ui.css">
+<style>
+  /* ── layout decisions specific to this direction ──────────────────────
+     The grid IS the decoration. Two-row header with hairlines, a hero with
+     NO photograph (type and data only), and the catalogue as a table rather
+     than a card grid — the block the client will react to most. */
+  .nav2 { position: sticky; top: 0; z-index: 40; background: var(--canvas); border-bottom: 1px solid var(--ink); }
+  .nav2__top { display: flex; align-items: center; justify-content: space-between; padding-block: var(--s4); }
+  .nav2__logo { font-weight: 700; letter-spacing: -.03em; font-size: 1.1rem; text-decoration: none; color: var(--ink); }
+  .nav2__meta { font-size: var(--t-micro); letter-spacing: .08em; text-transform: uppercase; color: var(--ink-mute); }
+  .nav2__row { display: flex; border-top: 1px solid var(--sand-deep); }
+  .nav2__row a {
+    flex: 1; padding: .7rem 0; font-size: var(--t-small); text-decoration: none; color: var(--ink);
+    border-left: 1px solid var(--sand-deep);
+  }
+  .nav2__row a:first-child { border-left: 0; }
+  .nav2__row a:hover { background: var(--accent); color: var(--canvas); }
+  @media (max-width: 760px) { .nav2__row { display: none; } }
+
+  /* hero: 8-col type block + 4-col meta rail */
+  .hero2 { display: grid; grid-template-columns: 2fr 1fr; gap: var(--s7); align-items: end; padding-block: var(--s9) var(--s7); }
+  .hero2__rail { border-left: 1px solid var(--ink); padding-left: var(--s5); font-size: var(--t-small); }
+  .hero2__rail dl { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: .35rem var(--s4); }
+  .hero2__rail dt { color: var(--ink-mute); }
+  .hero2__rail dd { margin: 0; font-weight: 600; }
+  @media (max-width: 900px) { .hero2 { grid-template-columns: 1fr; } .hero2__rail { border-left: 0; border-top: 1px solid var(--ink); padding: var(--s4) 0 0; } }
+
+  /* data band, divided by hairlines */
+  .band4 { display: grid; grid-template-columns: repeat(4, 1fr); border-block: 1px solid var(--ink); }
+  .band4 > div { padding: var(--s6) var(--s5); border-left: 1px solid var(--sand-deep); }
+  .band4 > div:first-child { border-left: 0; }
+  .band4 .count { font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 600; letter-spacing: -.04em; line-height: 1; }
+  .band4 .count-label { font-size: var(--t-small); color: var(--ink-mute); margin-top: var(--s2); }
+  @media (max-width: 760px) { .band4 { grid-template-columns: repeat(2, 1fr); } }
+
+  /* the catalogue as a table */
+  .tbl { width: 100%; border-collapse: collapse; font-size: var(--t-small); }
+  .tbl th {
+    text-align: left; font-weight: 600; text-transform: uppercase; letter-spacing: .08em;
+    font-size: var(--t-micro); color: var(--ink-mute); padding: var(--s3) var(--s4) var(--s3) 0;
+    border-bottom: 1px solid var(--ink);
+  }
+  .tbl td { padding: var(--s5) var(--s4) var(--s5) 0; border-bottom: 1px solid var(--sand-deep); vertical-align: top; }
+  .tbl tr:hover td { background: var(--accent-wash); }
+  .tbl__name { font-size: 1.15rem; font-weight: 600; letter-spacing: -.02em; }
+  .tbl__for { color: var(--ink-mute); }
+  .tbl__n { color: var(--ink-mute); font-variant-numeric: tabular-nums; width: 3rem; }
+  .tbl__go { text-align: right; white-space: nowrap; }
+  @media (max-width: 900px) { .tbl thead { display: none; } .tbl td { display: block; padding: .2rem 0; border: 0; } .tbl tr { display: block; padding-block: var(--s5); border-bottom: 1px solid var(--sand-deep); } }
+
+  .quotes3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s6); }
+  .quotes3 > div { border-top: 2px solid var(--accent); padding-top: var(--s4); }
+  .quotes3 .m { font-size: 2rem; font-weight: 600; letter-spacing: -.04em; }
+  @media (max-width: 900px) { .quotes3 { grid-template-columns: 1fr; } }
+
+  .eplist { list-style: none; padding: 0; margin: 0; border-top: 1px solid var(--ink); }
+  .eplist li { display: grid; grid-template-columns: 3rem 1fr auto; gap: var(--s4); padding: var(--s4) 0; border-bottom: 1px solid var(--sand-deep); align-items: baseline; }
+  .eplist b { color: var(--ink-mute); font-variant-numeric: tabular-nums; }
+  .eplist span:last-child { font-size: var(--t-small); color: var(--ink-mute); }
+</style>
+<script src="assets/dbar.js" defer></script>
+</head>
+<body>
+
+<header class="nav2">
+  <div class="wrap">
+    <div class="nav2__top">
+      <a class="nav2__logo" href="#">beautybusiness.ro</a>
+      <span class="nav2__meta">România · Moldova · diaspora</span>
+    </div>
+  </div>
+  <nav class="wrap nav2__row">
+    <a href="#programe">Programe</a><a href="#">Mentorat</a><a href="#">Membership</a>
+    <a href="#">Consultanță</a><a href="#podcast">Podcast</a><a href="#">Gratuități</a><a href="#">Cont</a>
+  </nav>
+</header>
+
+<!-- 1 · HERO — type and data only, no photograph above the fold -->
+<section class="wrap hero2">
+  <div class="rise">
+    <span class="eyebrow">01 — Educație de business pentru industria beauty</span>
+    <h1 style="font-size:var(--t-hero);margin-top:var(--s4)">Ai talentul.<br>Îți lipsește sistemul.</h1>
+    <div style="display:flex;gap:var(--s3);flex-wrap:wrap;margin-top:var(--s6)">
+      <a class="btn btn--primary" href="#programe">Vezi programele</a>
+      <a class="btn btn--ghost" href="quiz.html">Care mi se potrivește?</a>
+    </div>
+  </div>
+  <div class="hero2__rail rise rise--2">
+    <dl>
+      <dt>Audiență</dt><dd>Freelanceri &amp; saloane</dd>
+      <dt>Limbi</dt><dd>RO · RU</dd>
+      <dt>Format</dt><dd>Online, acces pe viață</dd>
+      <dt>Platformă</dt><dd>GetCourse</dd>
+      <dt>Experiență</dt><dd>22 de ani în industrie</dd>
+    </dl>
+  </div>
+</section>
+
+<!-- 2 · DATA BAND -->
+<section class="wrap">
+  <div class="band4">
+    <div data-reveal><div class="count" data-count="22" data-count-suffix="+"></div><div class="count-label">ani în industrie</div></div>
+    <div data-reveal><div class="count" data-count="6"></div><div class="count-label">module în Restart</div></div>
+    <div data-reveal><div class="count" data-count="47"></div><div class="count-label">episoade de podcast</div></div>
+    <div data-reveal><div class="count" data-count="98" data-count-suffix="%"></div><div class="count-label">ar recomanda programul</div></div>
+  </div>
+</section>
+
+<!-- 3 · PHOTOGRAPHY BAND — the image arrives after the argument, not before -->
+<section class="wrap section section--tight">
+  <div class="ph" style="min-height:0;aspect-ratio:21/9">Fotografie de context · atelier / cabinet · crop 16:9 · full-bleed pe grilă</div>
+</section>
+
+<!-- 4 · CATALOGUE AS A TABLE -->
+<section class="section" id="programe">
+  <div class="wrap">
+    <span class="eyebrow">02 — Catalog</span>
+    <h2 style="margin-top:var(--s4);max-width:24ch">Programele, comparabile pe aceeași linie</h2>
+    <p class="lede" style="margin-bottom:var(--s6)">Un tabel, nu o grilă de carduri: nivelul, audiența și durata se citesc pe verticală, așa că alegerea se face din trei secunde de scanare.</p>
+    <table class="tbl">
+      <thead><tr><th>Nr</th><th>Program</th><th>Pentru cine</th><th>Nivel</th><th>Durată</th><th>Preț</th><th></th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="tbl__n">01</td>
+          <td><span class="tbl__name">Restart în Beauty</span><br><span class="tbl__for">Prețuri, agendă, retenție</span></td>
+          <td class="tbl__for">Freelancer cu clienți activi</td>
+          <td><span class="badge badge--inter">Intermediar</span></td>
+          <td>6 module</td>
+          <td><span class="tbd">[TBD]</span> lei</td>
+          <td class="tbl__go"><a class="link-arrow" href="curs.html">Detalii →</a></td>
+        </tr>
+        <tr>
+          <td class="tbl__n">02</td>
+          <td><span class="tbl__name"><span class="tbd">[Nume program]</span></span><br><span class="tbl__for">Procese și echipă</span></td>
+          <td class="tbl__for">Proprietar de salon</td>
+          <td><span class="badge badge--adv">Avansat</span></td>
+          <td><span class="tbd">[X]</span> module</td>
+          <td><span class="tbd">[TBD]</span></td>
+          <td class="tbl__go"><span class="badge badge--soon">În curând</span></td>
+        </tr>
+        <tr>
+          <td class="tbl__n">03</td>
+          <td><span class="tbl__name"><span class="tbd">[Nume program]</span></span><br><span class="tbl__for">Primii clienți</span></td>
+          <td class="tbl__for">Proaspăt absolvent</td>
+          <td><span class="badge badge--entry">Entry</span></td>
+          <td><span class="tbd">[X]</span> module</td>
+          <td><span class="tbd">[TBD]</span></td>
+          <td class="tbl__go"><span class="badge badge--soon">În curând</span></td>
+        </tr>
+        <tr>
+          <td class="tbl__n">04</td>
+          <td><span class="tbl__name">Mentorat 1:1</span><br><span class="tbl__for">12 luni, capacitate limitată</span></td>
+          <td class="tbl__for">Doar pe bază de aplicație</td>
+          <td><span class="badge badge--adv">Avansat</span></td>
+          <td>12 luni</td>
+          <td>La cerere</td>
+          <td class="tbl__go"><a class="link-arrow" href="#">Aplică →</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- 5 · METHOD — sticky steps -->
+<section class="section section--sand">
+  <div class="wrap">
+    <span class="eyebrow">03 — Metodă</span>
+    <h2 style="margin-top:var(--s4)">Cum funcționează, modul cu modul</h2>
+    <div class="sticky-steps" data-sticky-steps style="margin-top:var(--s7)">
+      <div class="sticky-steps__visual">
+        <div class="ph" data-ratio="4:5" data-step-visual>Vizual modul 1</div>
+        <span class="sticky-steps__badge" data-step-label>Unde pierzi banii</span>
+      </div>
+      <div>
+        <div class="step" data-step-name="Unde pierzi banii" data-step-visual-text="Vizual modul 1">
+          <div class="step__n">Modul 01</div><h3>Unde pierzi banii</h3>
+          <p style="color:var(--ink-soft)">Descompui fiecare serviciu: timp real, consumabile, timp neplătit. Ieși cu câștigul net pe oră pentru fiecare lucrare din meniu.</p>
+        </div>
+        <div class="step" data-step-name="Grila de prețuri" data-step-visual-text="Vizual modul 2">
+          <div class="step__n">Modul 02</div><h3>Grila de prețuri</h3>
+          <p style="color:var(--ink-soft)">Construiești prețul pornind de la venitul țintă și capacitatea reală — nu de la ce face salonul de vizavi.</p>
+        </div>
+        <div class="step" data-step-name="Comunicarea creșterii" data-step-visual-text="Vizual modul 3">
+          <div class="step__n">Modul 03</div><h3>Comunicarea creșterii</h3>
+          <p style="color:var(--ink-soft)">Scripturi pentru mesaj, pentru cabinet și pentru obiecții. Fără scuze și fără pierderea relației.</p>
+        </div>
+        <div class="step" data-step-name="Sistemul de retenție" data-step-visual-text="Vizual modul 4">
+          <div class="step__n">Modul 04</div><h3>Sistemul de retenție</h3>
+          <p style="color:var(--ink-soft)">Rebooking înainte ca clienta să iasă pe ușă, urmărire la 48h, reactivarea celor pierdute.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6 · EVIDENCE — three columns, rules instead of cards -->
+<section class="section">
+  <div class="wrap">
+    <span class="eyebrow">04 — Rezultate</span>
+    <h2 style="margin-top:var(--s4);margin-bottom:var(--s6)">Cifre raportate de absolvenți</h2>
+    <div class="quotes3">
+      <div><div class="m">+30%</div><p style="color:var(--ink-soft)">„Am crescut prețul și nu am pierdut nicio clientă.”</p><p style="font-size:var(--t-small);color:var(--ink-mute);margin:0"><span class="tbd">[Nume]</span> · lash artist · Cluj</p></div>
+      <div><div class="m">82%</div><p style="color:var(--ink-soft)">„Rata de revenire, după sistemul din modulul 4.”</p><p style="font-size:var(--t-small);color:var(--ink-mute);margin:0"><span class="tbd">[Nume]</span> · freelancer · Chișinău</p></div>
+      <div><div class="m">−9h</div><p style="color:var(--ink-soft)">„Pe săptămână. Aceeași cifră, mai puține ore la scaun.”</p><p style="font-size:var(--t-small);color:var(--ink-mute);margin:0"><span class="tbd">[Nume]</span> · nail artist · Iași</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 7 · PODCAST — numbered index -->
+<section class="section section--sand" id="podcast">
+  <div class="wrap">
+    <span class="eyebrow">05 — Podcast</span>
+    <h2 style="margin-top:var(--s4);margin-bottom:var(--s6)">Ultimele episoade</h2>
+    <ol class="eplist">
+      <li><b>47</b><span>Cum îți crești prețul fără să pierzi clientele</span><span>RO · 38 min</span></li>
+      <li><b>46</b><span>Salon cu echipă: primele trei procese</span><span>RO · 44 min</span></li>
+      <li><b>45</b><span>De ce agenda plină nu înseamnă profit</span><span>RU · 41 min</span></li>
+      <li><b>44</b><span>Consumabilele care îți mănâncă marja</span><span>RO · 29 min</span></li>
+    </ol>
+    <a class="link-arrow" href="podcast.html" style="display:inline-block;margin-top:var(--s5)">Toate episoadele →</a>
+  </div>
+</section>
+
+<!-- 8 · CTA BAND -->
+<section class="section section--accent section--tight">
+  <div class="wrap" style="display:flex;align-items:center;gap:var(--s6);flex-wrap:wrap">
+    <div>
+      <span class="eyebrow">2 minute · fără email obligatoriu</span>
+      <h2 style="margin:var(--s3) 0 0">Nu știi de unde să începi?</h2>
+    </div>
+    <a class="btn btn--onDark" href="quiz.html" style="margin-left:auto">Începe testul</a>
+  </div>
+</section>
+
+<footer class="ftr">
+  <div class="wrap">
+    <div class="grid grid-4">
+      <div><h4>Învață</h4><ul><li><a href="#">Programe</a></li><li><a href="#">Mentorat</a></li><li><a href="#">Membership</a></li></ul></div>
+      <div><h4>Explorează</h4><ul><li><a href="#">Podcast</a></li><li><a href="#">Gratuități</a></li><li><a href="#">Test</a></li></ul></div>
+      <div><h4>Conectează-te</h4><ul><li><a href="#">Despre Lore</a></li><li><a href="#">Contact</a></li></ul></div>
+      <div><h4>Legal</h4><ul><li><a href="#">Confidențialitate</a></li><li><a href="#">Termeni</a></li></ul></div>
+    </div>
+    <p class="ftr__legal">© 2026 Beauty Business · Lore Zagon · Direcția 02 — Swiss</p>
+  </div>
+</footer>
+
+<script src="assets/ui.js"></script>
+</body>
+</html>

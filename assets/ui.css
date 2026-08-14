@@ -16,10 +16,12 @@
   background: repeating-linear-gradient(135deg, #2A2622 0 10px, #3A3430 10px 20px);
   color: var(--taupe); border-color: #4A423C;
 }
+/* named .ph--emerald for historical reasons; it follows the active accent */
 .ph--emerald {
-  background: repeating-linear-gradient(135deg, #21584A 0 10px, #1B4A3E 10px 20px);
-  color: #A9C9BE; border-color: #2E7D66;
+  background: repeating-linear-gradient(135deg, var(--accent) 0 10px, var(--accent-hi) 10px 20px);
+  color: var(--accent-wash); border-color: var(--accent-hi);
 }
+[data-theme="noir"] .ph--emerald { color: #1A1310; }
 
 /* ═══════════════════════════════════════════════════ 1. SCROLL REVEAL ══ */
 .ui-js [data-reveal] {

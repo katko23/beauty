@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="ro" data-theme="smarald" data-style="editorial">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cinci direcții de design — Beauty Business</title>
+<link rel="stylesheet" href="assets/tokens.css">
+<link rel="stylesheet" href="assets/themes.css">
+<link rel="stylesheet" href="assets/styles.css">
+<link rel="stylesheet" href="assets/ui.css">
+<style>
+  .dcard {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+    border: var(--line); border-radius: var(--radius-lg);
+    overflow: hidden; margin-bottom: var(--s7); background: var(--white);
+  }
+  .dcard__shot { position: relative; background: var(--sand); overflow: hidden; min-height: 420px; }
+  /* live preview: the real page, rendered at 1440px and scaled down */
+  .dcard__shot iframe {
+    position: absolute; top: 0; left: 0;
+    width: 1440px; height: 1900px; border: 0;
+    transform: scale(.42); transform-origin: top left;
+    pointer-events: none;
+  }
+  .dcard__shot a {
+    position: absolute; inset: 0; z-index: 2;
+    display: block; background: transparent;
+  }
+  .dcard__shot::after {
+    content: "Deschide direcția ↗";
+    position: absolute; z-index: 3; left: var(--s4); bottom: var(--s4);
+    background: var(--ink); color: var(--canvas);
+    font-size: var(--t-micro); letter-spacing: .1em; text-transform: uppercase;
+    padding: .4rem .7rem; border-radius: var(--radius);
+    opacity: 0; transition: opacity .18s ease; pointer-events: none;
+  }
+  .dcard__shot:hover::after { opacity: 1; }
+  .dcard__body { padding: var(--s7); }
+  .dcard__num { font-family: var(--display); font-size: 2.4rem; line-height: 1; color: var(--accent); }
+  .dcard__swatch { display: flex; gap: 0; margin: var(--s4) 0 var(--s5); }
+  .dcard__swatch i { display: block; width: 28px; height: 28px; }
+  .spec { width: 100%; border-collapse: collapse; font-size: var(--t-small); margin-block: var(--s5); }
+  .spec th, .spec td { text-align: left; padding: .45rem 0; border-bottom: var(--line); vertical-align: top; }
+  .spec th { width: 8.5rem; color: var(--ink-mute); font-weight: 500; }
+  .risk { font-size: var(--t-small); color: var(--ink-soft); border-left: 2px solid var(--taupe); padding-left: var(--s4); }
+  @media (max-width: 1000px) {
+    .dcard { grid-template-columns: 1fr; }
+    .dcard__shot { min-height: 300px; }
+    .dcard__shot iframe { transform: scale(.3); }
+  }
+</style>
+<script src="assets/theme.js"></script>
+</head>
+<body data-page="directii" data-no-theme-switcher>
+<div id="chrome-top"></div>
+
+<section class="section section--tight">
+  <div class="wrap">
+    <span class="eyebrow eyebrow--accent">Decizie de brand · pentru client</span>
+    <h1>Cinci direcții de design</h1>
+    <p class="lede">Nu cinci variante de culoare — cinci pagini de Home construite diferit. Se schimbă paleta, tipografia, forma componentelor <strong>și ordinea blocurilor</strong>: unde stă fotografia, dacă programele apar ca grilă de carduri sau ca tabel, dacă pagina vinde prin densitate sau prin aer.</p>
+    <div class="note">
+      <strong>Conținutul e identic în toate cinci.</strong> Aceleași texte, aceleași cifre, aceleași <span class="tbd">[TBD]</span>-uri. Singura variabilă e designul, ca să nu se compare copy-ul din greșeală. Previzualizările de mai jos sunt paginile reale, randate la scară — click pe oricare o deschide întreagă.
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top:0">
+  <div class="wrap" id="cards"></div>
+</section>
+
+<section class="section section--sand">
+  <div class="wrap wrap-narrow">
+    <span class="eyebrow eyebrow--accent">Cum se alege</span>
+    <h2>Trei întrebări care decid</h2>
+    <p><strong>1. Cine trebuie să se simtă acasă pe site?</strong> Freelancerul care se uită pe telefon între cliente (03 Soft), sau proprietarul de salon care compară programe la laptop (02 Swiss)?</p>
+    <p><strong>2. Cât de aproape stăm de nailart-studio.ro?</strong> 01 Editorial păstrează legătura cu brandul-soră. 04 Couture și 05 Bold o rup deliberat.</p>
+    <p><strong>3. Cât buget de fotografie există?</strong> 04 și 05 cad fără fotografie bună — hero-ul lor e imaginea. 02 Swiss funcționează și cu fotografie puțină, pentru că argumentul îl duce tipografia.</p>
+    <p style="margin-bottom:0">Direcția aleasă se aplică o dată, în tokens. Restul mockup-ului (pagina de curs, hub, quiz, podcast, gratuități) o preia fără redesign — cele două axe, culoare și stil, se pot combina și separat din <a href="teme.html">pagina de culori</a>.</p>
+  </div>
+</section>
+
+<div id="chrome-foot"></div>
+
+<script src="assets/chrome.js"></script>
+<script src="assets/ui.js"></script>
+<script>
+/* Built from the same registry the pages themselves use, so the spec table
+   can never drift from what the direction actually is. */
+(function () {
+  var themeById = {};
+  BBDesign.THEMES.forEach(function (t) { themeById[t.id] = t; });
+
+  document.getElementById('cards').innerHTML = BBDesign.STYLES.map(function (s) {
+    var t = themeById[s.theme];
+    var swatch = t.swatches.map(function (w) {
+      return '<i style="background:' + w[1] + '"></i>';
+    }).join('');
+    var spec = Object.keys(s.traits).map(function (k) {
+      return '<tr><th>' + k + '</th><td>' + s.traits[k] + '</td></tr>';
+    }).join('');
+
+    return '' +
+    '<article class="dcard">' +
+      '<div class="dcard__shot">' +
+        '<iframe src="' + s.page + '?preview=1" title="Previzualizare ' + s.name + '" loading="lazy" scrolling="no" tabindex="-1"></iframe>' +
+        '<a href="' + s.page + '" aria-label="Deschide direcția ' + s.name + '"></a>' +
+      '</div>' +
+      '<div class="dcard__body">' +
+        '<div class="dcard__num">' + s.num + '</div>' +
+        '<h2 style="margin-bottom:var(--s2)">' + s.name + '</h2>' +
+        '<p style="font-size:var(--t-small);color:var(--ink-mute);margin:0">' + t.name + ' · ' + s.tagline + '</p>' +
+        '<div class="dcard__swatch">' + swatch + '</div>' +
+        '<p style="color:var(--ink-soft)">' + s.why + '</p>' +
+        '<p style="color:var(--ink-soft)"><strong>Structura paginii:</strong> ' + s.layout + '</p>' +
+        '<table class="spec"><tbody>' + spec + '</tbody></table>' +
+        '<p class="risk"><strong>Riscul:</strong> ' + s.risk + '</p>' +
+        '<div style="display:flex;gap:var(--s3);flex-wrap:wrap;margin-top:var(--s5)">' +
+          '<a class="btn btn--primary" href="' + s.page + '">Deschide direcția ' + s.num + '</a>' +
+          '<a class="btn btn--ghost" href="' + BBDesign.href('index.html', { theme: s.theme, style: s.id }) + '">Aplică pe tot mockup-ul</a>' +
+        '</div>' +
+      '</div>' +
+    '</article>';
+  }).join('');
+})();
+</script>
+</body>
+</html>

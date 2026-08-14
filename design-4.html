@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="ro" data-theme="pruna" data-style="couture">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Direcția 04 — Couture · Beauty Business</title>
+<link rel="stylesheet" href="assets/tokens.css">
+<link rel="stylesheet" href="assets/themes.css">
+<link rel="stylesheet" href="assets/styles.css">
+<link rel="stylesheet" href="assets/ui.css">
+<style>
+  /* ── layout decisions specific to this direction ──────────────────────
+     Fashion-house shape: centred logo with the nav underneath, a full-bleed
+     image hero with the headline over it, and NO cards anywhere. The
+     catalogue is a typographic index; the page sells by restraint. */
+  .nav4 { border-bottom: 1px solid var(--sand-deep); }
+  .nav4__logo {
+    display: block; text-align: center; padding-block: var(--s6) var(--s4);
+    font-family: var(--display); font-size: 1.6rem; letter-spacing: .18em;
+    text-transform: uppercase; text-decoration: none; color: var(--ink);
+  }
+  .nav4__links { display: flex; justify-content: center; gap: var(--s6); padding-bottom: var(--s5); flex-wrap: wrap; }
+  .nav4__links a {
+    font-size: 10px; letter-spacing: .28em; text-transform: uppercase;
+    text-decoration: none; color: var(--ink-soft);
+  }
+  .nav4__links a:hover { color: var(--accent); }
+
+  /* full-bleed hero with overlay */
+  .hero4 { position: relative; min-height: 84vh; display: grid; place-items: center; text-align: center; }
+  .hero4 .ph {
+    position: absolute; inset: 0; min-height: 0; border: 0; border-radius: 0;
+    align-items: end; padding-bottom: var(--s5);   /* caption below the headline, not through it */
+  }
+  .hero4__in { position: relative; z-index: 2; padding: var(--s8) var(--gutter); max-width: 46rem; }
+  .hero4__scrim { position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, rgba(0,0,0,.30), rgba(0,0,0,.52)); }
+  .hero4__in, .hero4__in h1 { color: #fff; }
+  .hero4__in .eyebrow { color: rgba(255,255,255,.72); }
+  .hero4__in .btn--primary { color: #fff; border-color: rgba(255,255,255,.8); background: transparent; }
+  .hero4__in .btn--primary:hover { background: #fff; color: var(--ink); }
+
+  .manifesto { text-align: center; max-width: 40rem; margin-inline: auto; }
+  .manifesto p { font-size: 1.15rem; color: var(--ink-soft); }
+
+  /* catalogue as a typographic index — no cards, no prices shouting */
+  .index { border-top: 1px solid var(--sand-deep); }
+  .index__row {
+    display: grid; grid-template-columns: 4rem 1fr auto auto; gap: var(--s5);
+    align-items: baseline; padding-block: var(--s6);
+    border-bottom: 1px solid var(--sand-deep);
+    text-decoration: none; color: inherit;
+  }
+  .index__n { font-size: 10px; letter-spacing: .28em; color: var(--ink-mute); }
+  .index__name { font-family: var(--display); font-size: clamp(1.5rem, 3.2vw, 2.4rem); line-height: 1.1; }
+  .index__for { font-size: var(--t-small); color: var(--ink-mute); display: block; margin-top: .35rem; letter-spacing: .04em; }
+  .index__meta { font-size: 10px; letter-spacing: .22em; text-transform: uppercase; color: var(--ink-mute); }
+  .index__row:hover .index__name { color: var(--accent); }
+  .index__row:hover .index__go { transform: translateX(6px); }
+  .index__go { transition: transform .2s ease; }
+  @media (max-width: 780px) { .index__row { grid-template-columns: 3rem 1fr; } .index__meta, .index__go { grid-column: 2; } }
+
+  .quote4 { text-align: center; max-width: 42rem; margin-inline: auto; }
+  .quote4 blockquote { font-family: var(--display); font-size: clamp(1.5rem, 3.4vw, 2.4rem); line-height: 1.25; margin: 0 0 var(--s5); }
+
+  .about4 { display: grid; grid-template-columns: .8fr 1.2fr; gap: clamp(2rem, 6vw, 6rem); align-items: center; }
+  @media (max-width: 900px) { .about4 { grid-template-columns: 1fr; } }
+
+  .notfor { list-style: none; padding: 0; max-width: 34rem; }
+  .notfor li { position: relative; padding-left: 1.6rem; font-size: var(--t-small); color: var(--ink-soft); margin-bottom: var(--s3); }
+  .notfor li::before { content: "—"; position: absolute; left: 0; color: var(--taupe); }
+
+  .ftr4 { border-top: 1px solid var(--sand-deep); margin-top: var(--s9); padding-block: var(--s7); text-align: center; }
+  .ftr4 nav { display: flex; justify-content: center; gap: var(--s5); flex-wrap: wrap; margin-bottom: var(--s5); }
+  .ftr4 a { font-size: 10px; letter-spacing: .24em; text-transform: uppercase; color: var(--ink-soft); text-decoration: none; }
+  .ftr4 p { font-size: var(--t-micro); color: var(--ink-mute); margin: 0; }
+</style>
+<script src="assets/dbar.js" defer></script>
+</head>
+<body>
+
+<header class="nav4">
+  <a class="nav4__logo" href="#">Beauty Business</a>
+  <nav class="nav4__links">
+    <a href="#programe">Programe</a><a href="#mentorat">Mentorat</a><a href="#">Membership</a>
+    <a href="#">Consultanță</a><a href="#">Podcast</a><a href="#">Jurnal</a><a href="#">Cont</a>
+  </nav>
+</header>
+
+<!-- 1 · HERO — full-bleed photograph, headline over it -->
+<section class="hero4">
+  <div class="ph">Fotografie de deschidere · portret editorial · min 2400×1600 · zonă liniștită la centru pentru text</div>
+  <div class="hero4__scrim"></div>
+  <div class="hero4__in rise">
+    <span class="eyebrow">Educație de business pentru industria beauty</span>
+    <h1 style="font-size:var(--t-hero);margin-top:var(--s5)">Ai talentul.<br>Îți lipsește sistemul.</h1>
+    <div style="display:flex;gap:var(--s4);flex-wrap:wrap;justify-content:center;margin-top:var(--s6)">
+      <a class="btn btn--primary" href="#programe">Programele</a>
+      <a class="btn btn--primary" href="#mentorat">Mentorat</a>
+    </div>
+  </div>
+</section>
+
+<!-- 2 · MANIFESTO — one paragraph, centred, nothing else -->
+<section class="section">
+  <div class="wrap manifesto">
+    <span class="eyebrow">Punctul de pornire</span>
+    <p style="margin-top:var(--s5)">Nu ai fost învățat(ă) să construiești un business. Ai fost învățat(ă) să faci servicii bune — și le faci. Restul, adică prețul, agenda, retenția și cifra de la final de lună, se învață separat. Aici se învață.</p>
+  </div>
+</section>
+
+<!-- 3 · CATALOGUE — typographic index, not a grid of cards -->
+<section class="section" id="programe">
+  <div class="wrap">
+    <span class="eyebrow">Programe</span>
+    <div class="index" style="margin-top:var(--s6)">
+      <a class="index__row" href="curs.html">
+        <span class="index__n">01</span>
+        <span><span class="index__name">Restart în Beauty</span><span class="index__for">Pentru freelancerul cu clienți activi, dar fără structură</span></span>
+        <span class="index__meta">Intermediar · 6 module</span>
+        <span class="index__go">→</span>
+      </a>
+      <a class="index__row" href="#">
+        <span class="index__n">02</span>
+        <span><span class="index__name"><span class="tbd">[Nume program]</span></span><span class="index__for">Pentru proprietarul de salon cu echipă, dar fără procese</span></span>
+        <span class="index__meta">Avansat · în curând</span>
+        <span class="index__go">→</span>
+      </a>
+      <a class="index__row" href="#">
+        <span class="index__n">03</span>
+        <span><span class="index__name"><span class="tbd">[Nume program]</span></span><span class="index__for">Pentru cine tocmai a terminat școala</span></span>
+        <span class="index__meta">Entry · în curând</span>
+        <span class="index__go">→</span>
+      </a>
+      <a class="index__row" href="#">
+        <span class="index__n">04</span>
+        <span><span class="index__name">Membership</span><span class="index__for">Conținut lunar și sesiuni live, la un preț accesibil</span></span>
+        <span class="index__meta">Abonament</span>
+        <span class="index__go">→</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- 4 · FULL-BLEED QUOTE -->
+<section class="section section--sand">
+  <div class="wrap quote4">
+    <blockquote>„Am crescut prețurile cu 30% și nu am pierdut nicio clientă. Diferența nu a fost curajul — a fost scriptul.”</blockquote>
+    <p style="font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-mute);margin:0"><span class="tbd">[Nume]</span> · lash artist · Cluj</p>
+  </div>
+</section>
+
+<!-- 5 · ABOUT — asymmetric portrait + text -->
+<section class="section">
+  <div class="wrap about4">
+    <div class="ph" data-ratio="4:5">Portret Lore<br>crop 4:5</div>
+    <div>
+      <span class="eyebrow">Despre Lore</span>
+      <h2 style="margin-top:var(--s5)">22 de ani în industrie, dintre care 14 cu salon propriu.</h2>
+      <p style="color:var(--ink-soft)">Fiecare exercițiu din programe a fost testat pe o afacere reală, cu chirie, echipă și lună proastă. Nimic din ce predau nu vine din teorie — și nimic nu se sprijină pe motivație.</p>
+      <a class="btn btn--primary" href="#" style="margin-top:var(--s4)">Povestea completă</a>
+    </div>
+  </div>
+</section>
+
+<!-- 6 · MENTORAT — qualifies, does not sell -->
+<section class="section section--ink" id="mentorat">
+  <div class="wrap" style="max-width:52rem;margin-inline:auto;text-align:center">
+    <span class="eyebrow">Mentorat · doar pe bază de aplicație</span>
+    <h2 style="margin-top:var(--s5)">Douăsprezece luni, 1:1, pe cifrele afacerii tale.</h2>
+    <p style="color:var(--taupe)">Capacitatea este limitată și prețul nu este public — deliberat. Prima etapă este o aplicație, nu o plată.</p>
+    <div style="text-align:left;margin-top:var(--s7)">
+      <span class="eyebrow" style="color:var(--taupe)">Nu este pentru tine dacă…</span>
+      <ul class="notfor" style="margin-top:var(--s4)">
+        <li>cauți o soluție rapidă în 30 de zile</li>
+        <li>nu ai încă clienți constanți</li>
+        <li>nu ești dispus(ă) să îți arăți cifrele reale</li>
+        <li>vrei să îți fie făcută treaba, nu să înveți să o faci</li>
+      </ul>
+    </div>
+    <a class="btn btn--primary" href="#" style="margin-top:var(--s6)">Trimite o aplicație</a>
+  </div>
+</section>
+
+<footer class="ftr4">
+  <div class="wrap">
+    <nav>
+      <a href="#">Programe</a><a href="#">Mentorat</a><a href="#">Membership</a>
+      <a href="#">Podcast</a><a href="#">Contact</a><a href="#">Confidențialitate</a><a href="#">Termeni</a>
+    </nav>
+    <p>© 2026 Beauty Business · Lore Zagon · Direcția 04 — Couture</p>
+  </div>
+</footer>
+
+<script src="assets/ui.js"></script>
+</body>
+</html>

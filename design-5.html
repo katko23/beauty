@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="ro" data-theme="noir" data-style="bold">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Direcția 05 — Bold · Beauty Business</title>
+<link rel="stylesheet" href="assets/tokens.css">
+<link rel="stylesheet" href="assets/themes.css">
+<link rel="stylesheet" href="assets/styles.css">
+<link rel="stylesheet" href="assets/ui.css">
+<style>
+  /* ── layout decisions specific to this direction ──────────────────────
+     Poster shape. The headline runs the full width instead of sharing the
+     fold with a photograph; the image arrives underneath as an offset block.
+     The problem statement becomes three oversized numbered panels — the
+     loudest block on any of the five directions. */
+  .nav5 { position: sticky; top: 0; z-index: 40; background: var(--canvas); border-bottom: 2px solid var(--ink); }
+  .nav5__in { display: flex; align-items: center; gap: var(--s5); padding-block: var(--s4); }
+  .nav5__logo {
+    font-family: var(--display); font-weight: 800; letter-spacing: -.03em;
+    border: 2px solid var(--ink); padding: .3rem .6rem; text-decoration: none; color: var(--ink);
+  }
+  .nav5__in nav { display: flex; gap: var(--s5); margin-left: auto; align-items: center; }
+  .nav5__in nav a {
+    font-size: var(--t-micro); font-weight: 700; letter-spacing: .08em;
+    text-transform: uppercase; text-decoration: none; color: var(--ink);
+  }
+  .nav5__in nav a:hover { color: var(--accent); }
+  @media (max-width: 1000px) { .nav5__in nav a:not(.btn) { display: none; } }
+
+  .hero5 { padding-block: var(--s8) var(--s7); }
+  .hero5 h1 { font-size: var(--t-hero); max-width: 16ch; line-height: 1.06; }
+  .hero5 h1 mark { background: var(--accent); color: var(--canvas); padding: .02em .12em; box-decoration-break: clone; }
+  .hero5__row { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s7); align-items: start; margin-top: var(--s7); }
+  .hero5__img { border: 2px solid var(--ink); box-shadow: 12px 12px 0 var(--accent); }
+  @media (max-width: 900px) { .hero5__row { grid-template-columns: 1fr; } }
+
+  .prob { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s5); }
+  .prob__b { border: 2px solid var(--ink); padding: var(--s6); background: var(--white); box-shadow: 6px 6px 0 var(--ink); }
+  .prob__n { font-family: var(--display); font-weight: 800; font-size: clamp(3rem, 6vw, 5rem); line-height: .85; color: var(--accent); letter-spacing: -.05em; }
+  .prob__b h3 { margin-top: var(--s4); }
+  @media (max-width: 900px) { .prob { grid-template-columns: 1fr; } }
+
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border: 2px solid var(--ink); }
+  .stats > div { padding: var(--s6) var(--s5); border-left: 2px solid var(--ink); }
+  .stats > div:first-child { border-left: 0; }
+  .stats .count { font-family: var(--display); font-weight: 800; font-size: clamp(2rem, 4.4vw, 3.4rem); line-height: 1; letter-spacing: -.05em; }
+  .stats .count-label { font-size: var(--t-small); color: var(--ink-mute); margin-top: var(--s2); }
+  @media (max-width: 760px) { .stats { grid-template-columns: repeat(2, 1fr); } .stats > div:nth-child(3) { border-left: 0; } }
+
+  .poster { text-align: center; }
+  .poster blockquote {
+    font-family: var(--display); font-weight: 800; letter-spacing: -.04em; line-height: .96;
+    font-size: clamp(2.2rem, 6.5vw, 5rem); margin: 0 0 var(--s5); max-width: 18ch; margin-inline: auto;
+  }
+  .cta5 { border: 2px solid var(--ink); box-shadow: 12px 12px 0 var(--accent); padding: var(--s8) var(--s7); background: var(--white); }
+</style>
+<script src="assets/dbar.js" defer></script>
+</head>
+<body>
+
+<header class="nav5">
+  <div class="wrap nav5__in">
+    <a class="nav5__logo" href="#">BB</a>
+    <nav>
+      <a href="#programe">Programe</a><a href="#">Mentorat</a><a href="#">Podcast</a>
+      <a href="#">Gratuități</a><a href="#">Cont</a>
+      <a class="btn btn--primary btn--sm" href="#programe">Intră într-un program</a>
+    </nav>
+  </div>
+</header>
+
+<!-- 1 · HERO — the headline owns the full width; image comes after -->
+<section class="wrap hero5">
+  <span class="eyebrow rise">Educație de business pentru industria beauty</span>
+  <h1 class="rise" style="margin-top:var(--s5)">Ai talentul.<br>Îți lipsește <mark>sistemul</mark>.</h1>
+  <div class="hero5__row">
+    <div class="rise rise--2">
+      <p class="lede">Programe, mentorat și resurse pentru freelanceri și proprietari de salon din România și Moldova — construite pe 22 de ani de practică reală, nu pe teorie.</p>
+      <div style="display:flex;gap:var(--s3);flex-wrap:wrap;margin-top:var(--s5)">
+        <a class="btn btn--primary" href="#programe">Sunt freelancer</a>
+        <a class="btn btn--ghost" href="#programe">Am un salon</a>
+      </div>
+    </div>
+    <div class="hero5__img rise rise--3">
+      <div class="ph ph--deep" data-ratio="3:2" style="min-height:0;border:0">Fotografie Lore · crop 3:2 · contrast mare, fundal închis</div>
+    </div>
+  </div>
+</section>
+
+<!-- 2 · TICKER on accent -->
+<div class="mq section--accent" data-marquee="26" style="padding-block:var(--s4);border-block:2px solid var(--ink)">
+  <div class="mq__in">
+    <span class="mq__item"><b>+30%</b> preț, zero cliente pierdute</span><span class="mq__sep">✦</span>
+    <span class="mq__item"><b>82%</b> rată de revenire</span><span class="mq__sep">✦</span>
+    <span class="mq__item"><b>−9h</b> pe săptămână</span><span class="mq__sep">✦</span>
+    <span class="mq__item"><b>3 luni</b> până la procese clare</span><span class="mq__sep">✦</span>
+    <span class="mq__item"><b>2.896 €</b> venit lunar</span><span class="mq__sep">✦</span>
+  </div>
+</div>
+
+<!-- 3 · THE PROBLEM — three oversized numbered panels -->
+<section class="section">
+  <div class="wrap">
+    <span class="eyebrow">Dacă te regăsești aici</span>
+    <h2 style="margin-top:var(--s5);margin-bottom:var(--s6);max-width:20ch">Agenda plină nu înseamnă profit.</h2>
+    <div class="prob">
+      <div class="prob__b" data-reveal><div class="prob__n">01</div><h3>Muncești mai mult, câștigi la fel</h3><p style="color:var(--ink-soft);margin:0">Anul acesta ai lucrat mai multe ore decât anul trecut. Cifra de la final de lună nu s-a mișcat.</p></div>
+      <div class="prob__b" data-reveal><div class="prob__n">02</div><h3>Nu știi cât îți rămâne net</h3><p style="color:var(--ink-soft);margin:0">După consumabile, timp de pregătire și reprogramări, prețul afișat nu mai înseamnă nimic.</p></div>
+      <div class="prob__b" data-reveal><div class="prob__n">03</div><h3>Ți-e frică să crești prețul</h3><p style="color:var(--ink-soft);margin:0">Nu pentru că nu meriți — ci pentru că nu ai scriptul care păstrează clienta după anunț.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 4 · PROGRAMMES — two big cards with hard shadows -->
+<section class="section section--sand" id="programe">
+  <div class="wrap">
+    <span class="eyebrow">Catalog</span>
+    <h2 style="margin-top:var(--s5);margin-bottom:var(--s6)">Programele</h2>
+    <div class="grid grid-2">
+      <article class="card course-card" data-reveal>
+        <span class="badge badge--inter" style="align-self:flex-start;margin-bottom:var(--s4)">Intermediar</span>
+        <h3 class="card__title" style="font-size:1.9rem">Restart în Beauty</h3>
+        <p class="course-card__for">Pentru freelancerul care lucrează mult și câștigă puțin</p>
+        <p class="course-card__promise">Îți reconstruiești prețurile, agenda și clientela în 6 module.</p>
+        <ul class="course-card__outcomes">
+          <li>Îți calculezi câștigul real pe oră</li>
+          <li>Îți cureți agenda de clienții care te costă</li>
+          <li>Îți construiești un sistem de retenție</li>
+          <li>Îți comunici creșterea de preț fără scuze</li>
+        </ul>
+        <div class="card__foot">
+          <div class="course-card__price"><span class="tbd">[TBD]</span> lei<small>sau 3 rate</small></div>
+          <a class="btn btn--primary btn--wide" href="curs.html" style="margin-top:var(--s4)">Vezi programul</a>
+        </div>
+      </article>
+      <article class="card course-card course-card--placeholder" data-reveal>
+        <span class="badge badge--soon" style="align-self:flex-start;margin-bottom:var(--s4)">În curând</span>
+        <h3 class="card__title" style="font-size:1.9rem">Program pentru saloane</h3>
+        <p class="course-card__for">Pentru salonul cu echipă, dar fără procese</p>
+        <p class="course-card__promise"><span class="tbd">[promisiunea într-o frază]</span></p>
+        <ul class="course-card__outcomes"><li><span class="tbd">[rezultat 1]</span></li><li><span class="tbd">[rezultat 2]</span></li><li><span class="tbd">[rezultat 3]</span></li></ul>
+        <div class="card__foot"><div class="course-card__price"><span class="tbd">[TBD]</span><small>preț de stabilit</small></div>
+        <a class="btn btn--ghost btn--wide" href="quiz.html" style="margin-top:var(--s4)">Anunță-mă la lansare</a></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- 5 · STATS — boxed, hairline-free -->
+<section class="section section--tight">
+  <div class="wrap">
+    <div class="stats">
+      <div data-reveal><div class="count" data-count="22" data-count-suffix="+"></div><div class="count-label">ani în industrie</div></div>
+      <div data-reveal><div class="count" data-count="6"></div><div class="count-label">module în Restart</div></div>
+      <div data-reveal><div class="count" data-count="47"></div><div class="count-label">episoade de podcast</div></div>
+      <div data-reveal><div class="count" data-count="98" data-count-suffix="%"></div><div class="count-label">ar recomanda programul</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 6 · POSTER QUOTE -->
+<section class="section section--accent">
+  <div class="wrap poster">
+    <blockquote>Am crescut prețul cu 30% și nu am pierdut nicio clientă.</blockquote>
+    <p style="font-size:var(--t-small);font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin:0"><span class="tbd">[Nume]</span> · lash artist · Cluj</p>
+  </div>
+</section>
+
+<!-- 7 · CTA -->
+<section class="section">
+  <div class="wrap wrap-narrow">
+    <div class="cta5">
+      <span class="eyebrow">2 minute · fără email obligatoriu</span>
+      <h2 style="margin:var(--s5) 0">Nu știi de unde să începi? Răspunde la 4 întrebări.</h2>
+      <p style="color:var(--ink-soft)">Îți spunem exact ce program are sens pentru tine — și ce poți face în următoarele 30 de zile, chiar dacă nu cumperi nimic.</p>
+      <a class="btn btn--primary" href="quiz.html" style="margin-top:var(--s4)">Începe testul</a>
+    </div>
+  </div>
+</section>
+
+<footer class="ftr">
+  <div class="wrap">
+    <div class="grid grid-4">
+      <div><h4>Învață</h4><ul><li><a href="#">Programe</a></li><li><a href="#">Mentorat</a></li><li><a href="#">Membership</a></li></ul></div>
+      <div><h4>Explorează</h4><ul><li><a href="#">Podcast</a></li><li><a href="#">Gratuități</a></li><li><a href="#">Test</a></li></ul></div>
+      <div><h4>Conectează-te</h4><ul><li><a href="#">Despre Lore</a></li><li><a href="#">Contact</a></li></ul></div>
+      <div><h4>Legal</h4><ul><li><a href="#">Confidențialitate</a></li><li><a href="#">Termeni</a></li></ul></div>
+    </div>
+    <p class="ftr__legal">© 2026 Beauty Business · Lore Zagon · Direcția 05 — Bold</p>
+  </div>
+</footer>
+
+<script src="assets/ui.js"></script>
+</body>
+</html>
