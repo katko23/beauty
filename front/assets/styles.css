@@ -172,6 +172,84 @@
 [data-style="bold"] .course-card__price { font-family: var(--sans); font-weight: 800; }
 [data-style="bold"] .acc__btn { font-weight: 700; }
 
+/* ========================================================== 6. DREAM ===== */
+/* The combination the client actually asked for, assembled from the two
+   directions they reacted to:
+     from 04 Couture  — high-contrast serif at weight 400, buttons that are
+                        outline only, uppercase, tracking .22em
+     from 03 Soft     — cards with no frame at all, separated by a diffuse
+                        shadow, lifting on hover
+     new              — every corner is 0, and the page is black text on white
+                        with cream and warm-yellow bands doing the rhythm
+   It is deliberately NOT as airy as Couture: the client liked Soft's density
+   and its interactive blocks, so the section spacing stays at the default. */
+[data-style="dream"] {
+  --display: "Bodoni 72", Didot, "Playfair Display", ui-serif, Georgia, "Times New Roman", serif;
+  --sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --radius: 0;
+  --radius-lg: 0;
+  --head-weight: 400;
+  --head-track: .002em;
+  --btn-case: uppercase;
+  --btn-track: .22em;
+  --shadow: 0 2px 6px rgba(19,16,16,.04), 0 18px 44px rgba(19,16,16,.09);
+  --t-hero: clamp(2.7rem, 6vw, 5rem);
+  --t-h1:   clamp(2.1rem, 4.2vw, 3.5rem);
+  --t-h2:   clamp(1.7rem, 3vw, 2.6rem);
+}
+[data-style="dream"] body { line-height: 1.75; }
+[data-style="dream"] h1, [data-style="dream"] h2 { line-height: 1.08; }
+[data-style="dream"] .lede { font-size: 1.15rem; max-width: 54ch; }
+[data-style="dream"] .eyebrow { letter-spacing: .3em; font-size: 10px; font-weight: 500; }
+
+/* buttons — outline only, in all three variants */
+[data-style="dream"] .btn {
+  padding: 1.05rem 2.1rem; font-size: 11px; font-weight: 500; border-width: 1px;
+}
+[data-style="dream"] .btn--sm { padding: .7rem 1.3rem; font-size: 10px; }
+[data-style="dream"] .btn--primary { background: transparent; color: var(--ink); border-color: var(--ink); }
+[data-style="dream"] .btn--primary:hover { background: var(--ink); color: #FFF; }
+[data-style="dream"] .btn--ghost { background: transparent; color: var(--ink-soft); border-color: var(--sand-deep); }
+[data-style="dream"] .btn--ghost:hover { background: var(--ink); border-color: var(--ink); color: #FFF; }
+[data-style="dream"] .btn--ink { background: var(--ink); color: #FFF; border-color: var(--ink); }
+[data-style="dream"] .btn--ink:hover { background: transparent; color: var(--ink); }
+[data-style="dream"] .btn--onDark { background: transparent; color: var(--canvas); border-color: rgba(255,255,255,.5); }
+[data-style="dream"] .btn--onDark:hover { background: var(--canvas); color: var(--ink); border-color: var(--canvas); }
+
+/* cards — no frame, diffuse shadow, square corners */
+[data-style="dream"] .card {
+  border: 0; border-radius: 0; background: var(--white);
+  box-shadow: var(--shadow); padding: var(--s6);
+}
+[data-style="dream"] .card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 10px rgba(19,16,16,.05), 0 28px 60px rgba(19,16,16,.13);
+}
+/* a placeholder must still read as "nothing here yet", so it keeps a dashed
+   outline instead of pretending to be a finished card */
+[data-style="dream"] .course-card--placeholder {
+  background: transparent; box-shadow: none; border: 1px dashed var(--sand-deep);
+}
+[data-style="dream"] .course-card--placeholder:hover { transform: none; box-shadow: none; }
+[data-style="dream"] .course-card__price { font-weight: 400; }
+
+/* corners: 0 everywhere, including the round controls the blocks ship with */
+[data-style="dream"] .badge { border-radius: 0; letter-spacing: .16em; font-weight: 600; font-size: 10px; }
+[data-style="dream"] .ph,
+[data-style="dream"] .field input,
+[data-style="dream"] .field select,
+[data-style="dream"] .field textarea { border-radius: 0; }
+[data-style="dream"] .ph--round { border-radius: 50%; }   /* portraits stay round */
+[data-style="dream"] .crsl__btn { border-radius: 0; }
+[data-style="dream"] .crsl__dot { border-radius: 0; }
+[data-style="dream"] .curtain__hint,
+[data-style="dream"] .cmp__tag { border-radius: 0; }
+
+/* accordion + rules pick up the yellow so it appears more than once */
+[data-style="dream"] .acc__num { color: var(--zest-deep); }
+[data-style="dream"] .acc__ico::before,
+[data-style="dream"] .acc__ico::after { background: var(--accent); }
+
 /* ---------------------------------------------------- shared plumbing --- */
 /* Heading weight/tracking are style-level decisions, so they read from the
    variables each block above sets rather than being repeated five times. */

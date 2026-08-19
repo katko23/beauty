@@ -64,6 +64,16 @@ var BBDesign = (function () {
         ['canvas', '#121010'], ['surface', '#1A1716'], ['taupe', '#8A7F72'],
         ['accent', '#D8B98A'], ['accent-hi', '#EBD0A6'], ['ink', '#F5F1EA']
       ]
+    },
+    {
+      id: 'pastel', name: 'Teracotă pastel', num: '06',
+      accent: '#A94D24', canvas: '#FFFFFF', ink: '#131010',
+      tagline: 'Alb pur · cremă · lut pastel + galben',
+      why: 'Direcția aleasă de client. Aceeași familie de lut ca 02 Teracotă, dar pastelată: fundalul devine alb pur, benzile de secțiune devin cremă, iar un galben cald intră ca al doilea accent, pentru contrast. Textul e negru pe alb peste tot — culoarea o duc benzile și accentele, niciodată paragraful.',
+      swatches: [
+        ['canvas', '#FFFFFF'], ['cremă', '#FBF2E8'], ['galben', '#FDF4DE'],
+        ['zest', '#E3A32B'], ['accent', '#A94D24'], ['ink', '#131010']
+      ]
     }
   ];
 
@@ -116,6 +126,15 @@ var BBDesign = (function () {
       why: 'Titluri foarte mari la greutate 800, chenare de 2px, umbre solide decalate, eyebrow-uri ca etichete pline. Cel mai memorabil dintre cele cinci și cel mai apropiat de tonul „ai talentul, îți lipsește sistemul”.',
       traits: { 'Titluri': 'Sans, 800, tracking −4%', 'Colțuri': '0', 'Carduri': 'Chenar 2px + umbră 6px', 'Butoane': 'Chenar 2px + umbră' },
       risk: 'Puternic pe home, agresiv pe checkout. De verificat pe pagina de curs înainte de decizie.'
+    },
+    {
+      id: 'dream', name: 'Client Dream', num: '06',
+      theme: 'pastel', page: 'design-6.html',
+      layout: 'Hero split pe jumătate de pagină · bandă galbenă de cifre · „Patru feluri" ca panouri · programele în carusel · comparație înainte/după pe jumătate de pagină · calculatorul funcțional în pagină · podcast în stil listă (ca growmysalonbusiness)',
+      tagline: 'Serif contrast 400 · colțuri 0 · butoane doar contur',
+      why: 'Compusă din ce a reținut clientul, nu inventată: tipografia și butoanele de la 04 Couture (serif de contrast la 400, buton doar contur, tracking .22em), cardurile de la 03 Soft (fără chenar, umbră difuză), paleta de la 02 Teracotă adusă în pastel, colțuri 0 peste tot și blocurile pe care le-a adoptat deja — „Patru feluri în care poți lucra cu noi", „Programe pentru fiecare etapă", „Câștigul tău real pe oră" și „Aceeași agendă, alt rezultat".',
+      traits: { 'Titluri': 'Serif contrast, 400', 'Colțuri': '0 — peste tot', 'Carduri': 'Fără chenar, umbră difuză', 'Butoane': 'Doar contur, tracking .22em' },
+      risk: 'Serif de contrast la 400 cere dimensiune mare ca să nu se subțieze — pe titlurile mici din carduri rămâne sans. Iar galbenul nu are contrast pe alb: e folosit doar ca bandă și ca subliniere, niciodată ca text.'
     }
   ];
 

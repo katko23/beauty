@@ -19,8 +19,9 @@ A dark demo bar at the top links between all pages. It is mockup chrome only and
 | `podcast.html` | Episode grid | **working tag filter** |
 | `gratuitati.html` | Free resources | **working hourly-earnings calculator** |
 | `blocks.html` | **Gallery of every interactive block** | all of them, with usage notes |
-| `directii.html` | **The five complete design directions** | live scaled previews of each real page |
-| `design-1…5.html` | One full Home per direction — a different layout each | the blocks each direction uses |
+| `directii.html` | **The six complete design directions** | live scaled previews of each real page |
+| `design-1…6.html` | One full Home per direction — a different layout each | the blocks each direction uses |
+| `design-6-podcast.html` | **Podcast page in the growmysalonbusiness shape** — a chronological directory, not a card grid | search, tag filter, progressive paging |
 | `teme.html` | The five palettes, side by side | live preview per palette |
 | `admin.html` | Payload admin sketch | tabs, draggable tree-editor nodes |
 
@@ -55,9 +56,9 @@ Three rules the blocks follow:
 
 Two different things live here, and it matters which one you're looking at.
 
-### `directii.html` — five complete designs
+### `directii.html` — six complete designs
 
-Five separate Home pages. Not one layout recoloured: the **blocks move**. Each page has its own header shape, hero composition, section order and choice of interactive blocks. The content is identical across all five on purpose, so the client compares design and not copy.
+Six separate Home pages. Not one layout recoloured: the **blocks move**. Each page has its own header shape, hero composition, section order and choice of interactive blocks. The content is identical across all of them on purpose, so the client compares design and not copy.
 
 | | Direction | Palette + style | What is structurally different |
 |---|---|---|---|
@@ -66,6 +67,7 @@ Five separate Home pages. Not one layout recoloured: the **blocks move**. Each p
 | `design-3.html` | **Soft** | teracotă · rounded | Floating pill nav, centred hero with the visual *below* the copy, expanding panels, card carousel, the calculator in-page, FAQ accordion, light footer |
 | `design-4.html` | **Couture** | prună · minimal | Centred logo with nav underneath, full-bleed image hero with the headline over it, **no cards anywhere** — the catalogue is a typographic index; mentorat qualifies instead of selling |
 | `design-5.html` | **Bold** | noir · heavy | Boxed logo, headline owns the full width with the image underneath as an offset block, the problem as three oversized numbered panels, 2-up cards with hard shadows, poster quote |
+| `design-6.html` | **Client Dream** | pastel · outline | The direction assembled from the client's own picks — see below. Half/half hero, yellow numbers band, the four adopted blocks, plus its own podcast page |
 
 A dark bar at the top of each switches between them. It is mockup chrome and disappears under `?preview=1`, which is how the hub renders its thumbnails.
 
@@ -73,8 +75,8 @@ A dark bar at the top of each switches between them. It is mockup chrome and dis
 
 The five designs are built from two independent token layers, and either can be applied to the *rest* of the mockup (course page, hub, quiz, podcast, free resources) without touching markup:
 
-- **`assets/themes.css` — colour only** (`data-theme`): `smarald`, `teracota`, `pruna`, `bleumarin`, `noir`. Nothing but palette tokens, so a palette can be judged on colour alone. `teme.html` shows all five side by side.
-- **`assets/styles.css` — everything else** (`data-style`): `editorial`, `swiss`, `soft`, `couture`, `bold`. Type pairing, corner radius, how a card is delimited, button shape, section density.
+- **`assets/themes.css` — colour only** (`data-theme`): `smarald`, `teracota`, `pruna`, `bleumarin`, `noir`, `pastel`. Nothing but palette tokens, so a palette can be judged on colour alone. `teme.html` shows them side by side.
+- **`assets/styles.css` — everything else** (`data-style`): `editorial`, `swiss`, `soft`, `couture`, `bold`, `dream`. Type pairing, corner radius, how a card is delimited, button shape, section density.
 
 The switcher at the bottom right of every standard page sets both. The choice persists in `localStorage` and can be forced from the URL: `curs.html?theme=pruna&style=couture`.
 
@@ -82,7 +84,28 @@ The switcher at the bottom right of every standard page sets both. The choice pe
 
 `noir` is the only palette that inverts value, so it carries a handful of extra rules for components that hard-code "light text on dark" (`.ftr`, `.mockbar`, `.section--ink`, `.btn--onDark`). Everything else is pure token substitution.
 
-Adding a sixth palette or style = one object in `theme.js` + one block in the matching CSS file. No page edits.
+Adding a palette or style = one object in `theme.js` + one block in the matching CSS file. No page edits.
+
+### Direction 06 — Client Dream
+
+The only direction that is not our proposal. It is assembled from what the client reacted to across the first five, so every choice in it is traceable to a piece of their feedback:
+
+| Their words | What it became |
+|---|---|
+| "same colours as teracota, but pastel — white and creme" | `data-theme="pastel"`: canvas goes to pure white, the clay family stays, section bands become cream `#FBF2E8` |
+| "a bit yellow, for contrast" | `--zest` / `--zest-wash` / `--zest-deep`. Used as a band, a rule and a highlighter (`.mark`) — **never as text on white**, where it has no contrast |
+| "text on white background, black text" | body copy is `#131010` on `#FFFFFF` everywhere; colour is carried by the bands, never by the paragraph |
+| "Serif contrast, 400" + "buttons: outline only, tracking .22em" | lifted from 04 Couture |
+| "cards are ok with: no border, diffuse shadow" | lifted from 03 Soft |
+| "corners should be 0" | `--radius: 0` — and explicitly also on the round controls the blocks ship with (carousel arrows, dots, tags). Portraits stay round |
+| "we loved *Patru feluri în care poți lucra cu noi*" | kept verbatim, expanding panels |
+| "*Programe pentru fiecare etapă*", "*Câștigul tău real pe oră*" | kept; the calculator is **live here**, same formula as `gratuitati.html` so the numbers agree |
+| "*Aceeași agendă, alt rezultat* — half of the page is good" | compare slider on one half, the argument on the other (`.split6`) |
+| "for the podcast, something like growmysalonbusiness.com/podcast" | `design-6-podcast.html` — see below |
+
+**Why the podcast page is a list, not a grid.** Our earlier `podcast.html` is a card grid with a thumbnail per episode. The reference site runs a chronological *directory* — number, guest, title, one "Listen Now" link per row — because a catalogue of 300+ episodes is scanned vertically, not browsed as a gallery, and because a grid demands artwork for every episode. `design-6-podcast.html` follows the reference order: hero → subscribe (platform row + first-name/email capture) → Apple Podcasts reviews → the directory, with search, tag filter and progressive paging.
+
+The direction reuses the shared blocks and tokens like any other, so applying it to the rest of the mockup is still just `index.html?theme=pastel&style=dream`.
 
 ## Design decisions visible here
 

@@ -18,6 +18,12 @@
   --accent-hi: #2E7D66;
   --accent-wash:#EAF1EE;
   --white:     #FFFFFF;
+  /* Secondary "contrast" hue. Warm yellow/ochre — never used for body text
+     (too light on white), only as a surface, a highlight swash or a rule.
+     --zest-deep is the readable version, for text ON --zest-wash. */
+  --zest:      #C9A227;
+  --zest-wash: #F7EFD9;
+  --zest-deep: #7A6212;
   /* sticky header sits on a blurred canvas — themed, because a dark
      direction has to re-point it (see themes.css) */
   --hdr-bg:    rgba(250,248,245,.92);
@@ -111,6 +117,7 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .section { padding-block: var(--s9); }
 .section--tight { padding-block: var(--s7); }
 .section--sand { background: var(--sand); }
+.section--zest { background: var(--zest-wash); }
 .section--ink { background: var(--ink); color: var(--canvas); }
 .section--ink h2, .section--ink h3 { color: var(--canvas); }
 .section--accent { background: var(--accent); color: var(--canvas); }
@@ -135,7 +142,15 @@ button, input, select, textarea { font: inherit; color: inherit; }
   display: block;
 }
 .eyebrow--accent { color: var(--accent); }
+.eyebrow--zest { color: var(--zest-deep); }
 .section--ink .eyebrow, .section--accent .eyebrow { color: var(--taupe); }
+
+/* Highlight swash — a hand-drawn-looking band under a word, not a full
+   background fill, so black-on-white text stays black-on-white. */
+.mark {
+  background-image: linear-gradient(180deg, transparent 66%, var(--zest-wash) 66%, var(--zest-wash) 96%, transparent 96%);
+  padding-inline: .12em;
+}
 
 /* ------------------------------------------------------------ buttons -- */
 .btn {
