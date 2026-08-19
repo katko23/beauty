@@ -150,6 +150,35 @@
 [data-theme="noir"] .ftr a:hover { color: var(--ink); }
 [data-theme="noir"] .mockbar a[aria-current="page"] { color: #14110F; }
 
+/* ------------------------------------------------- 6. TERACOTĂ PASTEL --- */
+/* The client's pick, softened. Same clay family as direction 02, but the
+   canvas goes to pure white instead of warm sand, the section bands become
+   cream, and a warm yellow joins as the contrast hue. Body text is black on
+   white everywhere; colour is carried by the bands and the accents, never by
+   the paragraph. */
+[data-theme="pastel"] {
+  --canvas:    #FFFFFF;
+  --sand:      #FBF2E8;         /* cream band — the "creme" the client asked for */
+  --sand-deep: #F0DFCD;
+  --taupe:     #D7C1A9;
+  --ink:       #131010;
+  --ink-soft:  #4A3E37;
+  --ink-mute:  #85736A;
+  --accent:    #A94D24;         /* clay, darkened to 5.6:1 on white */
+  --accent-hi: #C25F32;
+  --accent-wash:#FCEEE3;        /* pastel apricot */
+  --white:     #FFFFFF;
+  --hdr-bg:    rgba(255,255,255,.9);
+
+  --zest:      #E3A32B;         /* the yellow, as a surface/graphic only */
+  --zest-wash: #FDF4DE;
+  --zest-deep: #8A5F0F;         /* readable yellow, for text on --zest-wash */
+
+  --lvl-entry-bg: #EAF2EA;  --lvl-entry-fg: #37633F;
+  --lvl-inter-bg: #FCEEE3;  --lvl-inter-fg: #A94D24;
+  --lvl-adv-bg:   #FDF4DE;  --lvl-adv-fg:   #8A5F0F;
+}
+
 /* ------------------------------------------------------ theme switcher --- */
 /* Mockup chrome only — does not exist in the real site. */
 .tsw {

@@ -1,0 +1,367 @@
+<!doctype html>
+<html lang="ro" data-theme="pastel" data-style="dream">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Podcast — Direcția 06 · Beauty Business</title>
+<link rel="stylesheet" href="assets/tokens.css">
+<link rel="stylesheet" href="assets/themes.css">
+<link rel="stylesheet" href="assets/styles.css">
+<link rel="stylesheet" href="assets/ui.css">
+<style>
+  /* ── pagina de podcast, în structura growmysalonbusiness.com/podcast/ ──
+     Diferența față de mockup-ul nostru anterior: episoadele NU sunt o grilă
+     de carduri cu thumbnail. Sunt un director cronologic, rând după rând —
+     număr, invitat, titlu, un singur link „Ascultă". Un catalog de 300+ de
+     episoade se citește ca o listă, nu ca o galerie: rândurile se scanează
+     vertical, nu costă imagini și nu obligă la un thumbnail per episod.
+     Restul paginii urmează aceeași ordine ca modelul: hero → abonare cu
+     platformele și captură de email → recenzii → directorul de episoade. */
+
+  .nav6 { position: sticky; top: 0; z-index: 40; background: var(--hdr-bg); backdrop-filter: blur(8px); border-bottom: 1px solid var(--sand-deep); }
+  .nav6__in { display: flex; align-items: center; gap: var(--s6); padding-block: var(--s4); }
+  .nav6__logo { font-family: var(--display); font-size: 1.3rem; font-weight: 400; letter-spacing: .02em; text-decoration: none; color: var(--ink); }
+  .nav6__logo em { font-style: italic; color: var(--accent); }
+  .nav6__nav { display: flex; gap: var(--s6); margin-left: auto; align-items: center; }
+  .nav6__nav a:not(.btn) { font-size: 11px; letter-spacing: .16em; text-transform: uppercase; text-decoration: none; color: var(--ink-soft); }
+  .nav6__nav a:not(.btn):hover, .nav6__nav a[aria-current="page"] { color: var(--accent); }
+  @media (max-width: 1000px) { .nav6__nav a:not(.btn) { display: none; } }
+
+  .rule-z { width: 68px; height: 3px; background: var(--zest); margin-bottom: var(--s5); }
+
+  /* platformele — rând de linkuri, nu butoane */
+  .plat6 { display: flex; flex-wrap: wrap; gap: 0; border-top: 1px solid var(--sand-deep); border-bottom: 1px solid var(--sand-deep); }
+  .plat6 a {
+    flex: 1 1 180px; padding: var(--s5) var(--s4);
+    display: flex; align-items: center; justify-content: center; gap: var(--s3);
+    text-decoration: none; color: var(--ink);
+    font-size: 11px; letter-spacing: .22em; text-transform: uppercase;
+    border-left: 1px solid var(--sand-deep);
+    transition: background .18s ease, color .18s ease;
+  }
+  .plat6 a:first-child { border-left: 0; }
+  .plat6 a:hover { background: var(--ink); color: #FFF; }
+  .plat6 a i { font-style: normal; font-size: 1.1rem; line-height: 1; }
+
+  /* recenzii — citat mare, sursa mică, fără card colorat */
+  .rev { background: var(--white); box-shadow: var(--shadow); padding: var(--s6); display: flex; flex-direction: column; }
+  .rev__stars { color: var(--zest); letter-spacing: .18em; font-size: .95rem; }
+  .rev__t { font-family: var(--display); font-size: 1.2rem; font-weight: 400; margin: var(--s4) 0 var(--s3); }
+  .rev__q { color: var(--ink-soft); font-size: var(--t-small); margin-bottom: var(--s5); }
+  .rev__w { margin-top: auto; font-size: var(--t-micro); letter-spacing: .1em; text-transform: uppercase; color: var(--ink-mute); }
+
+  /* directorul de episoade — rânduri, nu carduri */
+  .dir6 { border-top: 1px solid var(--ink); }
+  .erow {
+    display: grid; grid-template-columns: 5rem 1fr 12rem 9rem;
+    gap: var(--s5); align-items: baseline;
+    padding-block: var(--s5);
+    border-bottom: 1px solid var(--sand-deep);
+    transition: background .18s ease;
+  }
+  .erow:hover { background: var(--sand); }
+  .erow__n { font-family: var(--display); font-size: 1.6rem; color: var(--accent); line-height: 1; }
+  .erow__guest { font-size: var(--t-micro); letter-spacing: .16em; text-transform: uppercase; color: var(--ink-mute); margin-bottom: .35rem; }
+  .erow__t { font-family: var(--display); font-size: 1.2rem; font-weight: 400; margin: 0; line-height: 1.25; }
+  .erow__m { font-size: var(--t-micro); letter-spacing: .12em; text-transform: uppercase; color: var(--ink-mute); }
+  .erow__go {
+    justify-self: end; white-space: nowrap;
+    font-size: 10px; letter-spacing: .22em; text-transform: uppercase;
+    text-decoration: none; color: var(--ink);
+    border: 1px solid var(--sand-deep); padding: .6rem 1.1rem;
+    transition: background .18s ease, color .18s ease, border-color .18s ease;
+  }
+  .erow__go:hover { background: var(--ink); border-color: var(--ink); color: #FFF; }
+  @media (max-width: 900px) {
+    .erow { grid-template-columns: 3.2rem 1fr; row-gap: var(--s3); }
+    .erow__m, .erow__go { grid-column: 2; justify-self: start; }
+  }
+
+  .chips6 { display: flex; gap: 0; flex-wrap: wrap; margin-bottom: var(--s6); }
+  .chip6 {
+    padding: .7rem 1.2rem; cursor: pointer; background: transparent;
+    border: 1px solid var(--sand-deep); border-left-width: 0;
+    font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: var(--ink-soft);
+    transition: background .18s ease, color .18s ease;
+  }
+  .chip6:first-child { border-left-width: 1px; }
+  .chip6:hover { color: var(--accent); }
+  .chip6[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: #FFF; }
+
+  .searchbar { display: flex; margin-bottom: var(--s5); max-width: 420px; }
+  .searchbar input { flex: 1; padding: .8rem 1rem; border: 1px solid var(--sand-deep); background: var(--white); }
+  .searchbar input:focus { outline: none; border-color: var(--ink); }
+
+  /* the CTA above the footer is already dark — the default footer margin
+     would open a white band between two dark blocks */
+  .ftr { margin-top: 0; }
+
+  .sub6 { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem, 4vw, 5rem); align-items: center; }
+  @media (max-width: 900px) { .sub6 { grid-template-columns: 1fr; } }
+</style>
+<script src="assets/dbar.js" defer></script>
+</head>
+<body>
+
+<header class="nav6">
+  <div class="wrap">
+    <div class="nav6__in">
+      <a class="nav6__logo" href="design-6.html">Beauty <em>Business</em></a>
+      <nav class="nav6__nav">
+        <a href="design-6.html#programe">Programe</a>
+        <a href="#">Mentorat</a>
+        <a href="design-6.html#calculator">Gratuități</a>
+        <a href="design-6-podcast.html" aria-current="page">Podcast</a>
+        <a href="#">Cont</a>
+        <a class="btn btn--primary btn--sm" href="quiz.html">Fă testul</a>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<!-- 1 · HERO -->
+<section class="section section--tight">
+  <div class="wrap">
+    <div style="max-width:62ch" class="rise">
+      <span class="eyebrow eyebrow--accent">Podcast</span>
+      <div class="rule-z"></div>
+      <h1 style="font-size:var(--t-hero)">Ascultă ultimele <span class="mark">episoade</span></h1>
+      <p class="lede">Conversații despre bani, echipă și prețuri, cu oameni care chiar conduc saloane. Fără motivație goală — sfaturi aplicabile luni dimineață.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 2 · ULTIMUL EPISOD -->
+<section class="section section--tight" style="padding-top:0">
+  <div class="wrap">
+    <div class="sub6">
+      <div class="curtain" data-curtain data-reveal="left" style="min-height:360px">
+        <div class="curtain__back">
+          <span class="eyebrow" style="color:var(--taupe)">Episodul #47</span>
+          <h3>Player YouTube încorporat</h3>
+          <p>În producție, aici se încarcă iframe-ul YouTube — abia la deschidere, ca să nu coste performanță la fiecare vizită.</p>
+          <div style="display:flex;gap:var(--s4);flex-wrap:wrap;justify-content:center;margin-top:var(--s5)">
+            <a class="btn btn--onDark" href="#">Ascultă pe YouTube</a>
+            <a class="btn btn--onDark" href="#">Spotify</a>
+          </div>
+        </div>
+        <div class="curtain__leaf curtain__leaf--l"><div class="ph ph--deep">Thumbnail<br>stânga</div></div>
+        <div class="curtain__leaf curtain__leaf--r"><div class="ph ph--deep">Thumbnail<br>dreapta</div></div>
+        <span class="curtain__hint">Apasă pentru redare</span>
+        <button class="curtain__trigger btn btn--onDark" type="button" aria-expanded="false">▶ Redă episodul</button>
+        <button class="curtain__close" type="button" aria-label="Închide">✕</button>
+      </div>
+      <div data-reveal="right">
+        <span class="eyebrow eyebrow--accent">Ultimul episod · 28 min</span>
+        <h2>Cum stabilești prețul fără să te compari cu salonul de vizavi</h2>
+        <p style="color:var(--ink-soft)">De ce prețul concurenței e cea mai proastă bază de calcul, și ce folosești în loc: capacitatea reală, costul pe serviciu și venitul lunar țintă.</p>
+        <div style="display:flex;gap:var(--s3);flex-wrap:wrap;margin-top:var(--s5)">
+          <span class="badge badge--meta">Prețuri</span>
+          <span class="badge badge--meta">Freelanceri</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3 · ABONEAZĂ-TE — platformele + captura de email -->
+<section class="section section--zest">
+  <div class="wrap">
+    <div class="sub6" style="margin-bottom:var(--s7)">
+      <div>
+        <span class="eyebrow eyebrow--zest">Abonează-te</span>
+        <h2>Un episod nou în fiecare săptămână</h2>
+        <p style="color:var(--ink-soft);margin-bottom:0"><span class="tbd">[X]</span> ascultători din <span class="tbd">[X]</span> țări primesc episodul nou în ziua în care apare. Alege platforma ta sau primește-l pe email, cu ce se învață din el în două rânduri.</p>
+      </div>
+      <div>
+        <form onsubmit="event.preventDefault();this.querySelector('button').textContent='Înscris ✓';this.querySelector('button').disabled=true">
+          <div class="form-inline">
+            <div class="field"><label for="s-nume">Prenume</label><input id="s-nume" type="text" placeholder="Prenumele tău" required></div>
+            <div class="field"><label for="s-mail">Email</label><input id="s-mail" type="email" placeholder="adresa@exemplu.ro" required></div>
+          </div>
+          <button class="btn btn--primary" type="submit" style="margin-top:var(--s4)">Trimite-mi episoadele</button>
+          <label class="consent" style="margin-top:var(--s4)"><input type="checkbox" required> Sunt de acord să primesc emailuri. Mă pot dezabona oricând. <span class="tbd">[link politică]</span></label>
+        </form>
+      </div>
+    </div>
+    <div class="plat6" style="background:var(--white)">
+      <a href="#"><i>♫</i> Apple Podcasts</a>
+      <a href="#"><i>◉</i> Spotify</a>
+      <a href="#"><i>▶</i> YouTube</a>
+      <a href="#"><i>≋</i> Amazon Music</a>
+    </div>
+  </div>
+</section>
+
+<!-- 4 · RECENZII -->
+<section class="section">
+  <div class="wrap">
+    <div style="max-width:58ch;margin-bottom:var(--s7)">
+      <span class="eyebrow eyebrow--accent">Ce spun ascultătorii</span>
+      <h2>Recenzii din Apple Podcasts</h2>
+      <p style="color:var(--ink-soft);margin-bottom:0">Structura e gata; textele se preiau din recenziile reale, cu titlul recenziei, numele și țara — exact cum apar în aplicație.</p>
+    </div>
+    <div class="grid grid-3">
+      <article class="rev" data-reveal>
+        <div class="rev__stars">★★★★★</div>
+        <h3 class="rev__t">„Obligatoriu de ascultat"</h3>
+        <p class="rev__q"><span class="tbd">[Textul recenziei — de preluat din Apple Podcasts]</span></p>
+        <div class="rev__w"><span class="tbd">[Nume]</span> · România · <span class="tbd">[dată]</span></div>
+      </article>
+      <article class="rev" data-reveal>
+        <div class="rev__stars">★★★★★</div>
+        <h3 class="rev__t">„Mi-a schimbat prețurile"</h3>
+        <p class="rev__q"><span class="tbd">[Textul recenziei — de preluat din Apple Podcasts]</span></p>
+        <div class="rev__w"><span class="tbd">[Nume]</span> · Moldova · <span class="tbd">[dată]</span></div>
+      </article>
+      <article class="rev" data-reveal>
+        <div class="rev__stars">★★★★★</div>
+        <h3 class="rev__t">„Fantastic"</h3>
+        <p class="rev__q"><span class="tbd">[Textul recenziei — de preluat din Apple Podcasts]</span></p>
+        <div class="rev__w"><span class="tbd">[Nume]</span> · Italia (diaspora) · <span class="tbd">[dată]</span></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- 5 · DIRECTORUL DE EPISOADE -->
+<section class="section section--sand">
+  <div class="wrap">
+    <div style="max-width:58ch;margin-bottom:var(--s6)">
+      <span class="eyebrow eyebrow--accent">Toate episoadele</span>
+      <h2>Directorul complet</h2>
+      <p style="color:var(--ink-soft);margin-bottom:0">De la cel mai nou la cel mai vechi. <strong id="ep-count">—</strong> episoade.</p>
+    </div>
+
+    <div class="searchbar">
+      <input id="ep-q" type="search" placeholder="Caută după titlu sau invitat" aria-label="Caută în episoade">
+    </div>
+
+    <div class="chips6" id="ep-chips">
+      <button class="chip6" aria-pressed="true"  data-tag="toate">Toate</button>
+      <button class="chip6" aria-pressed="false" data-tag="freelanceri">Freelanceri</button>
+      <button class="chip6" aria-pressed="false" data-tag="salon">Proprietari salon</button>
+      <button class="chip6" aria-pressed="false" data-tag="preturi">Prețuri</button>
+      <button class="chip6" aria-pressed="false" data-tag="echipa">Echipă</button>
+      <button class="chip6" aria-pressed="false" data-tag="mindset">Mindset</button>
+      <button class="chip6" aria-pressed="false" data-tag="invitat">Cu invitat</button>
+    </div>
+
+    <div class="dir6" id="ep-list"></div>
+    <p id="ep-empty" hidden style="color:var(--ink-mute);padding-top:var(--s5)">Niciun episod pe această temă încă.</p>
+
+    <div style="text-align:center;margin-top:var(--s7)">
+      <button class="btn btn--ghost" type="button" id="ep-more">Încarcă mai multe</button>
+    </div>
+
+    <p class="note" style="margin-top:var(--s7)"><strong>Import automat.</strong> În producție episoadele se sincronizează din YouTube / RSS (PLAN.md Faza 7). Lore editează doar rezumatul, invitatul și tag-urile — numărul, titlul, durata și data vin singure.</p>
+  </div>
+</section>
+
+<footer class="ftr">
+  <div class="wrap">
+    <div class="grid grid-4">
+      <div><h4>Învață</h4><ul><li><a href="design-6.html#programe">Programe</a></li><li><a href="#">Mentorat</a></li><li><a href="#">Membership</a></li><li><a href="#">Consultanță</a></li></ul></div>
+      <div><h4>Explorează</h4><ul><li><a href="design-6-podcast.html">Podcast</a></li><li><a href="gratuitati.html">Gratuități</a></li><li><a href="quiz.html">Testul</a></li></ul></div>
+      <div><h4>Conectează-te</h4><ul><li><a href="#">Despre Lore</a></li><li><a href="#">Contact</a></li><li><a href="#">Instagram</a></li></ul></div>
+      <div><h4>Legal</h4><ul><li><a href="#">Confidențialitate</a></li><li><a href="#">Termeni</a></li><li><a href="#">Cookies</a></li></ul></div>
+    </div>
+    <p class="ftr__legal">© 2026 Beauty Business · Lore Zagon · Direcția 06 — Client Dream (mockup)</p>
+  </div>
+</footer>
+
+<script src="assets/ui.js"></script>
+<script>
+/* Directorul de episoade. Filtrare pe tag + căutare + paginare progresivă —
+   aceleași trei mecanisme pe care le cere un catalog de 300+ de episoade.
+   Datele sunt de test; în producție vin din colecția Episodes. */
+(function () {
+  var PER = 8;
+
+  var EPISODES = [
+    { n: 47, t: 'Cum stabilești prețul fără să te compari cu salonul de vizavi', d: '28 min', g: '', tags: ['preturi','freelanceri'] },
+    { n: 46, t: 'Angajezi prima persoană: ce trebuie să fie gata înainte',        d: '34 min', g: '', tags: ['echipa','salon'] },
+    { n: 45, t: 'Agenda plină, contul gol — unde se scurg banii',                  d: '22 min', g: '', tags: ['preturi','freelanceri'] },
+    { n: 44, t: 'Ce am învățat conducând un salon cu 9 angajați',                  d: '41 min', g: '[Nume invitat]', tags: ['salon','echipa','invitat'] },
+    { n: 43, t: 'Clienta care nu se mai întoarce',                                 d: '26 min', g: '', tags: ['freelanceri'] },
+    { n: 42, t: 'Salonul care depinde de tine nu e un business',                   d: '31 min', g: '', tags: ['salon','mindset'] },
+    { n: 41, t: 'Sindromul impostorului la creșterea prețului',                    d: '19 min', g: '', tags: ['mindset','preturi'] },
+    { n: 40, t: 'Cum arată o fișă de post într-un salon mic',                      d: '29 min', g: '', tags: ['echipa','salon'] },
+    { n: 39, t: 'Instagram: cât contează, de fapt, pentru rezervări',              d: '24 min', g: '[Nume invitat]', tags: ['freelanceri','invitat'] },
+    { n: 38, t: 'Cele trei cifre pe care trebuie să le știi pe de rost',           d: '33 min', g: '', tags: ['preturi','salon'] },
+    { n: 37, t: 'De la angajată la pe cont propriu, fără să pierzi clientela',     d: '27 min', g: '', tags: ['freelanceri','mindset'] },
+    { n: 36, t: 'Consumabilele: costul pe care nimeni nu îl calculează corect',    d: '21 min', g: '', tags: ['preturi','freelanceri'] },
+    { n: 35, t: 'Testul celor două săptămâni de concediu',                         d: '30 min', g: '', tags: ['salon','mindset'] },
+    { n: 34, t: 'Recrutare în beauty: unde greșesc aproape toate saloanele',       d: '38 min', g: '[Nume invitat]', tags: ['echipa','salon','invitat'] },
+    { n: 33, t: 'Cum anunți o grilă nouă de prețuri, în trei pași',                d: '23 min', g: '', tags: ['preturi'] },
+    { n: 32, t: 'Diaspora: să lucrezi în beauty în Italia și Spania',              d: '36 min', g: '[Nume invitat]', tags: ['freelanceri','invitat'] },
+    { n: 31, t: 'Ce faci cu clienta care întârzie de fiecare dată',                d: '18 min', g: '', tags: ['freelanceri','mindset'] },
+    { n: 30, t: 'Bilanț: primul an ca proprietar de salon',                        d: '35 min', g: '', tags: ['salon'] }
+  ];
+
+  var list    = document.getElementById('ep-list'),
+      empty   = document.getElementById('ep-empty'),
+      more    = document.getElementById('ep-more'),
+      countEl = document.getElementById('ep-count'),
+      qEl     = document.getElementById('ep-q'),
+      chips   = document.getElementById('ep-chips');
+
+  var tag = 'toate', shown = PER;
+
+  function esc(s) {
+    return String(s).replace(/[&<>"]/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c];
+    });
+  }
+
+  function filtered() {
+    var q = (qEl.value || '').trim().toLowerCase();
+    return EPISODES.filter(function (e) {
+      if (tag !== 'toate' && e.tags.indexOf(tag) < 0) return false;
+      if (!q) return true;
+      return (e.t + ' ' + e.g).toLowerCase().indexOf(q) > -1;
+    });
+  }
+
+  function draw() {
+    var all = filtered();
+    var page = all.slice(0, shown);
+
+    countEl.textContent = all.length;
+    empty.hidden = all.length > 0;
+    more.hidden = shown >= all.length;
+    more.textContent = 'Încarcă mai multe (' + Math.max(all.length - shown, 0) + ')';
+
+    list.innerHTML = page.map(function (e) {
+      var label = e.tags.filter(function (x) { return x !== 'invitat'; })[0] || '';
+      return '<article class="erow">' +
+        '<span class="erow__n">' + e.n + '</span>' +
+        '<div>' +
+          (e.g ? '<div class="erow__guest">cu <span class="tbd">' + esc(e.g) + '</span></div>' : '') +
+          '<h3 class="erow__t">' + esc(e.t) + '</h3>' +
+        '</div>' +
+        '<span class="erow__m">' + e.d + (label ? ' · ' + label : '') + '</span>' +
+        '<a class="erow__go" href="#">Ascultă acum</a>' +
+      '</article>';
+    }).join('');
+  }
+
+  chips.addEventListener('click', function (e) {
+    var c = e.target.closest('.chip6');
+    if (!c) return;
+    [].forEach.call(this.querySelectorAll('.chip6'), function (x) {
+      x.setAttribute('aria-pressed', String(x === c));
+    });
+    tag = c.dataset.tag;
+    shown = PER;
+    draw();
+  });
+
+  qEl.addEventListener('input', function () { shown = PER; draw(); });
+  more.addEventListener('click', function () { shown += PER; draw(); });
+
+  draw();
+})();
+</script>
+</body>
+</html>

@@ -1,4 +1,4 @@
-/* Bar that switches between the five full design directions.
+/* Bar that switches between the design directions.
    Mockup chrome only. The design pages are fixed combinations — they set
    data-theme/data-style on <html> themselves and deliberately do NOT read
    the switcher state, so each one is judged as a finished design. */
@@ -9,10 +9,15 @@
     { n: '02', id: 'design-2.html', label: 'Swiss',      hint: 'bleumarin · grotesk' },
     { n: '03', id: 'design-3.html', label: 'Soft',       hint: 'teracotă · rotunjit' },
     { n: '04', id: 'design-4.html', label: 'Couture',    hint: 'prună · minimal' },
-    { n: '05', id: 'design-5.html', label: 'Bold',       hint: 'noir · gros' }
+    { n: '05', id: 'design-5.html', label: 'Bold',       hint: 'noir · gros' },
+    { n: '06', id: 'design-6.html', label: 'Client Dream', hint: 'pastel · contur' }
   ];
 
+  /* sub-pages of a direction — they highlight their parent in the bar */
+  var SUB = { 'design-6-podcast.html': 'design-6.html' };
+
   var here = location.pathname.split('/').pop() || 'index.html';
+  var parent = SUB[here] || here;
 
   /* directii.html renders these pages inside scaled iframes as thumbnails —
      the bar would just be noise there. */
@@ -25,7 +30,7 @@
     '<span class="dbar__set">' +
       D.map(function (d) {
         return '<a class="dbar__i" href="' + d.id + '"' +
-          (d.id === here ? ' aria-current="page"' : '') + '>' +
+          (d.id === parent ? ' aria-current="page"' : '') + '>' +
           '<b>' + d.n + '</b> ' + d.label +
           '<em>' + d.hint + '</em></a>';
       }).join('') +
