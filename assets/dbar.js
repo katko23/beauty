@@ -10,7 +10,8 @@
     { n: '03', id: 'design-3.html', label: 'Soft',       hint: 'teracotă · rotunjit' },
     { n: '04', id: 'design-4.html', label: 'Couture',    hint: 'prună · minimal' },
     { n: '05', id: 'design-5.html', label: 'Bold',       hint: 'noir · gros' },
-    { n: '06', id: 'design-6.html', label: 'Client Dream', hint: 'pastel · contur' }
+    { n: '06', id: 'design-6.html', label: 'Client Dream', hint: 'pastel · contur' },
+    { n: '★',  id: 'home.html',     label: 'Home final',   hint: '06 + fundal 03' }
   ];
 
   /* sub-pages of a direction — they highlight their parent in the bar */

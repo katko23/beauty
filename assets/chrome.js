@@ -6,6 +6,7 @@
 (function () {
   var PAGES = [
     { id: 'home',       href: 'index.html',       label: 'Home' },
+    { id: 'homefinal',  href: 'home.html',        label: 'Home final ★' },
     { id: 'freelanceri',href: 'freelanceri.html', label: 'Hub Freelanceri' },
     { id: 'curs',       href: 'curs.html',        label: 'Pagină curs' },
     { id: 'quiz',       href: 'quiz.html',        label: 'Quiz' },

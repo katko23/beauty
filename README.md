@@ -12,6 +12,7 @@ A dark demo bar at the top links between all pages. It is mockup chrome only and
 
 | File | Represents | Interactive |
 |---|---|---|
+| `home.html` | **Home final** — 06 Client Dream on the pastel surfaces of 03, solid contrasting buttons, Lore's B&W photography; all 8 spec §2 sections + header §1.1 + footer §1.3, plus an extra "Metoda Lore" block | panels, carousels, compare, live calculator, mobile menu |
 | `index.html` | Home — 8 sections per spec §2 | — |
 | `freelanceri.html` | Audience hub, course grid, chooser table, comparison | — |
 | `curs.html` | Course template (Restart în Beauty) | module accordion, FAQ accordion |

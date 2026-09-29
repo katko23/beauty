@@ -1,0 +1,654 @@
+<!doctype html>
+<html lang="ro" data-theme="pastel" data-style="dream">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Home · Beauty Business</title>
+<link rel="stylesheet" href="assets/tokens.css">
+<link rel="stylesheet" href="assets/themes.css">
+<link rel="stylesheet" href="assets/styles.css">
+<link rel="stylesheet" href="assets/ui.css">
+<style>
+  /* ── Home final: 06 Client Dream + the pastel surfaces of 03 Soft ──────
+     Structure, type, zero corners and the yellow come from 06. What changes,
+     at the client's request:
+       · text sits on pastel surfaces (03's cream / sand / apricot), not on
+         pure white — white is kept only for cards, so they still lift;
+       · buttons are solid and contrasting instead of outline-only:
+         clay for the main action, ink for the second, yellow on dark bands;
+       · photography is Lore's black-and-white studio series (Jan 2026),
+         which sits on warm pastel without fighting the palette.
+     Everything is scoped to this page, so design-6.html stays as approved. */
+  html[data-theme="pastel"][data-style="dream"] {
+    --canvas:     #FDF9F4;   /* 03 canvas — warm cream instead of #FFF */
+    --sand:       #F6EBDF;   /* 03 sand band */
+    --sand-deep:  #EAD9C7;
+    --blush:      #F8E8DB;   /* 03 apricot wash, used as a full band */
+    --clay:       #9C4A22;   /* 03 accent — the contrasting button colour */
+    --clay-hi:    #7E3A18;
+    --hdr-bg:     rgba(253,249,244,.94);
+  }
+  body { background: var(--canvas); }
+  .section--blush { background: var(--blush); }
+
+  /* buttons — solid, contrasting; shape and tracking stay 06 */
+  [data-style="dream"] .btn--primary { background: var(--clay); color: #FFF; border-color: var(--clay); }
+  [data-style="dream"] .btn--primary:hover { background: var(--clay-hi); border-color: var(--clay-hi); color: #FFF; }
+  [data-style="dream"] .btn--ink,
+  [data-style="dream"] .btn--ghost { background: var(--ink); color: #FFF; border-color: var(--ink); }
+  [data-style="dream"] .btn--ink:hover,
+  [data-style="dream"] .btn--ghost:hover { background: var(--clay); border-color: var(--clay); color: #FFF; }
+  [data-style="dream"] .btn--onDark { background: var(--zest); color: var(--ink); border-color: var(--zest); font-weight: 600; }
+  [data-style="dream"] .btn--onDark:hover { background: #FFF; border-color: #FFF; color: var(--ink); }
+
+  /* photographs — real images replace the hatched placeholders */
+  .photo { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 20%; background: var(--sand-deep); }
+  .photo--ratio45 { aspect-ratio: 4/5; height: auto; }
+  .panel > .photo { position: absolute; inset: 0; }
+
+  /* ── header, spec §1.1 ─────────────────────────────────────────────── */
+  .nav7 { position: sticky; top: 0; z-index: 40; background: var(--hdr-bg); backdrop-filter: blur(8px); border-bottom: 1px solid var(--sand-deep); }
+  .nav7__in { display: flex; align-items: center; gap: var(--s5); padding-block: var(--s4); }
+  .nav7__logo { font-family: var(--display); font-size: 1.3rem; letter-spacing: .02em; text-decoration: none; color: var(--ink); white-space: nowrap; }
+  .nav7__logo em { font-style: italic; color: var(--clay); }
+  .nav7__nav { display: flex; gap: var(--s5); margin-left: auto; align-items: center; }
+  .nav7__nav > a:not(.btn), .nav7__dd > button {
+    font: inherit; font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
+    text-decoration: none; color: var(--ink-soft); background: none; border: 0; padding: 0; cursor: pointer; white-space: nowrap;
+  }
+  .nav7__nav > a:not(.btn):hover, .nav7__dd > button:hover { color: var(--clay); }
+  .nav7__login { color: var(--ink-mute) !important; }
+  .nav7__dd { position: relative; }
+  .nav7__dd ul {
+    position: absolute; top: calc(100% + 14px); left: -1rem; min-width: 250px; margin: 0; padding: var(--s3) 0;
+    list-style: none; background: var(--white); box-shadow: var(--shadow);
+    opacity: 0; visibility: hidden; transform: translateY(-4px); transition: .18s ease;
+  }
+  .nav7__dd:hover ul, .nav7__dd:focus-within ul { opacity: 1; visibility: visible; transform: none; }
+  .nav7__dd ul a { display: block; padding: .6rem 1rem; font-size: var(--t-small); text-decoration: none; color: var(--ink); }
+  .nav7__dd ul a:hover { background: var(--blush); color: var(--clay); }
+  .nav7__toggle { display: none; margin-left: auto; background: none; border: 1px solid var(--ink); padding: .5rem .8rem; font-size: 10px; letter-spacing: .2em; text-transform: uppercase; cursor: pointer; color: var(--ink); }
+  @media (max-width: 1180px) {
+    .nav7__toggle { display: block; }
+    .nav7__nav { display: none; position: absolute; left: 0; right: 0; top: 100%; flex-direction: column; align-items: stretch; gap: 0;
+      background: var(--canvas); border-bottom: 1px solid var(--sand-deep); padding: var(--s3) var(--gutter) var(--s5); }
+    .nav7[data-open="true"] .nav7__nav { display: flex; }
+    .nav7__nav > a:not(.btn), .nav7__dd > button { display: block; padding: .8rem 0; text-align: left; border-bottom: 1px solid var(--sand-deep); }
+    .nav7__dd ul { position: static; opacity: 1; visibility: visible; transform: none; box-shadow: none; background: transparent; padding: 0 0 0 1rem; }
+    .nav7__nav .btn { margin-top: var(--s4); }
+  }
+
+  /* ── hero ──────────────────────────────────────────────────────────── */
+  .hero7 { background: var(--canvas); border-bottom: 1px solid var(--sand-deep); }
+  .hero7 .hero-split { align-items: stretch; gap: 0; }
+  .hero7__text { display: flex; flex-direction: column; justify-content: center; padding-block: var(--s9); }
+  .hero7 h1 { max-width: 15ch; }
+  .hero7__rule { width: 68px; height: 3px; background: var(--zest); margin-bottom: var(--s5); }
+  .hero7__facts { display: flex; gap: var(--s6); flex-wrap: wrap; margin-top: var(--s7); padding-top: var(--s5); border-top: 1px solid var(--sand-deep); }
+  .hero7__fact { font-size: var(--t-small); color: var(--ink-mute); }
+  .hero7__fact b { display: block; font-family: var(--display); font-size: 1.7rem; font-weight: 400; color: var(--ink); line-height: 1; margin-bottom: .2rem; }
+  .hero7 .hero-split__visual { min-height: min(82vh, 820px); overflow: hidden; }
+  .hero7 .hero-split__visual > .hero7__cap { height: auto; }
+  .hero7__cap { position: absolute; left: var(--s5); bottom: var(--s5); background: var(--canvas); padding: .55rem .9rem; font-size: 10px; letter-spacing: .22em; text-transform: uppercase; }
+  .hero7 .hero-split__visual { position: relative; }
+
+  /* ── shared heads ──────────────────────────────────────────────────── */
+  .head7 { max-width: 60ch; margin-bottom: var(--s7); }
+  .head7--center { margin-inline: auto; text-align: center; }
+  .head7 p { color: var(--ink-soft); margin-bottom: 0; }
+  .split7 { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem, 4vw, 5rem); align-items: center; }
+  @media (max-width: 900px) { .split7 { grid-template-columns: 1fr; } }
+
+  /* ── problem statement §2.2 ────────────────────────────────────────── */
+  .pain { display: grid; grid-template-columns: .9fr 1.1fr; gap: clamp(2rem, 5vw, 6rem); align-items: start; }
+  .pain__list { list-style: none; margin: 0; padding: 0; }
+  .pain__list li { display: grid; grid-template-columns: 3rem 1fr; gap: var(--s4); padding-block: var(--s5); border-top: 1px solid var(--sand-deep); font-family: var(--display); font-size: clamp(1.15rem, 1.8vw, 1.45rem); line-height: 1.35; color: var(--ink); }
+  .pain__list li:last-child { border-bottom: 1px solid var(--sand-deep); }
+  .pain__list span { font-family: var(--sans); font-size: 11px; letter-spacing: .2em; color: var(--clay); padding-top: .45rem; }
+  .pain__reframe { margin-top: var(--s6); padding: var(--s6); background: var(--white); box-shadow: var(--shadow); }
+  .pain__reframe p { color: var(--ink-soft); }
+  .pain__reframe strong { display: block; font-family: var(--display); font-weight: 400; font-size: 1.45rem; line-height: 1.3; color: var(--ink); margin-top: var(--s3); }
+  @media (max-width: 900px) { .pain { grid-template-columns: 1fr; } }
+
+  /* ways to work — the panel body carries the spec's card copy */
+  .panel__more h4 { color: #FFF; font-family: var(--display); font-weight: 400; font-size: 1.25rem; margin: 0 0 .4rem; }
+
+  /* ── featured program §2.5 ─────────────────────────────────────────── */
+  .feat { display: grid; grid-template-columns: .85fr 1.15fr; gap: 0; background: var(--white); box-shadow: var(--shadow); }
+  .feat__img { position: relative; min-height: 520px; }
+  .feat__img .photo { position: absolute; inset: 0; }
+  .feat__body { padding: clamp(2rem, 4vw, 4rem); }
+  .feat__meta { display: flex; gap: var(--s5); flex-wrap: wrap; font-size: var(--t-small); color: var(--ink-mute); margin-block: var(--s4) var(--s5); }
+  .feat__price { font-family: var(--display); font-size: 2rem; line-height: 1; }
+  .feat__price small { font-family: var(--sans); font-size: var(--t-small); color: var(--ink-mute); margin-left: .4rem; }
+  .feat__seats { display: inline-block; background: var(--zest-wash); color: var(--zest-deep); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; font-weight: 600; padding: .45rem .8rem; margin-top: var(--s4); }
+  @media (max-width: 900px) { .feat { grid-template-columns: 1fr; } .feat__img { min-height: 380px; } }
+
+  /* calculator */
+  .calc7 { display: grid; grid-template-columns: 1.05fr .95fr; gap: clamp(2rem, 4vw, 4.5rem); align-items: start; }
+  .calc7__grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s4) var(--s5); }
+  .calc7 .field input { background: var(--white); }
+  .calc7__out { background: var(--ink); color: var(--canvas); padding: var(--s7); }
+  .calc7__out .eyebrow { color: var(--taupe); }
+  .calc7__big { font-family: var(--display); font-weight: 400; font-size: clamp(3.4rem, 8vw, 5.6rem); line-height: 1; color: #FFF; }
+  .calc7__big small { font-family: var(--sans); font-size: var(--t-small); letter-spacing: .18em; text-transform: uppercase; color: var(--taupe); display: block; margin-top: var(--s3); }
+  .calc7__gauge { height: 3px; background: rgba(255,255,255,.18); margin-block: var(--s5) var(--s4); }
+  .calc7__gauge i { display: block; height: 100%; background: var(--zest); transition: width .35s ease; }
+  .calc7__verdict { font-size: var(--t-small); color: var(--taupe); margin: 0; }
+  .calc7__verdict strong { color: #FFF; }
+  @media (max-width: 900px) { .calc7, .calc7__grid { grid-template-columns: 1fr; } }
+
+  /* ── despre Lore §2.7 ──────────────────────────────────────────────── */
+  .about { display: grid; grid-template-columns: .8fr 1.2fr; gap: clamp(2rem, 5vw, 6rem); align-items: center; }
+  .about__img { position: relative; }
+  .about__img::before { content: ""; position: absolute; inset: var(--s5) calc(-1 * var(--s5)) calc(-1 * var(--s5)) var(--s5); background: var(--zest-wash); z-index: -1; }
+  .about__stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s5); margin-top: var(--s6); padding-top: var(--s5); border-top: 1px solid var(--sand-deep); }
+  .about__stats .count { font-family: var(--display); font-size: 2.3rem; line-height: 1; color: var(--ink); }
+  .about__sig { font-family: var(--display); font-style: italic; font-size: 1.6rem; color: var(--clay); margin-top: var(--s5); }
+  @media (max-width: 900px) { .about { grid-template-columns: 1fr; } .about__img { max-width: 440px; } }
+
+  /* ── bloc suplimentar: Lore, dincolo de bio ────────────────────────── */
+  .lore { display: grid; grid-template-columns: 1.1fr .9fr; gap: clamp(2rem, 5vw, 6rem); align-items: center; }
+  .lore__mosaic { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: auto auto; gap: var(--s4); }
+  .lore__mosaic figure { margin: 0; overflow: hidden; }
+  .lore__mosaic figure:first-child { grid-row: span 2; }
+  .lore__mosaic .photo { aspect-ratio: 4/5; height: auto; transition: transform .6s ease; }
+  .lore__mosaic figure:first-child .photo { aspect-ratio: auto; height: 100%; }
+  .lore__mosaic figure:hover .photo { transform: scale(1.04); }
+  .lore__quote { font-family: var(--display); font-size: clamp(1.6rem, 2.8vw, 2.3rem); line-height: 1.2; margin: var(--s4) 0 var(--s6); color: var(--ink); }
+  .lore__quote::before { content: "„"; color: var(--clay); }
+  .lore__quote::after { content: "”"; color: var(--clay); }
+  .lore__principles { list-style: none; margin: 0 0 var(--s6); padding: 0; counter-reset: p; }
+  .lore__principles li { counter-increment: p; display: grid; grid-template-columns: 2.5rem 1fr; gap: var(--s3); padding-block: var(--s4); border-top: 1px solid var(--sand-deep); }
+  .lore__principles li::before { content: "0" counter(p); font-size: 11px; letter-spacing: .2em; color: var(--clay); padding-top: .3rem; }
+  .lore__principles b { display: block; font-family: var(--display); font-weight: 400; font-size: 1.15rem; }
+  .lore__principles p { margin: .2rem 0 0; color: var(--ink-soft); font-size: var(--t-small); }
+  @media (max-width: 900px) { .lore { grid-template-columns: 1fr; } }
+
+  /* ── podcast teaser §2.6 ───────────────────────────────────────────── */
+  .pod { display: grid; grid-template-columns: .75fr 1.25fr; gap: clamp(2rem, 4vw, 5rem); align-items: start; }
+  .pod__img { margin-top: var(--s6); max-width: 360px; }
+  .prow { display: grid; grid-template-columns: 4.5rem 1fr auto; gap: var(--s5); align-items: center; padding-block: var(--s5); border-bottom: 1px solid var(--sand-deep); }
+  .prow:first-of-type { border-top: 1px solid var(--sand-deep); }
+  .prow__n { font-family: var(--display); font-size: 1.5rem; color: var(--clay); }
+  .prow__t { font-family: var(--display); font-size: 1.15rem; margin: 0 0 .2rem; }
+  .prow__m { font-size: var(--t-micro); letter-spacing: .12em; text-transform: uppercase; color: var(--ink-mute); }
+  @media (max-width: 900px) { .pod { grid-template-columns: 1fr; } .pod__img { display: none; } }
+  @media (max-width: 700px) { .prow { grid-template-columns: 3rem 1fr; } .prow .btn { grid-column: 2; justify-self: start; } }
+
+  /* ── CTA final §2.8 ────────────────────────────────────────────────── */
+  .cta7 { display: grid; grid-template-columns: 1.2fr .8fr; background: var(--ink); color: var(--canvas); }
+  .cta7__body { padding: clamp(2.5rem, 6vw, 6rem) var(--edge); padding-right: clamp(2rem, 5vw, 5rem); }
+  .cta7 h2 { color: #FFF; font-size: var(--t-h1); }
+  .cta7 p { color: var(--taupe); }
+  .cta7__img { position: relative; min-height: 420px; }
+  .cta7__img .photo { position: absolute; inset: 0; }
+  .cta7__links { display: flex; flex-wrap: wrap; gap: var(--s2) var(--s5); margin-top: var(--s6); padding-top: var(--s5); border-top: 1px solid rgba(255,255,255,.15); }
+  .cta7__links a { color: var(--taupe); font-size: 11px; letter-spacing: .18em; text-transform: uppercase; text-decoration: none; border-bottom: 1px solid transparent; }
+  .cta7__links a:hover { color: #FFF; border-color: var(--zest); }
+  @media (max-width: 900px) { .cta7 { grid-template-columns: 1fr; } .cta7__img { min-height: 360px; } }
+
+  .ftr { margin-top: 0; }
+  .ftr__news input { border-radius: 0; }
+</style>
+<script src="assets/dbar.js" defer></script>
+</head>
+<body>
+
+<!-- HEADER — spec §1.1: Programe ▾, Mentorat, Podcast, Gratuități, Membership,
+     Consultanță 1:1, Cont / Login (extern, GetCourse), CTA "Explorează programele" -->
+<header class="nav7" data-open="false">
+  <div class="wrap" style="position:relative">
+    <div class="nav7__in">
+      <a class="nav7__logo" href="home.html">Beauty <em>Business</em></a>
+      <button class="nav7__toggle" type="button" aria-expanded="false" aria-controls="nav7-menu">Meniu</button>
+      <nav class="nav7__nav" id="nav7-menu" aria-label="Principal">
+        <div class="nav7__dd">
+          <button type="button" aria-haspopup="true">Programe ▾</button>
+          <ul>
+            <li><a href="freelanceri.html">Pentru freelanceri</a></li>
+            <li><a href="freelanceri.html">Pentru proprietari de salon</a></li>
+          </ul>
+        </div>
+        <a href="#">Mentorat</a>
+        <a href="design-6-podcast.html">Podcast</a>
+        <a href="gratuitati.html">Gratuități</a>
+        <a href="#">Membership</a>
+        <a href="#">Consultanță 1:1</a>
+        <a class="nav7__login" href="#" title="Link extern → GetCourse">Cont / Login ↗</a>
+        <a class="btn btn--primary btn--sm" href="freelanceri.html">Explorează programele</a>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<!-- 1 · HERO — spec §2.1: headline, subheadline, "Sunt freelancer" / "Am un salon",
+     fotografie Lore -->
+<section class="hero7">
+  <div class="hero-split">
+    <div class="hero-split__text hero7__text rise">
+      <span class="eyebrow eyebrow--accent">Educație de business pentru industria beauty</span>
+      <div class="hero7__rule"></div>
+      <h1 style="font-size:var(--t-hero)">Ai talentul. Îți lipsește <span class="mark">sistemul</span>.</h1>
+      <p class="lede">Programe, mentorat și instrumente pentru freelanceri și proprietari de salon din România, Moldova și diaspora. Lucrezi pe cifrele tale, nu pe teorie.</p>
+      <div style="display:flex;gap:var(--s4);flex-wrap:wrap;margin-top:var(--s6)">
+        <a class="btn btn--primary" href="freelanceri.html">Sunt freelancer</a>
+        <a class="btn btn--ink" href="freelanceri.html">Am un salon</a>
+      </div>
+      <div class="hero7__facts">
+        <div class="hero7__fact"><b>22+</b>ani în industrie</div>
+        <div class="hero7__fact"><b><span class="tbd">[X]</span></b>cursante</div>
+        <div class="hero7__fact"><b><span class="tbd">[X]</span></b>episoade podcast</div>
+      </div>
+    </div>
+    <div class="hero-split__visual rise rise--2">
+      <img class="photo" src="assets/img/lore/coat-smile.jpg" alt="Lore Zagon, portret alb-negru în studio" fetchpriority="high">
+      <span class="hero7__cap">Lore Zagon · fondatoare</span>
+    </div>
+  </div>
+</section>
+
+<!-- BANDĂ GALBENĂ — cifre -->
+<section class="section--zest" style="border-bottom:1px solid var(--sand-deep)">
+  <div class="mq" data-marquee="40" style="border:0;padding-block:var(--s4)">
+    <div class="mq__in">
+      <span class="mq__item"><b>66</b> RON/h · câștigul real median declarat la start</span><span class="mq__sep">✦</span>
+      <span class="mq__item"><b>+30%</b> preț, zero cliente pierdute</span><span class="mq__sep">✦</span>
+      <span class="mq__item"><b>6</b> module în <em style="font-style:normal">Restart în Beauty</em></span><span class="mq__sep">✦</span>
+      <span class="mq__item"><b>1.926 → 2.896 €</b> venit lunar, aceeași agendă</span><span class="mq__sep">✦</span>
+      <span class="mq__item"><b>22</b> ani de practică, nu de teorie</span><span class="mq__sep">✦</span>
+    </div>
+  </div>
+</section>
+
+<!-- 2 · PROBLEM STATEMENT — spec §2.2: empatic, fără soluție, apoi reframing -->
+<section class="section section--blush">
+  <div class="wrap">
+    <div class="pain">
+      <div data-reveal="left">
+        <span class="eyebrow eyebrow--accent">Dacă te regăsești aici</span>
+        <h2>Muncești mult. Rămâi cu puțin. Și nu e vina talentului tău.</h2>
+        <div class="pain__reframe">
+          <p style="margin:0">Nimeni nu te-a învățat partea de business. Școala te-a învățat tehnica, salonul te-a învățat viteza — dar prețul, agenda și echipa le-ai descoperit singur(ă), din greșeli.</p>
+          <strong>Nu ai fost învățat(ă) să construiești un business. Noi facem exact asta.</strong>
+        </div>
+      </div>
+      <ul class="pain__list" data-reveal="right">
+        <li><span>01</span>Agenda plină la final de lună, dar banii nu reflectă orele lucrate.</li>
+        <li><span>02</span>Știi să faci cel mai bun serviciu din salon — dar nu știi cum să transformi asta într-un business stabil.</li>
+        <li><span>03</span>Ai clienți, ai talent — dar nu ai sistem. Și simți asta în fiecare lună.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 3 · CĂI DE ACCES — spec §2.3 (Programe / Membership / Gratuități, fiecare cu CTA)
+     în blocul "Patru feluri" adoptat de client; al patrulea e Mentorat + Consultanță -->
+<section class="section">
+  <div class="wrap">
+    <div class="head7 head7--center">
+      <span class="eyebrow eyebrow--accent">Cum te putem ajuta</span>
+      <h2>Patru feluri în care poți lucra cu noi</h2>
+      <p>De la resurse gratuite până la 12 luni de lucru direct. Alegi după cât de aproape vrei să fim.</p>
+    </div>
+    <div class="panels" data-panels data-reveal>
+      <div class="panel"><img class="photo" src="assets/img/lore/laptop-seated.jpg" alt="" loading="lazy"><div class="panel__body">
+        <div class="panel__num">01</div><h3 class="panel__title">Programe</h3>
+        <div class="panel__more"><h4>Intră într-un program structurat</h4><p>Cursuri online pas cu pas pentru freelanceri sau proprietari de salon.</p><a class="btn btn--onDark btn--sm" href="freelanceri.html">Explorează programele</a></div>
+      </div></div>
+      <div class="panel"><img class="photo" src="assets/img/lore/mirror.jpg" alt="" loading="lazy"><div class="panel__body">
+        <div class="panel__num">02</div><h3 class="panel__title">Membership</h3>
+        <div class="panel__more"><h4>Alătură-te comunității</h4><p>Conținut lunar, sesiuni live de Q&amp;A, suport continuu — la un preț accesibil.</p><a class="btn btn--onDark btn--sm" href="#">Descoperă Membership-ul</a></div>
+      </div></div>
+      <div class="panel"><img class="photo" src="assets/img/lore/paper-roll.jpg" alt="" loading="lazy"><div class="panel__body">
+        <div class="panel__num">03</div><h3 class="panel__title">Gratuități</h3>
+        <div class="panel__more"><h4>Începe gratuit</h4><p>Ghiduri, checklist-uri, webinare și podcast — fără costuri, cu valoare reală.</p><a class="btn btn--onDark btn--sm" href="gratuitati.html">Resurse gratuite</a></div>
+      </div></div>
+      <div class="panel"><img class="photo" src="assets/img/lore/closeup.jpg" alt="" loading="lazy"><div class="panel__body">
+        <div class="panel__num">04</div><h3 class="panel__title">1:1 cu Lore</h3>
+        <div class="panel__more"><h4>Mentorat sau consultanță</h4><p>O sesiune pentru o problemă concretă, sau 12 luni de mentorat pe bază de aplicație.</p><a class="btn btn--onDark btn--sm" href="#">Rezervă o sesiune</a></div>
+      </div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 4 · FEATURED PROGRAM — spec §2.5: titlu + preț, 3 bullet-uri, termen / locuri,
+     CTA "Vreau să intru" -->
+<section class="section section--sand" id="programe">
+  <div class="wrap">
+    <div class="head7">
+      <span class="eyebrow eyebrow--accent">Program activ · înscrieri deschise</span>
+      <h2>Programe pentru fiecare etapă</h2>
+    </div>
+    <article class="feat" data-reveal>
+      <div class="feat__img"><img class="photo" src="assets/img/lore/coat-white.jpg" alt="Lore Zagon" loading="lazy"></div>
+      <div class="feat__body">
+        <span class="badge badge--inter">Intermediar</span>
+        <h3 style="font-size:var(--t-h2);margin-top:var(--s4)">Restart în Beauty</h3>
+        <p class="lede" style="margin:0">Sisteme, retenție și prețuri care funcționează — pentru freelancerii care au deja clienți, dar nu au structură.</p>
+        <div class="feat__meta"><span>Pentru freelanceri</span><span>6 module</span><span>Online, în ritmul tău</span><span>Acces pe viață</span></div>
+        <ul class="course-card__outcomes" style="margin-bottom:var(--s5)">
+          <li>Îți calculezi câștigul real pe oră — și afli unde pierzi bani</li>
+          <li>Implementezi un sistem de retenție care ține clientele</li>
+          <li>Crești prețul fără să pierzi clienți</li>
+        </ul>
+        <div class="feat__price"><span class="tbd">[TBD]</span> lei<small>sau în rate</small></div>
+        <span class="feat__seats"><span class="tbd">[X]</span> locuri disponibile · înscrieri până la <span class="tbd">[data]</span></span>
+        <div style="display:flex;gap:var(--s4);flex-wrap:wrap;margin-top:var(--s6)">
+          <a class="btn btn--primary" href="curs.html">Vreau să intru</a>
+          <a class="btn btn--ink" href="curs.html">Vezi modulele</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- restul catalogului, carusel adoptat din 06 -->
+    <div class="crsl" data-carousel="Programe" style="--per:3;margin-top:var(--s8)">
+      <div class="crsl__track">
+        <div class="crsl__slide"><article class="card course-card course-card--placeholder">
+          <span class="badge badge--soon" style="align-self:flex-start;margin-bottom:var(--s4)">În curând</span>
+          <h3 class="card__title">Program pentru saloane</h3>
+          <p class="course-card__for">Pentru salonul cu echipă, dar fără procese</p>
+          <p class="course-card__promise"><span class="tbd">[promisiunea într-o frază]</span></p>
+          <ul class="course-card__outcomes"><li><span class="tbd">[rezultat 1]</span></li><li><span class="tbd">[rezultat 2]</span></li><li><span class="tbd">[rezultat 3]</span></li></ul>
+          <div class="card__foot"><div class="course-card__price"><span class="tbd">[TBD]</span><small>preț de stabilit</small></div></div>
+        </article></div>
+        <div class="crsl__slide"><article class="card course-card course-card--placeholder">
+          <span class="badge badge--entry" style="align-self:flex-start;margin-bottom:var(--s4)">Entry</span>
+          <h3 class="card__title">Program de început</h3>
+          <p class="course-card__for">Pentru cine tocmai a terminat școala</p>
+          <p class="course-card__promise"><span class="tbd">[promisiunea într-o frază]</span></p>
+          <ul class="course-card__outcomes"><li><span class="tbd">[rezultat 1]</span></li><li><span class="tbd">[rezultat 2]</span></li><li><span class="tbd">[rezultat 3]</span></li></ul>
+          <div class="card__foot"><div class="course-card__price"><span class="tbd">[TBD]</span><small>preț de stabilit</small></div></div>
+        </article></div>
+        <div class="crsl__slide"><article class="card course-card">
+          <span class="badge badge--adv" style="align-self:flex-start;margin-bottom:var(--s4)">Avansat</span>
+          <h3 class="card__title">Mentorat 1:1</h3>
+          <p class="course-card__for">Doar pe bază de aplicație</p>
+          <p class="course-card__promise">12 luni de lucru direct cu Lore, pe cifrele afacerii tale.</p>
+          <ul class="course-card__outcomes"><li>Sesiuni lunare 1:1</li><li>Plan pe 12 luni</li><li>Acces direct între sesiuni</li></ul>
+          <div class="card__foot">
+            <div class="course-card__price">La cerere<small>preț neafișat, deliberat</small></div>
+            <a class="btn btn--ink btn--wide" href="#" style="margin-top:var(--s4)">Vezi dacă te califici</a>
+          </div>
+        </article></div>
+        <div class="crsl__slide"><article class="card course-card course-card--placeholder">
+          <span class="badge badge--soon" style="align-self:flex-start;margin-bottom:var(--s4)">În curând</span>
+          <h3 class="card__title"><span class="tbd">[Alt curs]</span></h3>
+          <p class="course-card__for"><span class="tbd">[audiența]</span></p>
+          <p class="course-card__promise"><span class="tbd">[promisiunea într-o frază]</span></p>
+          <ul class="course-card__outcomes"><li><span class="tbd">[rezultat 1]</span></li><li><span class="tbd">[rezultat 2]</span></li><li><span class="tbd">[rezultat 3]</span></li></ul>
+          <div class="card__foot"><div class="course-card__price"><span class="tbd">[TBD]</span><small>preț de stabilit</small></div></div>
+        </article></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ACEEAȘI AGENDĂ — blocul adoptat din 06 -->
+<section class="section">
+  <div class="wrap">
+    <div class="split7">
+      <div data-reveal="left">
+        <span class="eyebrow eyebrow--accent">Înainte / după</span>
+        <h2>Aceeași agendă, alt rezultat</h2>
+        <p style="color:var(--ink-soft)">Nu adaugi ore. Nu adaugi cliente. Muți aceleași programări în altă structură — prețuri recalculate, pauze reale, reprogramările controlate — și cifra de la sfârșitul lunii se schimbă.</p>
+        <p style="color:var(--ink-soft)">Trage de mâner ca să vezi diferența pe aceeași săptămână de lucru.</p>
+        <div style="display:flex;gap:var(--s4);flex-wrap:wrap;margin-top:var(--s6)">
+          <a class="btn btn--primary" href="curs.html">Cum se face</a>
+          <a class="btn btn--ink" href="#calculator">Vezi cifra ta</a>
+        </div>
+      </div>
+      <div class="cmp" data-compare data-reveal="right">
+        <div class="cmp__layer"><div class="ph ph--warm">ÎNAINTE<br>agendă haotică</div></div>
+        <div class="cmp__layer cmp__layer--after"><div class="ph ph--emerald">DUPĂ<br>agendă cu sistem</div></div>
+        <span class="cmp__tag cmp__tag--l">Înainte</span>
+        <span class="cmp__tag cmp__tag--r">După</span>
+        <input class="cmp__range" type="range" min="0" max="100" value="50" aria-label="Compară agenda înainte și după">
+        <span class="cmp__handle"></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CALCULATOR — funcțional, aceeași formulă ca gratuitati.html -->
+<section class="section section--zest" id="calculator">
+  <div class="wrap">
+    <div class="calc7">
+      <div>
+        <span class="eyebrow eyebrow--zest">Instrument gratuit</span>
+        <h2>Câștigul tău real pe oră</h2>
+        <p style="color:var(--ink-soft)">Cifra pe care aproape nimeni nu o calculează corect: cât îți rămâne net pentru fiecare oră petrecută efectiv la scaun, după consumabile și după reprogramări. Modifică valorile — se recalculează în timp real.</p>
+        <div class="calc7__grid" style="margin-top:var(--s6)">
+          <div class="field"><label for="h-pret">Preț serviciu (RON)</label><input id="h-pret" type="number" min="0" step="10" value="200"></div>
+          <div class="field"><label for="h-durata">Durată (min)</label><input id="h-durata" type="number" min="1" step="5" value="120"></div>
+          <div class="field"><label for="h-consum">Consumabile (RON)</label><input id="h-consum" type="number" min="0" step="5" value="45"></div>
+          <div class="field"><label for="h-repro">Reprogramări lunare (%)</label><input id="h-repro" type="number" min="0" max="90" step="1" value="15"></div>
+        </div>
+        <p style="font-size:var(--t-micro);color:var(--ink-mute);margin-top:var(--s2)">Reperul folosit pentru comparație: <strong>90 RON/oră</strong>. Se poate schimba în versiunea completă.</p>
+        <a class="btn btn--primary" href="gratuitati.html" style="margin-top:var(--s4)">Primește rezultatul pe email</a>
+      </div>
+      <div class="calc7__out">
+        <span class="eyebrow">Câștigul tău real</span>
+        <div class="calc7__big"><span id="h-out">66</span><small>RON pe oră lucrată</small></div>
+        <div class="calc7__gauge"><i id="h-gauge" style="width:73%"></i></div>
+        <p class="calc7__verdict" id="h-verdict"></p>
+        <p class="calc7__verdict" id="h-break" style="margin-top:var(--s4);font-size:var(--t-micro);line-height:1.7"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5 · SOCIAL PROOF — spec §2.4: 4–6 testimoniale, foto rotundă, nume, tip, oraș, cifră -->
+<section class="section">
+  <div class="wrap">
+    <div class="head7">
+      <span class="eyebrow eyebrow--accent">Rezultate</span>
+      <h2>Cifre, nu complimente</h2>
+      <p>Fiecare testimonial conține un număr concret, numele, tipul de activitate și orașul. <span class="tbd">[TBD]</span> marchează textele reale pe care le așteptăm.</p>
+    </div>
+    <div class="crsl" data-carousel="Testimoniale" style="--per:3">
+      <div class="crsl__track">
+        <div class="crsl__slide"><article class="card tst"><div class="tst__metric">1.926 → 2.896 €</div><p class="tst__quote">„Venit lunar, în aceeași agendă. Diferența a fost structura, nu mai multe ore."</p><div class="tst__who"><div class="ph ph--round" data-ratio="1:1">1:1</div><div><div class="tst__name"><span class="tbd">[Nume]</span></div><div class="tst__role">freelancer · Timișoara</div></div></div></article></div>
+        <div class="crsl__slide"><article class="card tst"><div class="tst__metric">+30% preț</div><p class="tst__quote">„Am crescut prețul cu 30% și nu am pierdut nicio clientă. Sistemul din program funcționează."</p><div class="tst__who"><div class="ph ph--round" data-ratio="1:1">1:1</div><div><div class="tst__name"><span class="tbd">[Nume]</span></div><div class="tst__role">lash artist · Cluj</div></div></div></article></div>
+        <div class="crsl__slide"><article class="card tst"><div class="tst__metric">3 luni</div><p class="tst__quote">„În 3 luni am trecut de la haos total la un salon cu procese clare și echipă motivată."</p><div class="tst__who"><div class="ph ph--round" data-ratio="1:1">1:1</div><div><div class="tst__name"><span class="tbd">[Nume]</span></div><div class="tst__role">proprietar salon · București</div></div></div></article></div>
+        <div class="crsl__slide"><article class="card tst"><div class="tst__metric">−11 ore / săpt.</div><p class="tst__quote">„Am recuperat o zi și jumătate de muncă pe săptămână, fără să scad venitul."</p><div class="tst__who"><div class="ph ph--round" data-ratio="1:1">1:1</div><div><div class="tst__name"><span class="tbd">[Nume]</span></div><div class="tst__role">salon 3 angajate · Chișinău</div></div></div></article></div>
+        <div class="crsl__slide"><article class="card tst"><div class="tst__metric"><span class="tbd">[cifră]</span></div><p class="tst__quote"><span class="tbd">[testimonial de colectat de la client]</span></p><div class="tst__who"><div class="ph ph--round" data-ratio="1:1">1:1</div><div><div class="tst__name"><span class="tbd">[Nume]</span></div><div class="tst__role"><span class="tbd">[tip · oraș]</span></div></div></div></article></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6 · PODCAST TEASER — spec §2.6: ultimele 3–4 episoade (nr., titlu, durată,
+     "Ascultă acum"), CTA "Toate episoadele" -->
+<section class="section section--sand">
+  <div class="wrap">
+    <div class="pod">
+      <div>
+        <span class="eyebrow eyebrow--accent">Podcast</span>
+        <h2>Conversații despre bani, echipă și prețuri</h2>
+        <p style="color:var(--ink-soft)">Episoade scurte, aplicate, fără motivație goală. În română și rusă, pentru freelanceri și proprietari de salon.</p>
+        <a class="btn btn--primary" href="design-6-podcast.html" style="margin-top:var(--s4)">Toate episoadele</a>
+        <p style="font-size:var(--t-micro);letter-spacing:.14em;text-transform:uppercase;color:var(--ink-mute);margin-top:var(--s5)">Spotify · Apple Podcasts · YouTube</p>
+        <div class="pod__img"><img class="photo photo--ratio45" src="assets/img/lore/seated-profile.jpg" alt="" loading="lazy"></div>
+      </div>
+      <div>
+        <div class="prow"><span class="prow__n">47</span><div><h3 class="prow__t">Cum stabilești prețul fără să te compari cu salonul de vizavi</h3><span class="prow__m">28 min · Prețuri</span></div><a class="btn btn--ink btn--sm" href="design-6-podcast.html">Ascultă acum</a></div>
+        <div class="prow"><span class="prow__n">46</span><div><h3 class="prow__t">Angajezi prima persoană: ce trebuie să fie gata înainte</h3><span class="prow__m">34 min · Echipă</span></div><a class="btn btn--ink btn--sm" href="design-6-podcast.html">Ascultă acum</a></div>
+        <div class="prow"><span class="prow__n">45</span><div><h3 class="prow__t">Agenda plină, contul gol — unde se scurg banii</h3><span class="prow__m">22 min · Prețuri</span></div><a class="btn btn--ink btn--sm" href="design-6-podcast.html">Ascultă acum</a></div>
+        <div class="prow"><span class="prow__n">44</span><div><h3 class="prow__t">Reprogramările: politica pe care o poți anunța mâine</h3><span class="prow__m">19 min · Clienți</span></div><a class="btn btn--ink btn--sm" href="design-6-podcast.html">Ascultă acum</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 7 · DESPRE LORE — spec §2.7: fotografie + bio 3–4 rânduri (ani în beauty,
+     nr. profesioniști, metodologie proprie) -->
+<section class="section" id="despre-lore">
+  <div class="wrap">
+    <div class="about">
+      <div class="about__img" data-reveal="left"><img class="photo photo--ratio45" src="assets/img/lore/laptop-standing.jpg" alt="Lore Zagon, fondatoarea Beauty Business" loading="lazy"></div>
+      <div data-reveal="right">
+        <span class="eyebrow eyebrow--accent">Despre Lore</span>
+        <h2>22 de ani în beauty. Saloane, academii, greșeli plătite din propriul buzunar.</h2>
+        <p class="lede">Metodologia din programe nu vine din cărți de business, ci din saloane reale — unde fiecare sistem a fost testat înainte să fie predat. <span class="tbd">[bio 3–4 rânduri, de completat de client]</span></p>
+        <div class="about__stats">
+          <div><div class="count" data-count="22" data-count-suffix="+">22+</div><div class="count-label">ani în industrie</div></div>
+          <div><div class="count"><span class="tbd">[X]</span></div><div class="count-label">profesioniști formați</div></div>
+          <div><div class="count"><span class="tbd">[X]</span></div><div class="count-label">saloane consultate</div></div>
+        </div>
+        <div class="about__sig">Lore Zagon</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BLOC SUPLIMENTAR — Lore, dincolo de bio: vocea ei, metoda, și o ușă spre 1:1 -->
+<section class="section section--blush" id="lore">
+  <div class="wrap">
+    <div class="lore">
+      <div class="lore__mosaic" data-reveal="left">
+        <figure><img class="photo" src="assets/img/lore/standing-white.jpg" alt="Lore Zagon în studio" loading="lazy"></figure>
+        <figure><img class="photo" src="assets/img/lore/laptop-seated.jpg" alt="" loading="lazy"></figure>
+        <figure><img class="photo" src="assets/img/lore/leaning-white.jpg" alt="" loading="lazy"></figure>
+      </div>
+      <div data-reveal="right">
+        <span class="eyebrow eyebrow--accent">Metoda Lore</span>
+        <p class="lore__quote">Talentul te aduce în salon. Sistemul te ține acolo — și te lasă să pleci acasă la timp.</p>
+        <ul class="lore__principles">
+          <li><div><b>Cifre înainte de emoții</b><p>Începem cu câștigul real pe oră, nu cu motivația. Ce nu se măsoară, nu se repară.</p></div></li>
+          <li><div><b>Sistem înainte de volum</b><p>Mai multe cliente pe o structură stricată înseamnă doar mai multă oboseală.</p></div></li>
+          <li><div><b>Testat în salon, nu în teorie</b><p>Fiecare instrument din programe a fost folosit întâi în afacerile lui Lore și ale cursantelor.</p></div></li>
+        </ul>
+        <div style="display:flex;gap:var(--s4);flex-wrap:wrap">
+          <a class="btn btn--primary" href="#">Rezervă 20 min cu Lore</a>
+          <a class="btn btn--ink" href="#">Urmărește pe Instagram</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section">
+  <div class="wrap wrap-narrow">
+    <div class="head7 head7--center">
+      <span class="eyebrow eyebrow--accent">Întrebări frecvente</span>
+      <h2>Ce vrei să știi înainte</h2>
+    </div>
+    <div class="acc">
+      <div class="acc__item" data-open="true"><button class="acc__btn" type="button"><span class="acc__num">01</span>Cu ce program încep?<span class="acc__ico"></span></button>
+        <div class="acc__body">Dacă lucrezi singur(ă), începi din <a href="freelanceri.html">hub-ul pentru freelanceri</a>; dacă ai echipă, din cel pentru saloane. Nu ești sigur(ă)? <a href="quiz.html">Testul</a> îți spune în 2 minute.</div></div>
+      <div class="acc__item" data-open="false"><button class="acc__btn" type="button"><span class="acc__num">02</span>Dacă nu am timp acum?<span class="acc__ico"></span></button>
+        <div class="acc__body">Accesul la programe e pe viață, inclusiv la actualizări. Poți începe oricând și te poți opri fără să pierzi nimic.</div></div>
+      <div class="acc__item" data-open="false"><button class="acc__btn" type="button"><span class="acc__num">03</span>Există garanție?<span class="acc__ico"></span></button>
+        <div class="acc__body"><span class="tbd">[Fereastra de garanție — de confirmat cu clientul]</span></div></div>
+      <div class="acc__item" data-open="false"><button class="acc__btn" type="button"><span class="acc__num">04</span>Pot plăti în rate?<span class="acc__ico"></span></button>
+        <div class="acc__body">Da — <span class="tbd">[TBD]</span> lei × <span class="tbd">[X]</span> luni, fără dobândă.</div></div>
+      <div class="acc__item" data-open="false"><button class="acc__btn" type="button"><span class="acc__num">05</span>Care e diferența dintre mentorat și consultanță?<span class="acc__ico"></span></button>
+        <div class="acc__body">Consultanța e o sesiune pentru o problemă concretă. Mentoratul înseamnă 12 luni de lucru direct cu Lore, doar pe bază de aplicație.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 8 · CTA FINAL — spec §2.8: repetă butonul principal + link rapid spre toate produsele -->
+<section class="cta7">
+  <div class="cta7__body">
+    <span class="eyebrow">Unde te încadrezi?</span>
+    <h2>Alege-ți drumul. Restul îl construim împreună.</h2>
+    <p style="max-width:46ch">Lucrezi singur(ă) sau ai o echipă? Începe de acolo — sau lasă testul să îți spună în 2 minute ce are sens pentru tine.</p>
+    <div style="display:flex;gap:var(--s4);flex-wrap:wrap;margin-top:var(--s5)">
+      <a class="btn btn--onDark" href="freelanceri.html">Sunt freelancer</a>
+      <a class="btn btn--onDark" href="freelanceri.html">Am un salon</a>
+      <a class="btn btn--primary" href="quiz.html">Fă testul</a>
+    </div>
+    <nav class="cta7__links" aria-label="Toate produsele">
+      <a href="freelanceri.html">Programe</a><a href="#">Mentorat</a><a href="#">Membership</a>
+      <a href="#">Consultanță 1:1</a><a href="gratuitati.html">Gratuități</a><a href="design-6-podcast.html">Podcast</a>
+    </nav>
+  </div>
+  <div class="cta7__img"><img class="photo" src="assets/img/lore/seated-dark.jpg" alt="" loading="lazy"></div>
+</section>
+
+<!-- FOOTER — spec §1.3: 4 coloane + newsletter "Vreau resurse gratuite" -->
+<footer class="ftr">
+  <div class="wrap">
+    <div class="grid grid-4">
+      <div><h4>Învață</h4><ul><li><a href="freelanceri.html">Programe Freelanceri</a></li><li><a href="freelanceri.html">Programe Salon</a></li><li><a href="#">Mentorat</a></li><li><a href="#">Membership</a></li><li><a href="#">Consultanță 1:1</a></li></ul></div>
+      <div><h4>Explorează</h4><ul><li><a href="design-6-podcast.html">Podcast</a></li><li><a href="gratuitati.html">Gratuități</a></li><li><a href="#">Blog</a></li><li><a href="#">Testimoniale</a></li></ul></div>
+      <div><h4>Conectează-te</h4><ul><li><a href="#despre-lore">Despre Lore</a></li><li><a href="#">Contact</a></li><li><a href="#">Instagram</a></li><li><a href="#">Facebook</a></li><li><a href="#">TikTok</a></li><li><a href="#">YouTube</a></li></ul></div>
+      <div><h4>Legal</h4><ul><li><a href="#">Politică de confidențialitate</a></li><li><a href="#">Termeni și condiții</a></li><li><a href="#">Cookies</a></li></ul></div>
+    </div>
+    <div class="ftr__news">
+      <div class="grid grid-2" style="align-items:center">
+        <div>
+          <h4 style="margin-bottom:.5rem">Newsletter</h4>
+          <p style="margin:0;font-size:.875rem">Resurse gratuite pentru profesioniștii beauty. Fără spam.</p>
+        </div>
+        <form class="form-inline" onsubmit="return false">
+          <div class="field"><input type="email" placeholder="Adresa ta de email" aria-label="Email"></div>
+          <button class="btn btn--onDark" type="submit">Vreau resurse gratuite</button>
+        </form>
+      </div>
+    </div>
+    <p class="ftr__legal">© 2026 Beauty Business · Lore Zagon</p>
+  </div>
+</footer>
+
+<script src="assets/ui.js"></script>
+<script>
+/* meniu mobil */
+(function () {
+  var hdr = document.querySelector('.nav7'), btn = hdr.querySelector('.nav7__toggle');
+  btn.addEventListener('click', function () {
+    var open = hdr.getAttribute('data-open') !== 'true';
+    hdr.setAttribute('data-open', open);
+    btn.setAttribute('aria-expanded', open);
+    btn.textContent = open ? 'Închide' : 'Meniu';
+  });
+})();
+
+/* Calculatorul — aceeași formulă ca pe gratuitati.html și design-6.html. */
+(function () {
+  var BENCH = 90;
+  var f = ['h-pret', 'h-durata', 'h-consum', 'h-repro'].map(function (id) {
+    return document.getElementById(id);
+  });
+  var out     = document.getElementById('h-out'),
+      gauge   = document.getElementById('h-gauge'),
+      verdict = document.getElementById('h-verdict'),
+      brk     = document.getElementById('h-break');
+
+  function calc() {
+    var pret   = Number(f[0].value) || 0,
+        durata = Number(f[1].value) || 0,
+        consum = Number(f[2].value) || 0,
+        repro  = Math.min(Math.max(Number(f[3].value) || 0, 0), 90);
+
+    if (durata <= 0) { out.textContent = '—'; return; }
+
+    var netServiciu = pret - consum;
+    var ore  = durata / 60;
+    var brut = netServiciu / ore;
+    var real = brut * (1 - repro / 100);
+
+    out.textContent = real.toFixed(0);
+    gauge.style.width = Math.max(Math.min((real / BENCH) * 100, 100), 0) + '%';
+    gauge.style.background = real >= BENCH ? '#8ED0A8' : 'var(--zest)';
+
+    brk.innerHTML =
+      'Rămâne din serviciu <strong>' + netServiciu.toFixed(0) + ' RON</strong> · ' +
+      'timp ocupat <strong>' + ore.toFixed(2) + ' h</strong> · ' +
+      'înainte de reprogramări <strong>' + brut.toFixed(0) + ' RON/h</strong> · ' +
+      'pierdut din reprogramări <strong>' + (brut - real).toFixed(0) + ' RON/h</strong>';
+
+    verdict.innerHTML = real >= BENCH
+      ? '<strong>Ești peste reper.</strong> Structura funcționează — următoarea pârghie e capacitatea sau echipa, nu prețul.'
+      : '<strong>Sub ' + BENCH + ' RON pe oră.</strong> Nu e o problemă de piață, e o problemă de sistem: prețul, consumabilele sau reprogramările îți mănâncă marja.';
+  }
+
+  f.forEach(function (el) { el.addEventListener('input', calc); });
+  calc();
+})();
+</script>
+</body>
+</html>
