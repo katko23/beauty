@@ -39,11 +39,12 @@
   [data-style="dream"] .btn--secondary { background: var(--zest); color: var(--ink); border-color: var(--zest); font-weight: 600; }
   [data-style="dream"] .btn--secondary:hover { background: #CC8E1F; border-color: #CC8E1F; color: var(--ink); }
 
-  /* button pairs — side by side; on a phone they stay on one row at equal
-     width (a third button, in the final CTA, takes its own full row) */
-  .btns { display: flex; gap: var(--s4); flex-wrap: wrap; }
+  /* button pairs — side by side and always the same width (both take the
+     width of the wider one); on a phone they split the row 50/50 */
+  .btns { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: var(--s4); width: fit-content; max-width: 100%; }
+  .btns > .btn { justify-content: center; text-align: center; }
   @media (max-width: 640px) {
-    .btns { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s3); }
+    .btns { grid-auto-flow: row; grid-template-columns: 1fr 1fr; gap: var(--s3); width: auto; }
     .btns > .btn:nth-child(3) { grid-column: 1 / -1; }
     .btns > .btn {
       display: flex; align-items: center; justify-content: center; text-align: center;
