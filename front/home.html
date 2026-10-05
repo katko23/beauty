@@ -201,16 +201,53 @@
   @media (max-width: 700px) { .prow { grid-template-columns: 3rem 1fr; } .prow .btn { grid-column: 2; justify-self: start; } }
 
   /* ── CTA final §2.8 ────────────────────────────────────────────────── */
+  /* Final CTA, restructured: one question, two equal choice tiles, a text
+     link to the quiz, then a plain list of products — each with an arrow, so
+     what is clickable is never in doubt. */
   .cta7 { display: grid; grid-template-columns: 1.2fr .8fr; background: var(--ink); color: var(--canvas); }
   .cta7__body { padding: clamp(2.5rem, 6vw, 6rem) var(--edge); padding-right: clamp(2rem, 5vw, 5rem); }
-  .cta7 h2 { color: #FFF; font-size: var(--t-h1); }
-  .cta7 p { color: var(--taupe); }
+  .cta7 h2 { color: #FFF; font-size: var(--t-h1); margin-bottom: var(--s3); }
+  .cta7 p { color: var(--taupe); max-width: 46ch; }
   .cta7__img { position: relative; min-height: 420px; }
   .cta7__img .photo { position: absolute; inset: 0; }
-  .cta7__links { display: flex; flex-wrap: wrap; gap: var(--s2) var(--s5); margin-top: var(--s6); padding-top: var(--s5); border-top: 1px solid rgba(255,255,255,.15); }
-  .cta7__links a { color: var(--taupe); font-size: 11px; letter-spacing: .18em; text-transform: uppercase; text-decoration: none; border-bottom: 1px solid transparent; }
-  .cta7__links a:hover { color: #FFF; border-color: var(--zest); }
-  @media (max-width: 900px) { .cta7 { grid-template-columns: 1fr; } .cta7__img { min-height: 360px; } }
+
+  .paths { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s3); margin-top: var(--s6); max-width: 560px; }
+  .path { position: relative; display: flex; flex-direction: column; gap: .35rem; min-height: 132px; padding: var(--s5) var(--s5) var(--s7); text-decoration: none; transition: transform .2s ease, filter .2s ease; }
+  .path--brown  { background: var(--clay); color: #FFF; }
+  .path--yellow { background: var(--zest); color: var(--ink); }
+  .path:hover { transform: translateY(-3px); filter: brightness(1.06); }
+  .path__k { font-size: 10px; letter-spacing: .2em; text-transform: uppercase; opacity: .8; }
+  .path__t { font-family: var(--display); font-size: clamp(1.3rem, 2.2vw, 1.7rem); line-height: 1.15; }
+  .path__go { position: absolute; right: var(--s5); bottom: var(--s4); font-size: 1.4rem; line-height: 1; }
+
+  .cta7__quiz { margin: var(--s5) 0 0; font-size: var(--t-small); }
+  .cta7__quiz a { color: #FFF; text-decoration: none; border-bottom: 1px solid var(--zest); padding-bottom: 2px; white-space: nowrap; }
+  .cta7__quiz a:hover { color: var(--zest); }
+
+  .cta7__links { margin-top: var(--s7); max-width: 560px; }
+  .cta7__lbl { display: block; font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--ink-mute); margin-bottom: var(--s3); }
+  .cta7__links ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; column-gap: var(--s6); }
+  .cta7__links a { display: flex; justify-content: space-between; align-items: center; padding: .8rem 0; border-bottom: 1px solid rgba(255,255,255,.12); color: var(--canvas); text-decoration: none; font-size: var(--t-small); }
+  .cta7__links i { font-style: normal; color: var(--zest); transition: transform .2s ease; }
+  .cta7__links a:hover i { transform: translateX(4px); }
+  @media (max-width: 900px) { .cta7 { grid-template-columns: 1fr; } .cta7__img { min-height: 300px; } }
+  @media (max-width: 640px) {
+    .path { min-height: 116px; padding: var(--s4) var(--s4) var(--s6); }
+    .path__go { right: var(--s4); bottom: var(--s3); }
+    .cta7__links ul { column-gap: var(--s5); }
+  }
+
+  /* footer on a phone: the four spec columns as a 2×2 grid, tighter rows,
+     newsletter stacked — instead of one long single column */
+  .ftr li { margin-bottom: .55rem; }
+  @media (max-width: 760px) {
+    .ftr .grid-4 { grid-template-columns: 1fr 1fr; gap: var(--s6) var(--s5); }
+    .ftr h4 { margin-bottom: var(--s3); }
+    .ftr li { margin-bottom: .4rem; }
+    .ftr__news .grid-2 { grid-template-columns: 1fr; gap: var(--s4); }
+    .ftr__news .form-inline { display: grid; grid-template-columns: 1fr; gap: var(--s3); }
+    .ftr__news .btn { width: 100%; }
+  }
 
   /* carousels on a phone: one slide fills the screen, arrows sit on its
      sides (not under it), dots stay centred below. The track runs edge to
@@ -601,16 +638,33 @@
 <section class="cta7">
   <div class="cta7__body">
     <span class="eyebrow">Unde te încadrezi?</span>
-    <h2>Alege-ți drumul. Restul îl construim împreună.</h2>
-    <p style="max-width:46ch">Lucrezi singur(ă) sau ai o echipă? Începe de acolo — sau lasă testul să îți spună în 2 minute ce are sens pentru tine.</p>
-    <div class="btns" style="margin-top:var(--s5)">
-      <a class="btn btn--primary" href="freelanceri.html">Sunt freelancer</a>
-      <a class="btn btn--secondary" href="freelanceri.html">Am un salon</a>
-      <a class="btn btn--secondary" href="quiz.html">Fă testul</a>
+    <h2>Alege-ți drumul.</h2>
+    <p>Spune-ne cum lucrezi și te ducem direct la programele potrivite.</p>
+
+    <div class="paths">
+      <a class="path path--brown" href="freelanceri.html">
+        <span class="path__k">Lucrez singur(ă)</span>
+        <span class="path__t">Sunt freelancer</span>
+        <span class="path__go" aria-hidden="true">→</span>
+      </a>
+      <a class="path path--yellow" href="freelanceri.html">
+        <span class="path__k">Am o echipă</span>
+        <span class="path__t">Am un salon</span>
+        <span class="path__go" aria-hidden="true">→</span>
+      </a>
     </div>
+    <p class="cta7__quiz">Nu ești sigur(ă)? <a href="quiz.html">Fă testul de 2 minute →</a></p>
+
     <nav class="cta7__links" aria-label="Toate produsele">
-      <a href="freelanceri.html">Programe</a><a href="#">Mentorat</a><a href="#">Membership</a>
-      <a href="#">Consultanță 1:1</a><a href="gratuitati.html">Gratuități</a><a href="design-6-podcast.html">Podcast</a>
+      <span class="cta7__lbl">Sau mergi direct la</span>
+      <ul>
+        <li><a href="freelanceri.html">Programe <i aria-hidden="true">→</i></a></li>
+        <li><a href="#">Mentorat <i aria-hidden="true">→</i></a></li>
+        <li><a href="#">Membership <i aria-hidden="true">→</i></a></li>
+        <li><a href="#">Consultanță 1:1 <i aria-hidden="true">→</i></a></li>
+        <li><a href="gratuitati.html">Gratuități <i aria-hidden="true">→</i></a></li>
+        <li><a href="design-6-podcast.html">Podcast <i aria-hidden="true">→</i></a></li>
+      </ul>
     </nav>
   </div>
   <div class="cta7__img"><img class="photo" src="assets/img/lore/seated-dark.jpg" alt="" loading="lazy"></div>
