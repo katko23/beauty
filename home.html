@@ -12,8 +12,9 @@
   /* ── Home final: 06 Client Dream + the pastel surfaces of 03 Soft ──────
      Structure, type, zero corners and the yellow come from 06. What changes,
      at the client's request:
-       · text sits on pastel surfaces (03's cream / sand / apricot), not on
-         pure white — white is kept only for cards, so they still lift;
+       · text sits on pastel surfaces (warm cream canvas, cream and yellow
+         bands), not on pure white — white is kept only for cards. 03's
+         apricot/sand bands were dropped: the client found them muddy;
        · buttons are solid and contrasting instead of outline-only:
          clay for the main action, ink for the second, yellow on dark bands;
        · photography is Lore's black-and-white studio series (Jan 2026),
@@ -21,15 +22,13 @@
      Everything is scoped to this page, so design-6.html stays as approved. */
   html[data-theme="pastel"][data-style="dream"] {
     --canvas:     #FDF9F4;   /* 03 canvas — warm cream instead of #FFF */
-    --sand:       #F6EBDF;   /* 03 sand band */
-    --sand-deep:  #EAD9C7;
-    --blush:      #F8E8DB;   /* 03 apricot wash, used as a full band */
+    --sand:       #FBF2E8;   /* pastel cream band — 03's sand/apricot read muddy */
+    --sand-deep:  #F0DFCD;
     --clay:       #9C4A22;   /* 03 accent — the contrasting button colour */
     --clay-hi:    #7E3A18;
     --hdr-bg:     rgba(253,249,244,.94);
   }
   body { background: var(--canvas); }
-  .section--blush { background: var(--blush); }
 
   /* buttons — solid, contrasting; shape and tracking stay 06 */
   [data-style="dream"] .btn--primary { background: var(--clay); color: #FFF; border-color: var(--clay); }
@@ -66,7 +65,7 @@
   }
   .nav7__dd:hover ul, .nav7__dd:focus-within ul { opacity: 1; visibility: visible; transform: none; }
   .nav7__dd ul a { display: block; padding: .6rem 1rem; font-size: var(--t-small); text-decoration: none; color: var(--ink); }
-  .nav7__dd ul a:hover { background: var(--blush); color: var(--clay); }
+  .nav7__dd ul a:hover { background: var(--sand); color: var(--clay); }
   .nav7__toggle { display: none; margin-left: auto; background: none; border: 1px solid var(--ink); padding: .5rem .8rem; font-size: 10px; letter-spacing: .2em; text-transform: uppercase; cursor: pointer; color: var(--ink); }
   @media (max-width: 1180px) {
     .nav7__toggle { display: block; }
@@ -262,7 +261,7 @@
 </section>
 
 <!-- 2 · PROBLEM STATEMENT — spec §2.2: empatic, fără soluție, apoi reframing -->
-<section class="section section--blush">
+<section class="section section--sand">
   <div class="wrap">
     <div class="pain">
       <div data-reveal="left">
@@ -503,7 +502,7 @@
 </section>
 
 <!-- BLOC SUPLIMENTAR — Lore, dincolo de bio: vocea ei, metoda, și o ușă spre 1:1 -->
-<section class="section section--blush" id="lore">
+<section class="section section--sand" id="lore">
   <div class="wrap">
     <div class="lore">
       <div class="lore__mosaic" data-reveal="left">
