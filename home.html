@@ -200,6 +200,29 @@
   .cta7__links a:hover { color: #FFF; border-color: var(--zest); }
   @media (max-width: 900px) { .cta7 { grid-template-columns: 1fr; } .cta7__img { min-height: 360px; } }
 
+  /* carousels on a phone: one slide fills the screen, arrows sit on its
+     sides (not under it), dots stay centred below. The track runs edge to
+     edge and leaves a lane on each side for the arrows, so they never
+     cover the card; gap = lane width keeps the neighbours out of view. */
+  @media (max-width: 640px) {
+    .crsl { position: relative; margin-inline: calc(-1 * var(--gutter)); --lane: 46px; }
+    .crsl__track { padding: 4px 0 var(--s5) var(--lane); scroll-padding-inline: var(--lane); gap: var(--lane); margin: 0; }
+    /* trailing lane as a spacer item, not padding — Safari drops end padding in scrollers */
+    .crsl__track::after { content: ""; flex: 0 0 1px; }
+    .crsl__slide { flex-basis: calc(100% - var(--lane)); }
+    .crsl__ctl { justify-content: center; margin-top: 0; }
+    .crsl__dots { margin-left: 0; }
+    .crsl__btn {
+      position: absolute; top: calc(50% - 22px); transform: translateY(-50%);
+      width: 38px; height: 38px; z-index: 2;
+      background: var(--canvas); border-color: var(--ink);
+    }
+    .crsl__btn:first-child { left: 4px; }
+    .crsl__btn:nth-child(2) { right: 4px; }
+    .crsl__btn:active:not(:disabled) { transform: translateY(-50%) scale(.94); }
+    .crsl__btn:disabled { opacity: .25; }
+  }
+
   .ftr { margin-top: 0; }
   .ftr__news input { border-radius: 0; }
 </style>
