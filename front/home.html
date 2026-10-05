@@ -15,8 +15,8 @@
        · text sits on pastel surfaces (warm cream canvas, cream and yellow
          bands), not on pure white — white is kept only for cards. 03's
          apricot/sand bands were dropped: the client found them muddy;
-       · buttons are solid and contrasting instead of outline-only:
-         clay for the main action, ink for the second, yellow on dark bands;
+       · buttons are solid instead of outline-only: brown for a single
+         button or the first of a pair, yellow for the second of a pair;
        · photography is Lore's black-and-white studio series (Jan 2026),
          which sits on warm pastel without fighting the palette.
      Everything is scoped to this page, so design-6.html stays as approved. */
@@ -30,15 +30,14 @@
   }
   body { background: var(--canvas); }
 
-  /* buttons — solid, contrasting; shape and tracking stay 06 */
+  /* buttons — two colours, shape and tracking stay 06:
+       · default (brown/clay): every single button, and the first of a pair;
+       · secondary (yellow): the second button wherever two sit side by side.
+     Yellow takes ink text — white on #E3A32B fails contrast. */
   [data-style="dream"] .btn--primary { background: var(--clay); color: #FFF; border-color: var(--clay); }
   [data-style="dream"] .btn--primary:hover { background: var(--clay-hi); border-color: var(--clay-hi); color: #FFF; }
-  [data-style="dream"] .btn--ink,
-  [data-style="dream"] .btn--ghost { background: var(--ink); color: #FFF; border-color: var(--ink); }
-  [data-style="dream"] .btn--ink:hover,
-  [data-style="dream"] .btn--ghost:hover { background: var(--clay); border-color: var(--clay); color: #FFF; }
-  [data-style="dream"] .btn--onDark { background: var(--zest); color: var(--ink); border-color: var(--zest); font-weight: 600; }
-  [data-style="dream"] .btn--onDark:hover { background: #FFF; border-color: #FFF; color: var(--ink); }
+  [data-style="dream"] .btn--secondary { background: var(--zest); color: var(--ink); border-color: var(--zest); font-weight: 600; }
+  [data-style="dream"] .btn--secondary:hover { background: #CC8E1F; border-color: #CC8E1F; color: var(--ink); }
 
   /* photographs — real images replace the hatched placeholders */
   .photo { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 20%; background: var(--sand-deep); }
@@ -232,7 +231,7 @@
       <p class="lede">Programe, mentorat și instrumente pentru freelanceri și proprietari de salon din România, Moldova și diaspora. Lucrezi pe cifrele tale, nu pe teorie.</p>
       <div style="display:flex;gap:var(--s4);flex-wrap:wrap;margin-top:var(--s6)">
         <a class="btn btn--primary" href="freelanceri.html">Sunt freelancer</a>
-        <a class="btn btn--ink" href="freelanceri.html">Am un salon</a>
+        <a class="btn btn--secondary" href="freelanceri.html">Am un salon</a>
       </div>
       <div class="hero7__facts">
         <div class="hero7__fact"><b>22+</b>ani în industrie</div>
@@ -293,19 +292,19 @@
     <div class="panels" data-panels data-reveal>
       <div class="panel"><img class="photo" src="assets/img/lore/laptop-seated.jpg" alt="" loading="lazy"><div class="panel__body">
         <div class="panel__num">01</div><h3 class="panel__title">Programe</h3>
-        <div class="panel__more"><h4>Intră într-un program structurat</h4><p>Cursuri online pas cu pas pentru freelanceri sau proprietari de salon.</p><a class="btn btn--onDark btn--sm" href="freelanceri.html">Explorează programele</a></div>
+        <div class="panel__more"><h4>Intră într-un program structurat</h4><p>Cursuri online pas cu pas pentru freelanceri sau proprietari de salon.</p><a class="btn btn--primary btn--sm" href="freelanceri.html">Explorează programele</a></div>
       </div></div>
       <div class="panel"><img class="photo" src="assets/img/lore/mirror.jpg" alt="" loading="lazy"><div class="panel__body">
         <div class="panel__num">02</div><h3 class="panel__title">Membership</h3>
-        <div class="panel__more"><h4>Alătură-te comunității</h4><p>Conținut lunar, sesiuni live de Q&amp;A, suport continuu — la un preț accesibil.</p><a class="btn btn--onDark btn--sm" href="#">Descoperă Membership-ul</a></div>
+        <div class="panel__more"><h4>Alătură-te comunității</h4><p>Conținut lunar, sesiuni live de Q&amp;A, suport continuu — la un preț accesibil.</p><a class="btn btn--primary btn--sm" href="#">Descoperă Membership-ul</a></div>
       </div></div>
       <div class="panel"><img class="photo" src="assets/img/lore/paper-roll.jpg" alt="" loading="lazy"><div class="panel__body">
         <div class="panel__num">03</div><h3 class="panel__title">Gratuități</h3>
-        <div class="panel__more"><h4>Începe gratuit</h4><p>Ghiduri, checklist-uri, webinare și podcast — fără costuri, cu valoare reală.</p><a class="btn btn--onDark btn--sm" href="gratuitati.html">Resurse gratuite</a></div>
+        <div class="panel__more"><h4>Începe gratuit</h4><p>Ghiduri, checklist-uri, webinare și podcast — fără costuri, cu valoare reală.</p><a class="btn btn--primary btn--sm" href="gratuitati.html">Resurse gratuite</a></div>
       </div></div>
       <div class="panel"><img class="photo" src="assets/img/lore/closeup.jpg" alt="" loading="lazy"><div class="panel__body">
         <div class="panel__num">04</div><h3 class="panel__title">1:1 cu Lore</h3>
-        <div class="panel__more"><h4>Mentorat sau consultanță</h4><p>O sesiune pentru o problemă concretă, sau 12 luni de mentorat pe bază de aplicație.</p><a class="btn btn--onDark btn--sm" href="#">Rezervă o sesiune</a></div>
+        <div class="panel__more"><h4>Mentorat sau consultanță</h4><p>O sesiune pentru o problemă concretă, sau 12 luni de mentorat pe bază de aplicație.</p><a class="btn btn--primary btn--sm" href="#">Rezervă o sesiune</a></div>
       </div></div>
     </div>
   </div>
@@ -335,7 +334,7 @@
         <span class="feat__seats"><span class="tbd">[X]</span> locuri disponibile · înscrieri până la <span class="tbd">[data]</span></span>
         <div style="display:flex;gap:var(--s4);flex-wrap:wrap;margin-top:var(--s6)">
           <a class="btn btn--primary" href="curs.html">Vreau să intru</a>
-          <a class="btn btn--ink" href="curs.html">Vezi modulele</a>
+          <a class="btn btn--secondary" href="curs.html">Vezi modulele</a>
         </div>
       </div>
     </article>
@@ -367,7 +366,7 @@
           <ul class="course-card__outcomes"><li>Sesiuni lunare 1:1</li><li>Plan pe 12 luni</li><li>Acces direct între sesiuni</li></ul>
           <div class="card__foot">
             <div class="course-card__price">La cerere<small>preț neafișat, deliberat</small></div>
-            <a class="btn btn--ink btn--wide" href="#" style="margin-top:var(--s4)">Vezi dacă te califici</a>
+            <a class="btn btn--primary btn--wide" href="#" style="margin-top:var(--s4)">Vezi dacă te califici</a>
           </div>
         </article></div>
         <div class="crsl__slide"><article class="card course-card course-card--placeholder">
@@ -394,7 +393,7 @@
         <p style="color:var(--ink-soft)">Trage de mâner ca să vezi diferența pe aceeași săptămână de lucru.</p>
         <div style="display:flex;gap:var(--s4);flex-wrap:wrap;margin-top:var(--s6)">
           <a class="btn btn--primary" href="curs.html">Cum se face</a>
-          <a class="btn btn--ink" href="#calculator">Vezi cifra ta</a>
+          <a class="btn btn--secondary" href="#calculator">Vezi cifra ta</a>
         </div>
       </div>
       <div class="cmp" data-compare data-reveal="right">
@@ -471,10 +470,10 @@
         <div class="pod__img"><img class="photo photo--ratio45" src="assets/img/lore/seated-profile.jpg" alt="" loading="lazy"></div>
       </div>
       <div>
-        <div class="prow"><span class="prow__n">47</span><div><h3 class="prow__t">Cum stabilești prețul fără să te compari cu salonul de vizavi</h3><span class="prow__m">28 min · Prețuri</span></div><a class="btn btn--ink btn--sm" href="design-6-podcast.html">Ascultă acum</a></div>
-        <div class="prow"><span class="prow__n">46</span><div><h3 class="prow__t">Angajezi prima persoană: ce trebuie să fie gata înainte</h3><span class="prow__m">34 min · Echipă</span></div><a class="btn btn--ink btn--sm" href="design-6-podcast.html">Ascultă acum</a></div>
-        <div class="prow"><span class="prow__n">45</span><div><h3 class="prow__t">Agenda plină, contul gol — unde se scurg banii</h3><span class="prow__m">22 min · Prețuri</span></div><a class="btn btn--ink btn--sm" href="design-6-podcast.html">Ascultă acum</a></div>
-        <div class="prow"><span class="prow__n">44</span><div><h3 class="prow__t">Reprogramările: politica pe care o poți anunța mâine</h3><span class="prow__m">19 min · Clienți</span></div><a class="btn btn--ink btn--sm" href="design-6-podcast.html">Ascultă acum</a></div>
+        <div class="prow"><span class="prow__n">47</span><div><h3 class="prow__t">Cum stabilești prețul fără să te compari cu salonul de vizavi</h3><span class="prow__m">28 min · Prețuri</span></div><a class="btn btn--primary btn--sm" href="design-6-podcast.html">Ascultă acum</a></div>
+        <div class="prow"><span class="prow__n">46</span><div><h3 class="prow__t">Angajezi prima persoană: ce trebuie să fie gata înainte</h3><span class="prow__m">34 min · Echipă</span></div><a class="btn btn--primary btn--sm" href="design-6-podcast.html">Ascultă acum</a></div>
+        <div class="prow"><span class="prow__n">45</span><div><h3 class="prow__t">Agenda plină, contul gol — unde se scurg banii</h3><span class="prow__m">22 min · Prețuri</span></div><a class="btn btn--primary btn--sm" href="design-6-podcast.html">Ascultă acum</a></div>
+        <div class="prow"><span class="prow__n">44</span><div><h3 class="prow__t">Reprogramările: politica pe care o poți anunța mâine</h3><span class="prow__m">19 min · Clienți</span></div><a class="btn btn--primary btn--sm" href="design-6-podcast.html">Ascultă acum</a></div>
       </div>
     </div>
   </div>
@@ -520,7 +519,7 @@
         </ul>
         <div style="display:flex;gap:var(--s4);flex-wrap:wrap">
           <a class="btn btn--primary" href="#">Rezervă 20 min cu Lore</a>
-          <a class="btn btn--ink" href="#">Urmărește pe Instagram</a>
+          <a class="btn btn--secondary" href="#">Urmărește pe Instagram</a>
         </div>
       </div>
     </div>
@@ -556,9 +555,9 @@
     <h2>Alege-ți drumul. Restul îl construim împreună.</h2>
     <p style="max-width:46ch">Lucrezi singur(ă) sau ai o echipă? Începe de acolo — sau lasă testul să îți spună în 2 minute ce are sens pentru tine.</p>
     <div style="display:flex;gap:var(--s4);flex-wrap:wrap;margin-top:var(--s5)">
-      <a class="btn btn--onDark" href="freelanceri.html">Sunt freelancer</a>
-      <a class="btn btn--onDark" href="freelanceri.html">Am un salon</a>
-      <a class="btn btn--primary" href="quiz.html">Fă testul</a>
+      <a class="btn btn--primary" href="freelanceri.html">Sunt freelancer</a>
+      <a class="btn btn--secondary" href="freelanceri.html">Am un salon</a>
+      <a class="btn btn--secondary" href="quiz.html">Fă testul</a>
     </div>
     <nav class="cta7__links" aria-label="Toate produsele">
       <a href="freelanceri.html">Programe</a><a href="#">Mentorat</a><a href="#">Membership</a>
@@ -585,7 +584,7 @@
         </div>
         <form class="form-inline" onsubmit="return false">
           <div class="field"><input type="email" placeholder="Adresa ta de email" aria-label="Email"></div>
-          <button class="btn btn--onDark" type="submit">Vreau resurse gratuite</button>
+          <button class="btn btn--primary" type="submit">Vreau resurse gratuite</button>
         </form>
       </div>
     </div>
