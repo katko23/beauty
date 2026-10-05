@@ -110,6 +110,20 @@
 
   /* ways to work — the panel body carries the spec's card copy */
   .panel__more h4 { color: #FFF; font-family: var(--display); font-weight: 400; font-size: 1.25rem; margin: 0 0 .4rem; }
+  /* desktop: a closed panel must read as "opens" — a square "+" under the title */
+  .panel:not([data-active="true"]) .panel__body::after {
+    content: "+"; display: grid; place-items: center; width: 32px; height: 32px; margin-top: var(--s4);
+    border: 1px solid rgba(255,255,255,.7); color: #FFF; font-size: 1.1rem; line-height: 1;
+    transition: background .2s ease, color .2s ease;
+  }
+  .panel:not([data-active="true"]):hover .panel__body::after { background: var(--zest); border-color: var(--zest); color: var(--ink); }
+  /* mobile: no hidden state at all — every panel is open, with its button */
+  @media (max-width: 820px) {
+    .panel, .panel[data-active="true"] { min-height: 380px; cursor: default; }
+    .panel .panel__more { max-height: none; opacity: 1; margin-top: var(--s4); }
+    .panel::after, .panel[data-active="true"]::after { background: linear-gradient(180deg, rgba(20,17,15,.05) 20%, rgba(20,17,15,.9) 100%); }
+    .panel:not([data-active="true"]) .panel__body::after { display: none; }
+  }
 
   /* ── featured program §2.5 ─────────────────────────────────────────── */
   .feat { display: grid; grid-template-columns: .85fr 1.15fr; gap: 0; background: var(--white); box-shadow: var(--shadow); }
