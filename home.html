@@ -39,6 +39,18 @@
   [data-style="dream"] .btn--secondary { background: var(--zest); color: var(--ink); border-color: var(--zest); font-weight: 600; }
   [data-style="dream"] .btn--secondary:hover { background: #CC8E1F; border-color: #CC8E1F; color: var(--ink); }
 
+  /* button pairs — side by side; on a phone they stay on one row at equal
+     width (a third button, in the final CTA, takes its own full row) */
+  .btns { display: flex; gap: var(--s4); flex-wrap: wrap; }
+  @media (max-width: 640px) {
+    .btns { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s3); }
+    .btns > .btn:nth-child(3) { grid-column: 1 / -1; }
+    .btns > .btn {
+      display: flex; align-items: center; justify-content: center; text-align: center;
+      padding: .95rem .6rem; letter-spacing: .12em; line-height: 1.35;
+    }
+  }
+
   /* photographs — real images replace the hatched placeholders */
   .photo { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 20%; background: var(--sand-deep); }
   .photo--ratio45 { aspect-ratio: 4/5; height: auto; }
@@ -266,7 +278,7 @@
       <div class="hero7__rule"></div>
       <h1 style="font-size:var(--t-hero)">Ai talentul. Îți lipsește <span class="mark">sistemul</span>.</h1>
       <p class="lede">Programe, mentorat și instrumente pentru freelanceri și proprietari de salon din România, Moldova și diaspora. Lucrezi pe cifrele tale, nu pe teorie.</p>
-      <div style="display:flex;gap:var(--s4);flex-wrap:wrap;margin-top:var(--s6)">
+      <div class="btns" style="margin-top:var(--s6)">
         <a class="btn btn--primary" href="freelanceri.html">Sunt freelancer</a>
         <a class="btn btn--secondary" href="freelanceri.html">Am un salon</a>
       </div>
@@ -369,7 +381,7 @@
         </ul>
         <div class="feat__price"><span class="tbd">[TBD]</span> lei<small>sau în rate</small></div>
         <span class="feat__seats"><span class="tbd">[X]</span> locuri disponibile · înscrieri până la <span class="tbd">[data]</span></span>
-        <div style="display:flex;gap:var(--s4);flex-wrap:wrap;margin-top:var(--s6)">
+        <div class="btns" style="margin-top:var(--s6)">
           <a class="btn btn--primary" href="curs.html">Vreau să intru</a>
           <a class="btn btn--secondary" href="curs.html">Vezi modulele</a>
         </div>
@@ -428,7 +440,7 @@
         <h2>Aceeași agendă, alt rezultat</h2>
         <p style="color:var(--ink-soft)">Nu adaugi ore. Nu adaugi cliente. Muți aceleași programări în altă structură — prețuri recalculate, pauze reale, reprogramările controlate — și cifra de la sfârșitul lunii se schimbă.</p>
         <p style="color:var(--ink-soft)">Trage de mâner ca să vezi diferența pe aceeași săptămână de lucru.</p>
-        <div style="display:flex;gap:var(--s4);flex-wrap:wrap;margin-top:var(--s6)">
+        <div class="btns" style="margin-top:var(--s6)">
           <a class="btn btn--primary" href="curs.html">Cum se face</a>
           <a class="btn btn--secondary" href="#calculator">Vezi cifra ta</a>
         </div>
@@ -554,7 +566,7 @@
           <li><div><b>Sistem înainte de volum</b><p>Mai multe cliente pe o structură stricată înseamnă doar mai multă oboseală.</p></div></li>
           <li><div><b>Testat în salon, nu în teorie</b><p>Fiecare instrument din programe a fost folosit întâi în afacerile lui Lore și ale cursantelor.</p></div></li>
         </ul>
-        <div style="display:flex;gap:var(--s4);flex-wrap:wrap">
+        <div class="btns">
           <a class="btn btn--primary" href="#">Rezervă 20 min cu Lore</a>
           <a class="btn btn--secondary" href="#">Urmărește pe Instagram</a>
         </div>
@@ -591,7 +603,7 @@
     <span class="eyebrow">Unde te încadrezi?</span>
     <h2>Alege-ți drumul. Restul îl construim împreună.</h2>
     <p style="max-width:46ch">Lucrezi singur(ă) sau ai o echipă? Începe de acolo — sau lasă testul să îți spună în 2 minute ce are sens pentru tine.</p>
-    <div style="display:flex;gap:var(--s4);flex-wrap:wrap;margin-top:var(--s5)">
+    <div class="btns" style="margin-top:var(--s5)">
       <a class="btn btn--primary" href="freelanceri.html">Sunt freelancer</a>
       <a class="btn btn--secondary" href="freelanceri.html">Am un salon</a>
       <a class="btn btn--secondary" href="quiz.html">Fă testul</a>
