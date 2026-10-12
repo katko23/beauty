@@ -116,9 +116,17 @@
   .pain__list li { display: grid; grid-template-columns: 3rem 1fr; gap: var(--s4); padding-block: var(--s5); border-top: 1px solid var(--sand-deep); font-family: var(--display); font-size: clamp(1.15rem, 1.8vw, 1.45rem); line-height: 1.35; color: var(--ink); }
   .pain__list li:last-child { border-bottom: 1px solid var(--sand-deep); }
   .pain__list span { font-family: var(--sans); font-size: 11px; letter-spacing: .2em; color: var(--clay); padding-top: .45rem; }
-  .pain__reframe { margin-top: var(--s6); padding: var(--s6); background: var(--white); box-shadow: var(--shadow); }
+  /* the reframe reads as a quote — big clay quotation marks, no box */
+  .pain__reframe { position: relative; margin: var(--s7) 0 0; padding-left: clamp(2.6rem, 5vw, 3.6rem); }
+  .pain__reframe::before {
+    content: "“"; position: absolute; left: -.05em; top: -.32em;
+    font-family: var(--display); font-size: clamp(5rem, 9vw, 7rem); line-height: 1; color: var(--clay);
+  }
   .pain__reframe p { color: var(--ink-soft); }
-  .pain__reframe strong { display: block; font-family: var(--display); font-weight: 400; font-size: 1.45rem; line-height: 1.3; color: var(--ink); margin-top: var(--s3); }
+  .pain__reframe strong { display: block; font-family: var(--display); font-weight: 400; font-size: clamp(1.35rem, 2.2vw, 1.65rem); line-height: 1.3; color: var(--ink); margin-top: var(--s4); }
+  .pain__reframe strong::after {
+    content: "”"; font-size: 2.4em; line-height: 0; color: var(--clay); vertical-align: -.42em; margin-left: .06em;
+  }
   @media (max-width: 900px) { .pain { grid-template-columns: 1fr; } }
 
   /* ways to work — the panel body carries the spec's card copy */
@@ -139,15 +147,28 @@
   }
 
   /* ── featured program §2.5 ─────────────────────────────────────────── */
-  .feat { display: grid; grid-template-columns: .85fr 1.15fr; gap: 0; background: var(--white); box-shadow: var(--shadow); }
-  .feat__img { position: relative; min-height: 520px; }
-  .feat__img .photo { position: absolute; inset: 0; }
-  .feat__body { padding: clamp(2rem, 4vw, 4rem); }
-  .feat__meta { display: flex; gap: var(--s5); flex-wrap: wrap; font-size: var(--t-small); color: var(--ink-mute); margin-block: var(--s4) var(--s5); }
-  .feat__price { font-family: var(--display); font-size: 2rem; line-height: 1; }
-  .feat__price small { font-family: var(--sans); font-size: var(--t-small); color: var(--ink-mute); margin-left: .4rem; }
-  .feat__seats { display: inline-block; background: var(--zest-wash); color: var(--zest-deep); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; font-weight: 600; padding: .45rem .8rem; margin-top: var(--s4); }
-  @media (max-width: 900px) { .feat { grid-template-columns: 1fr; } .feat__img { min-height: 380px; } }
+  /* the active programme leads the carousel — it IS the featured block */
+  .course-card--featured { box-shadow: 0 0 0 2px var(--zest), var(--shadow); }
+  .course-card__flag {
+    margin: calc(-1 * var(--s6)) calc(-1 * var(--s6)) var(--s5); padding: .6rem var(--s6);
+    background: var(--zest); color: var(--ink); font-size: 10px; font-weight: 600; letter-spacing: .18em; text-transform: uppercase;
+  }
+  .btns--fill { width: auto; gap: var(--s3); }
+  .btns--fill .btn { padding-inline: .8rem; letter-spacing: .14em; }
+  /* phone: a programme card fits one screen */
+  @media (max-width: 640px) {
+    .course-card.card { padding: var(--s5); }
+    .course-card__flag { margin: calc(-1 * var(--s5)) calc(-1 * var(--s5)) var(--s4); padding: .55rem var(--s5); }
+    .course-card .badge { margin-bottom: var(--s3) !important; }
+    .course-card .card__title { font-size: 1.4rem; margin-bottom: var(--s2); }
+    .course-card__for { margin-bottom: var(--s3); }
+    .course-card__promise { font-size: .95rem; margin-bottom: var(--s3); }
+    .course-card__outcomes { margin-bottom: var(--s3); }
+    .course-card__outcomes li { font-size: .9rem; }
+    .course-card .card__foot { padding-top: var(--s3); }
+    #programe { padding-block: var(--s7); }
+    #programe .head7 { margin-bottom: var(--s5); }
+  }
 
   /* calculator */
   .calc7 { display: grid; grid-template-columns: 1.05fr .95fr; gap: clamp(2rem, 4vw, 4.5rem); align-items: start; }
@@ -161,7 +182,31 @@
   .calc7__gauge i { display: block; height: 100%; background: var(--zest); transition: width .35s ease; }
   .calc7__verdict { font-size: var(--t-small); color: var(--taupe); margin: 0; }
   .calc7__verdict strong { color: #FFF; }
-  @media (max-width: 900px) { .calc7, .calc7__grid { grid-template-columns: 1fr; } }
+  .calc7__lede { color: var(--ink-soft); }
+  .calc7__grid { margin-top: var(--s5); }
+  .calc7__break { margin-top: var(--s4); font-size: var(--t-micro); line-height: 1.7; }
+  .calc7__note { font-size: var(--t-micro); color: var(--ink-mute); margin: var(--s4) 0 var(--s4); letter-spacing: .06em; }
+  @media (max-width: 900px) { .calc7 { grid-template-columns: 1fr; gap: var(--s5); } }
+  /* phone: the whole calculator — inputs, result, button — fits one screen */
+  @media (max-width: 640px) {
+    #calculator { padding-block: var(--s7); }
+    #calculator h2 { font-size: 1.7rem; margin-bottom: var(--s2); }
+    .calc7__lede { font-size: .95rem; margin-bottom: 0; }
+    .calc7__grid { grid-template-columns: 1fr 1fr; gap: var(--s3); margin-top: var(--s4); }
+    .calc7 .field { margin-bottom: 0; }
+    .calc7 .field label { font-size: 12px; margin-bottom: .3rem; }
+    .calc7 .field input { padding: .6rem .75rem; }
+    .calc7__out { padding: var(--s5); }
+    .calc7__big { font-size: 3.2rem; }
+    .calc7__big small { margin-top: var(--s2); }
+    .calc7__gauge { margin-block: var(--s4) var(--s3); }
+    .calc7__break { display: none; }
+    .calc7__out .eyebrow { display: none; }            /* the h2 above already says it */
+    .calc7__big { font-size: 2.8rem; }
+    .calc7__verdict { font-size: 13px; line-height: 1.55; }
+    .calc7__note { margin-block: var(--s3); }
+    .calc7__out .btn { letter-spacing: .12em; padding-inline: .6rem; }
+  }
 
   /* ── despre Lore §2.7 ──────────────────────────────────────────────── */
   .about { display: grid; grid-template-columns: .8fr 1.2fr; gap: clamp(2rem, 5vw, 6rem); align-items: center; }
@@ -353,10 +398,10 @@
       <div data-reveal="left">
         <span class="eyebrow eyebrow--accent">Dacă te regăsești aici</span>
         <h2>Muncești mult. Rămâi cu puțin. Și nu e vina talentului tău.</h2>
-        <div class="pain__reframe">
+        <blockquote class="pain__reframe">
           <p style="margin:0">Nimeni nu te-a învățat partea de business. Școala te-a învățat tehnica, salonul te-a învățat viteza — dar prețul, agenda și echipa le-ai descoperit singur(ă), din greșeli.</p>
           <strong>Nu ai fost învățat(ă) să construiești un business. Noi facem exact asta.</strong>
-        </div>
+        </blockquote>
       </div>
       <ul class="pain__list" data-reveal="right">
         <li><span>01</span>Agenda plină la final de lună, dar banii nu reflectă orele lucrate.</li>
@@ -402,33 +447,31 @@
 <section class="section section--sand" id="programe">
   <div class="wrap">
     <div class="head7">
-      <span class="eyebrow eyebrow--accent">Program activ · înscrieri deschise</span>
+      <span class="eyebrow eyebrow--accent">Catalog · un program activ</span>
       <h2>Programe pentru fiecare etapă</h2>
     </div>
-    <article class="feat" data-reveal>
-      <div class="feat__img"><img class="photo" src="assets/img/lore/coat-white.jpg" alt="Lore Zagon" loading="lazy"></div>
-      <div class="feat__body">
-        <span class="badge badge--inter">Intermediar</span>
-        <h3 style="font-size:var(--t-h2);margin-top:var(--s4)">Restart în Beauty</h3>
-        <p class="lede" style="margin:0">Sisteme, retenție și prețuri care funcționează — pentru freelancerii care au deja clienți, dar nu au structură.</p>
-        <div class="feat__meta"><span>Pentru freelanceri</span><span>6 module</span><span>Online, în ritmul tău</span><span>Acces pe viață</span></div>
-        <ul class="course-card__outcomes" style="margin-bottom:var(--s5)">
-          <li>Îți calculezi câștigul real pe oră — și afli unde pierzi bani</li>
-          <li>Implementezi un sistem de retenție care ține clientele</li>
-          <li>Crești prețul fără să pierzi clienți</li>
-        </ul>
-        <div class="feat__price"><span class="tbd">[TBD]</span> lei<small>sau în rate</small></div>
-        <span class="feat__seats"><span class="tbd">[X]</span> locuri disponibile · înscrieri până la <span class="tbd">[data]</span></span>
-        <div class="btns" style="margin-top:var(--s6)">
-          <a class="btn btn--primary" href="curs.html">Vreau să intru</a>
-          <a class="btn btn--secondary" href="curs.html">Vezi modulele</a>
-        </div>
-      </div>
-    </article>
 
-    <!-- restul catalogului, carusel adoptat din 06 -->
-    <div class="crsl" data-carousel="Programe" style="--per:3;margin-top:var(--s8)">
+    <!-- spec §2.5 Featured Program: primul card, cu preț, 3 rezultate, locuri și CTA -->
+    <div class="crsl" data-carousel="Programe" style="--per:3">
       <div class="crsl__track">
+        <div class="crsl__slide"><article class="card course-card course-card--featured">
+          <div class="course-card__flag">Înscrieri deschise · <span class="tbd">[X]</span> locuri</div>
+          <span class="badge badge--inter" style="align-self:flex-start;margin-bottom:var(--s4)">Intermediar</span>
+          <h3 class="card__title">Restart în Beauty</h3>
+          <p class="course-card__for">Pentru freelancerii cu clienți, dar fără structură · 6 module</p>
+          <ul class="course-card__outcomes">
+            <li>Câștigul real pe oră — și unde pierzi bani</li>
+            <li>Un sistem de retenție care ține clientele</li>
+            <li>Preț mai mare, fără clienți pierduți</li>
+          </ul>
+          <div class="card__foot">
+            <div class="course-card__price"><span class="tbd">[TBD]</span> lei<small>sau în rate · înscrieri până la <span class="tbd">[data]</span></small></div>
+            <div class="btns btns--fill" style="margin-top:var(--s4)">
+              <a class="btn btn--primary" href="curs.html">Vreau să intru</a>
+              <a class="btn btn--secondary" href="curs.html">Vezi modulele</a>
+            </div>
+          </div>
+        </article></div>
         <div class="crsl__slide"><article class="card course-card course-card--placeholder">
           <span class="badge badge--soon" style="align-self:flex-start;margin-bottom:var(--s4)">În curând</span>
           <h3 class="card__title">Program pentru saloane</h3>
@@ -502,22 +545,22 @@
       <div>
         <span class="eyebrow eyebrow--zest">Instrument gratuit</span>
         <h2>Câștigul tău real pe oră</h2>
-        <p style="color:var(--ink-soft)">Cifra pe care aproape nimeni nu o calculează corect: cât îți rămâne net pentru fiecare oră petrecută efectiv la scaun, după consumabile și după reprogramări. Modifică valorile — se recalculează în timp real.</p>
-        <div class="calc7__grid" style="margin-top:var(--s6)">
-          <div class="field"><label for="h-pret">Preț serviciu (RON)</label><input id="h-pret" type="number" min="0" step="10" value="200"></div>
-          <div class="field"><label for="h-durata">Durată (min)</label><input id="h-durata" type="number" min="1" step="5" value="120"></div>
-          <div class="field"><label for="h-consum">Consumabile (RON)</label><input id="h-consum" type="number" min="0" step="5" value="45"></div>
-          <div class="field"><label for="h-repro">Reprogramări lunare (%)</label><input id="h-repro" type="number" min="0" max="90" step="1" value="15"></div>
+        <p class="calc7__lede">Cât îți rămâne net pe oră, după consumabile și reprogramări. Schimbă valorile.</p>
+        <div class="calc7__grid">
+          <div class="field"><label for="h-pret">Preț (RON)</label><input id="h-pret" type="number" inputmode="numeric" min="0" step="10" value="200"></div>
+          <div class="field"><label for="h-durata">Durată (min)</label><input id="h-durata" type="number" inputmode="numeric" min="1" step="5" value="120"></div>
+          <div class="field"><label for="h-consum">Consumabile (RON)</label><input id="h-consum" type="number" inputmode="numeric" min="0" step="5" value="45"></div>
+          <div class="field"><label for="h-repro">Reprogramări (%)</label><input id="h-repro" type="number" inputmode="numeric" min="0" max="90" step="1" value="15"></div>
         </div>
-        <p style="font-size:var(--t-micro);color:var(--ink-mute);margin-top:var(--s2)">Reperul folosit pentru comparație: <strong>90 RON/oră</strong>. Se poate schimba în versiunea completă.</p>
-        <a class="btn btn--primary" href="gratuitati.html" style="margin-top:var(--s4)">Primește rezultatul pe email</a>
       </div>
       <div class="calc7__out">
         <span class="eyebrow">Câștigul tău real</span>
         <div class="calc7__big"><span id="h-out">66</span><small>RON pe oră lucrată</small></div>
         <div class="calc7__gauge"><i id="h-gauge" style="width:73%"></i></div>
         <p class="calc7__verdict" id="h-verdict"></p>
-        <p class="calc7__verdict" id="h-break" style="margin-top:var(--s4);font-size:var(--t-micro);line-height:1.7"></p>
+        <p class="calc7__verdict calc7__break" id="h-break"></p>
+        <p class="calc7__note">Reper: 90 RON/oră</p>
+        <a class="btn btn--primary btn--wide" href="gratuitati.html">Primește rezultatul pe email</a>
       </div>
     </div>
   </div>
